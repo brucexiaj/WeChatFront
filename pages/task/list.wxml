@@ -1,0 +1,85 @@
+<view class="header">
+	<view class="tab {{status == null ? 'on' : ''}}" data-status="null" bindtap="switchTab">全部</view>
+	<view class="tab {{status == 0 ? 'on' : ''}}" data-status="0" bindtap="switchTab">采购中</view>
+	<view class="tab {{status == 1 ? 'on' : ''}}" data-status="1" bindtap="switchTab">完成</view>
+	<view class="tab {{status == -1 ? 'on' : ''}}" data-status="-1" bindtap="switchTab">已取消</view>
+</view>
+<view class="filterBox">
+	<view class="tab {{tab == 'goods' ? 'on' : ''}}" bindtap="switchOrder" data-order="goods">按商品清单</view>
+	<view class="tab {{tab == 'order' ? 'on' : ''}}" bindtap="switchOrder" data-order="order">按订单清单</view>
+	<view class="searchBtn" bindtap="searchSwitch">
+		<image src="../../images/icon_search.png" mode="widthFix"/>
+	</view>
+</view>
+<view class="searchBox" wx:if="{{searchBoxShow}}">
+	<input placeholder="输入商品名／分配人／采购人" placeholder-class="placeholder" focus maxlength="30" confirm-type="搜索" bindinput="input" bindconfirm="confirm"/>
+	<view class="arrow" bindtap="confirm"></view>
+</view>
+<view class="goodsListBox"  wx:if="{{taskDailyDetailList.length > 0}}">
+	<view class="taskList" wx:for="{{taskDailyDetailList}}" wx:item="{{item}}" wx:key="{{key}}"  bindtap="detail" data-id="{{item.id}}" data-detailid="{{item.taskId}}">
+		<image src="{{item.mainPic}}" class="main">
+			<image src="../../images/angle_bits.png" class="angleBits" wx:if="{{item.count - item.inCount <10 }}">
+				<text class="angleNum">{{item.count - item.inCount}}</text>
+			</image>
+			<image src="../../images/angle_ten.png" class="angleTen"  wx:if="{{item.count - item.inCount >9 && item.count - item.inCount < 100}}">
+				<text class="angleNum">{{item.count - item.inCount}}</text>
+			</image>
+			<image src="../../images/angle_hundred.png" class="angleHundred"  wx:if="{{item.count - item.inCount >99 }}">
+				<text class="angleNum">{{item.count - item.inCount}}</text>
+			</image>
+		</image>
+		<view class="info">
+			<view class="name">{{item.name}}</view>
+			<view class="upc">upc: {{item.upc}}</view>
+			<view class="sku">{{item.color}}<block wx:if="{{item.scale}}">+{{item.scale}}</block>，{{item.count - item.inCount}}件</view>
+			<view class="price" wx:if="{{item.taskPrice}}">采购价<text>《=${{item.taskPrice}}</text></view>
+			<view class="status">
+				{{item.statusStr}}
+			</view>
+		</view>
+	</view>
+</view>
+<view class="orderGoodsListBox" wx:if="{{taskDailyList.length > 0}}">
+	<view wx:for="{{taskDailyList}}" wx:item="{{item}}" wx:key="{{key}}">
+		<view class="taskBarList" bindtap="detail" data-detailid="{{item.id}}">
+			<view class="timeType">
+				<view class="title">{{item.taskTitle}}</view>
+				<view class="time">{{item.taskStartTimeStr}}</view>
+			</view>
+			<view class="status">
+				<view class="statusDes">{{item.statusDes}}</view>
+				<view class="scheduleBox">
+					<view class="{{item.statusValue}}" style="width:{{item.schedule}}%"></view>
+				</view>
+			</view>
+			<view class="purchaseNum">
+			{{item.allInCount}}/{{item.allCount}}
+			</view>
+			<view class="assigner">
+				{{item.ownerName}}
+			</view>
+		</view>
+		<view class="taskList" wx:for="{{item.taskDailyDetailExtList}}" wx:item="{{item}}" wx:key="{{keyItem}}"  bindtap="detail" data-id="{{item.id}}" data-detailid="{{item.taskId}}">
+			<image src="{{item.skuPic}}" class="main">
+				<image src="../../images/angle_bits.png" class="angleBits" wx:if="{{item.count - item.inCount <10 }}">
+					<text class="angleNum">{{item.count - item.inCount}}</text>
+				</image>
+				<image src="../../images/angle_ten.png" class="angleTen"  wx:if="{{item.count - item.inCount >9 && item.count - item.inCount < 100}}">
+					<text class="angleNum">{{item.count - item.inCount}}</text>
+				</image>
+				<image src="../../images/angle_hundred.png" class="angleHundred"  wx:if="{{item.count - item.inCount >99 }}">
+					<text class="angleNum">{{item.count - item.inCount}}</text>
+				</image>
+			</image>
+			<view class="info">
+				<view class="name">{{item.name}}</view>
+				<view class="upc">upc: {{item.upc}}</view>
+				<view class="sku">{{item.color}}<block wx:if="{{item.scale}}">+{{item.scale}}</block>，{{item.count - item.inCount}}件</view>
+				<view class="price" wx:if="{{item.taskPrice}}">采购价<text>《=${{item.taskPrice}}</text></view>
+				<view class="status">
+					{{item.statusStr}}
+				</view>
+			</view>		
+		</view>
+	</view>
+</view>

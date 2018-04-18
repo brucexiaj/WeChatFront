@@ -1,17 +1,5 @@
-page{position:relative}
-.logo{position:fixed;width:52px;right:20px;top:10px}
-.searchBtn{position:absolute;width:18px;right:35px;top:40px}
-.notifications{position:fixed;width:18px;left:30px;top:35px}
-.avatar{border: 6px solid rgba(202,164,112,0.26);width:90px;height:90px;top:40px;position:relative;left:50%;margin-left:-48px;border-radius:50%}
-.nickname{margin-top:40px;text-align:center;font-size:12px;color:#4A4A4A;}
-.team{opacity: 0.5;font-size: 12px; color: #4A4A4A;text-align:center;}
-.infoBox,.btnBox{border-top:1.5px solid rgba(200,200,200,.2); height:75px; line-height:75px; display:flex; justify-content:space-around; align-items:center; margin-top:17px; border-bottom:1.5px solid rgba(200,200,200,.2);}
-.infoList{width:33%;text-align:center;height:100%;position:relative;}
-.infoList .num{height:30px;font-size:22px;line-height:30px;margin-top:10px;color:#4a4a4a;}
-.infoList .tit{height:17px;line-height:17px;font-size:12px;color:#919191;}
-.btnBox{height:50px;line-height:50px;border-top:none;margin-top:0px;margin-bottom:3px;}
-.infoList image{display:block;width:17px;margin:auto;position: absolute; top: 50%; transform: translateY(-50%);left: 50%;margin-left:-8.5px;}
-.infoList image.large{width:38px;margin-left:-19px;}
+page{position:relative;background:#fff}
+.searchBox{margin:25px 32px;height:40px;background: #F2F2F2; border-radius: 50px;position:relative;overflow:hidden}
 .taskList{height:50px;margin-left:24px;margin-right:18px;border-bottom:1.5px solid rgba(200,200,200,.2)}
 .timeType{float:left;overflow:hidden;width:25%;margin-left:1.5%;}
 .timeType .title{font-size: 14px; color: #4A4A4A;height:20px;line-height:20px;float:left;width:100%;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;margin-top:6px;}
@@ -27,4 +15,6 @@ page{position:relative}
 .todayBtn{position:fixed;width:86px;right:27px;bottom:43px;}
 .todayBtn .count{font-size: 16px; color: #FFFFFF;}
 .todayBtn .title{font-size: 12px; color: #FFFFFF;}
-.viewMore{position:absolute;right:33px;top:145px;font-size:13px;color:#4a4a4a;}
+.placeholder{font-size: 11px; color: #4A4A4A;opacity: 0.4;}
+input{margin-left:13px;height:20px;line-height:20px;margin-top:10px;font-size: 15px; color: #4A4A4A;width:100%;}
+.arrow{width:7px; height:7px; border-top:2px solid #979797; border-right:2px solid #979797; transform:rotate(45deg); right:20px; position:absolute; top:16px;}

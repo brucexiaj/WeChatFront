@@ -1,15 +1,16 @@
-//app.js
 App({
     globalData: {
         userInfo: null,
-        apiUrl: 'http://local.konggeek.com:8080/',
-        //apiUrl: 'https://cg.logthin.com',
+        apiUrl: 'http://local.konggeek.com:8080/purchase/api/',
+        //apiUrl: 'https://cg2.logthin.com/api/',
         xcxCookieId: null,
-        powerCode:0
+        powerCode:0,
+        version:"1.0",
+        refer:'',
+        sessionKey:null,
     },
     onLaunch: function (res) {
         let that = this;
-        that.checkLogin();
         let parame = {};
         if (res.path) {
             parame.path = res.path;
@@ -23,10 +24,12 @@ App({
         if (res.scene) {
             parame.scene = res.scene;
         }
+
         setTimeout(function () {
             parame.ownerOpenId = that.globalData.xcxCookieId;
+            //console.log(parame);
             wx.request({
-                url: that.globalData.apiUrl + '/api/wx/purchaseLogin/setWxAppLaunch',
+                url: that.globalData.apiUrl + '/wx/purchaseLogin/setWxAppLaunch.htm',
                 data: parame,
                 success: function (res) {
                     that.globalData.refer = res.data.data;
@@ -34,98 +37,57 @@ App({
             })
         }, 10000);
     },
-
-    checkLogin: function () {
-        var that = this;
-        wx.checkSession({
-            success: function () {
-                var xcxCookieId = wx.getStorageSync('xcxCookieId');
-                if (!xcxCookieId) {
-                    that.toLogin();
-                } else {
-                    that.globalData.xcxCookieId = xcxCookieId;
-                    that.setUserInfo();
-                }
-            },
-            fail: function () {
-                that.toLogin();
-            }
-        });
+    onShow: function (options) {
+        console.log("app onShow")
     },
-    toLogin: function () {
+    onError: function (msg) {
+        console.log(msg)
+    },
+    requestAuthenticatedUserInfo: function () {
         var that = this;
-        wx.login({
-            success: function (res) {
-                var code = res.code;
-                if (code) {
-                    wx.request({
-                        url: that.globalData.apiUrl + '/api/wx/purchaseLogin/getXcxCookieId',
-                        data: { code: code },
-                        header: {
-                            'content-type': 'application/x-www-form-urlencoded'
-                        },
-                        success: function (res) {
-                            var xcxCookieId = res.data.data.openid;
-                            wx.setStorageSync('xcxCookieId', xcxCookieId);
-                            that.globalData.xcxCookieId = xcxCookieId;
-
-                            that.globalData.sessionKey = res.data.data.session_key;
-                            that.setUserInfo();
-                        }
-                    })
-                } else {
-                    console.log('获取用户登录态失败：' + res.errMsg);
-                }
+        wx.getSetting({
+          success: res => {
+            if (res.authSetting['scope.userInfo']) {
+              that.requestAndUpdateUserInfo();
             }
+          }
         })
     },
-    setUserInfo: function () {
+    requestAndUpdateUserInfo: function () {
         var that = this;
         wx.getUserInfo({
-            withCredentials: true,
-            lang: 'zh_CN',
-            success: function (res) {
-                that.globalData.userInfo = res.userInfo;
-                that.globalData.buyerName = res.userInfo.nickName;
-            },
-            complete: function (res) {
-                if (that.globalData.xcxCookieId) {
-                    let param = null;
-                    if (that.globalData.userInfo) {
-                        param = that.globalData.userInfo;
-                        param.xcxCookieId = that.globalData.xcxCookieId;
+              success: res => {
+                let userInfo = res.userInfo;
+                let param = null;
+                if (that.globalData.userInfo) {
+                    param = userInfo;
+                    param.xcxCookieId = that.globalData.xcxCookieId;
 
-                        param.encryptedData = res.encryptedData;
-                        param.iv = res.iv;
-                        if (that.globalData.sessionKey) {
-                            param.sessionKey = that.globalData.sessionKey;
-                        }
-                    } else {
-                        param = { xcxCookieId: that.globalData.xcxCookieId };
+                    param.encryptedData = res.encryptedData;
+                    param.iv = res.iv;
+                    if (that.globalData.sessionKey) {
+                        param.sessionKey = that.globalData.sessionKey;
                     }
-                    wx.request({
-                        url: that.globalData.apiUrl + '/api/wx/purchaseLogin/setUserInfo',
-                        data: param,
-                        header: {
-                            'content-type': 'application/x-www-form-urlencoded'
-                        },
-                        success(res) {
-                            that.globalData.buyerId = res.data.data.id;
-                            that.globalData.powerCode = res.data.data.powerCode;
-                        }
-                    });
+                } else {
+                    param = { xcxCookieId: that.globalData.xcxCookieId };
                 }
-            },
-            fail:function(res){
-                console.log(res);
-            }
-        });
-    },
-    getXcxCookieId: function () {
-        return this.globalData.xcxCookieId;
-    },
-    getUserInfo: function () {
-        return this.globalData.userInfo;
+                wx.request({
+                    url: that.globalData.apiUrl + '/wx/purchaseLogin/setUserInfo.htm',
+                    data: param,
+                    header: {
+                        'content-type': 'application/x-www-form-urlencoded'
+                    },
+                    success: function (res) {
+                        that.globalData.buyerId = res.data.data.id;
+                        that.globalData.powerCode = res.data.data.powerCode;
+                        that.globalData.userInfo  = userInfo;
+                    }
+                })
+                if (this.userInfoReadyCallback) {
+                    this.userInfoReadyCallback(res);
+                  }
+              }
+        })
     },
     isOwnEmpty: function (obj) {
         for (var name in obj) {
@@ -134,18 +96,5 @@ App({
             }
         }
         return true;
-    },
-    showToast: function (text, o, count) {
-        var _this = o;
-        count = parseInt(count) ? parseInt(count) : 2000;
-        _this.setData({
-            toastText: text,
-            isShowToast: true,
-        });
-        setTimeout(function () {
-            _this.setData({ isShowToast: false });
-        },
-            count
-        );
     }
 })

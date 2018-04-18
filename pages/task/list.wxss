@@ -1,0 +1,40 @@
+.header{height:40px;line-height:40px;margin-top:15px;border-bottom:1.5px solid rgba(200,200,200,.2);}
+.header .tab{float:left;text-align:center;font-size:12px; color:#4a4a4a; height:100%;width:25%}
+.header .tab.on{border-bottom:2px solid #C6AB92;}
+.searchBox{margin:10px 32px;height:40px;background: #F2F2F2; border-radius: 50px;position:relative;overflow:hidden}
+input{margin-left:13px;height:20px;line-height:20px;margin-top:10px;font-size: 15px; color: #4A4A4A;width:100%;}
+.arrow{width:7px; height:7px; border-top:2px solid #979797; border-right:2px solid #979797; transform:rotate(45deg); right:20px; position:absolute; top:16px;}
+.placeholder{font-size: 11px; color: #4A4A4A;opacity: 0.4;}
+.filterBox{margin-top:8px;border-top:1.5px solid rgba(200,200,200,.2);border-bottom:1.5px solid rgba(200,200,200,.2);height:60px}
+.filterBox .tab{font-size: 15px; float:left;width:43.5%;height:100%;background:#fff;color:#4a4a4a;font-size: 15px; text-align:center;line-height:60px;}
+.filterBox .tab.on{background: #F2F2F2;color:rgba(74,74,74,0.5);}
+.searchBtn{width:calc(13% - 1px);float:left;border-left:1px solid #F2F2F2;height:100%}
+.searchBtn image{width:22px;display:block;margin-top:20px;margin-left:10px;}
+.goodsListBox{margin-top:15px;padding:0px 18px;}
+.orderGoodsListBox{margin-top:-2px;}
+.orderGoodsListBox .taskList{padding:0px 18px;}
+.taskList{height:130px;border-bottom:1px dashed #c8c8c8;}
+.taskList .main{float:left;width:95px;height:95px;position:relative;margin-right:15px;margin-top:17.5px;overflow:inherit}
+.taskList .info{float:left;width:calc(100% - 110px);margin:15px auto;position:relative}
+.taskList .info .name{font-size:14px;color:#4C4C4C;letter-spacing:0.19px;line-height:18px;height:36px;text-align:left;margin-bottom:3px;-webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;}
+.taskList .info .upc{font-size: 12px; color: #9B9B9B;height:18px;line-height:18px;}
+.taskList .info .sku{font-size:14px;color:#4A4A4A;height:20px;line-height:20px;margin-bottom:2px;margin-top:2px;}
+.taskList .info .price{font-size: 14px; color: #4A4A4A;height:20px;line-height:20px}
+.taskList .info .price text{font-size: 15px;color:red;}
+.taskList .info .status{border: 1px solid #9DD321; border-radius: 48px;width:66px;height:26px;font-size: 14px; color: #7ED321;text-align:center;position:absolute;right:20px;bottom:2px;line-height:26px}
+.angleBits{position:absolute;top:-8px;left:-9px;width:30px;text-align:center;font-size:18px;color:#FFFFFF;height:30px;line-height:30px;}
+.angleNum{position:absolute;width:100%;height:100%;left:0px;top:0px;font-size:15px;}
+.angleTen{position:absolute;top:-8px;left:-9px;width:34px;text-align:center;font-size:18px;color:#FFFFFF;height:26px;line-height:26px;}
+.angleHundred{position:absolute;top:-8px;left:-9px;width:41px;text-align:center;font-size:18px;color:#FFFFFF;height:26px;line-height:26px;}
+.taskBarList{height:50px;border-bottom:1.5px solid rgba(200,200,200,.2);border-top:1.5px solid #eee}
+.timeType{float:left;overflow:hidden;width:25%;margin-left:20px;}
+.timeType .title{font-size: 14px; color: #4A4A4A;height:20px;line-height:20px;float:left;width:100%;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;margin-top:6px;}
+.timeType .time{font-size: 12px; color: #4A4A4A;height:17px;line-height:17px;clear:left;width:100%}
+.assigner{font-size:13px;color:4%;float:left;height:50px;line-height:50px;width:15.5%;margin-right:0%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.taskBarList .purchaseNum{width:15%;margin-left:4%;margin-right:2%;texe-align:center;float:left;font-size:13px;color:#4A4A4A;height:50px;line-height:50px;}
+.taskBarList .status{float:left;margin-left:4%;margin-right:4%;width:15%;}
+.taskBarList .status .statusDes{font-size: 12px; color: #4A4A4A;height:17px;line-height:17px;margin-top:10px;}
+.taskBarList .status .scheduleBox{width:100%;border-radius: 6.5px;height:5px;border:0.5px solid #C8C8C8;padding:0px 1px;margin-top:3px;overflow:hidden}
+.taskBarList .status .scheduleBox view{background: #FFBA00;height:3px;margin-top:1px;float:left}
+.taskBarList .status .scheduleBox .cancel{background: #FF2E38;}
+.taskBarList .status .scheduleBox .done{background: #21C7D3;}

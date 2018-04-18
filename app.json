@@ -1,7 +1,42 @@
 {
     "pages": [
         "pages/index/index",
+        "pages/index/taskList",
+        "pages/index/search",
+        "pages/task/list"
     ],
+    "tabBar": {
+	    "color": "#4A4A4A",
+	    "selectedColor": "#4A4A4A",
+	    "backgroundColor": "#ffffff",
+	    "borderStyle": "#979797",
+	    "list": [
+	      {
+	        "pagePath": "pages/index/index",
+	        "iconPath": "images/icon_index.png",
+	        "selectedIconPath": "images/icon_index_on.png",
+	        "text": "首页"
+	      },
+	      {
+	        "pagePath": "pages/task/list",
+	        "iconPath": "images/icon_task.png",
+	        "selectedIconPath": "images/icon_task_on.png",
+	        "text": "任务"
+	      },
+	      {
+	        "pagePath": "pages/index/index",
+	        "iconPath": "images/icon_find.png",
+	        "selectedIconPath": "images/icon_find_on.png",
+	        "text": "发现"
+	      },
+	      {
+	        "pagePath": "pages/index/index",
+	        "iconPath": "images/icon_user.png",
+	        "selectedIconPath": "images/icon_user_on.png",
+	        "text": "我的"
+	      }
+	    ]
+	  },
     "window": {
         "backgroundTextStyle": "light",
         "navigationBarBackgroundColor": "#fff",
