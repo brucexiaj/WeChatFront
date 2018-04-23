@@ -3,7 +3,7 @@
 		<image src="{{userInfo.avatarUrl}}" class="avatar"/>
 		{{userInfo.nickName}}
 		<image mode="widthFix" src="../../images/icon_filter.png" class="filter {{filterBoxShow ? '' : 'on'}}"  bindtap="filterSwitch"/>
-		<image mode="widthFix" src="../../images/icon_search.png" class="search {{searchBoxShow ? '' : 'on'}}"  bindtap="searchSwitch"/>
+		<image mode="widthFix" src="../../images/icon_search.png" class="search {{searchBoxShow ? '' : 'on'}}"  bindtap="searchSwitchs"/>
 	</view>
 	<view style="width:100%;height:54px;"></view>
 	<view class="infoBox">

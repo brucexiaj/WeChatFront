@@ -1,0 +1,182 @@
+<view class="uploadBox">
+	<image src="../../images/main_upload.png" mode="widthFix" class="mainUpload" bindtap="choseImg" data-type="mainPic">
+		<image src="../../images/icon_camera.png" mode="widthFix" class="camera" />
+		<image src="{{mainPic}}" mode="widthFix" class="mainPic" wx:if="{{mainPic != ''}}"/>
+		<view class="progress" style="width:{{mainProgress}}"></view>
+	</image>
+	<view class="itemBox">
+		<view class="item"  bindtap="choseImg" data-type="itemPic" data-index="{{index}}" wx:key="key" wx:for='{{item}}' wx:for-item="list">
+			<image src="{{list?list:'../../images/upload.png'}}" mode="widthFix" class="upload {{itemClass[index]}}"/>
+			<view class="progress" style="width:{{itemProgress[index]}}"></view>
+		</view>
+	</view>
+	<view style="width:100%;height:2px;clear:both"></view>
+</view>
+<view class="listBox">
+	<label>商品名<text>*</text></label>
+	<input maxlength="40" name="name" bindinput="name" value="{{name}}" placeholder-class="placeholder"/>
+	<image src="../../images/scan.png" class="scan" mode="widthFix"/>
+</view>
+<view class="bigListBox">
+	<view class="price">
+		<view class="tit">原价<text>*</text></view>
+		<view class="tit">
+			<label>{{currency}}</label><input bindinput="inputGlobalCostPrice" type="digit" placeholder-class="placeholder" placeholder="输入原价" maxlength="5"/>
+		</view>
+	</view>
+	<view class="price">
+		<view class="tit">折后价</view>
+		<view class="tit">
+			<label>{{currency}}</label><input bindinput="inputGlobalPurchasePrice" type="digit" placeholder-class="placeholder" placeholder="输入折后价" maxlength="5" />
+		</view>
+	</view>
+	<view class="price">
+		<view class="tit">销售价</view>
+		<view class="tit">
+			<label>{{currency}}</label><input bindinput="inputGlobalSalePrice" type="digit" placeholder-class="placeholder" placeholder="输入销售价" maxlength="5" />
+		</view>
+	</view>
+</view>
+<view class="listBox" bindtap="openSkuPopBox">
+	<label>规格<text>*</text></label>
+	<view class="content">{{skuValue}}</view>
+	<view class="arrow"></view>
+</view>
+<view class="listBox">
+	<label>品牌<text>*</text></label>
+	<input maxlength="20" placeholder="输入品牌"  bindinput="brand" value="{{brand}}" placeholder-class="placeholder"/>
+</view>
+<view class="listBox" bindtap="choseCategory">
+	<label>分类<text>*</text></label>
+	<input maxlength="20" placeholder="请选择分类" value="{{categoryName}}" disabled="true" name="category" placeholder-class="placeholder"/>
+</view>
+<view class="listBox">
+	<label>推荐原因</label>
+	<input maxlength="40" placeholder="输入内容" name="reason" bindinput="reason" value="{{reason}}" placeholder-class="placeholder"/>
+</view>
+<view class="listBox">
+	<label>有效时间</label>
+	<picker mode="date" value="{{startDate}}"  bindchange="bindStartDateChange"> 
+		<input disabled="true" type="text" style="width:100%;height:28px;line-height:28px;text-indent:3px" value="{{startDate}}" maxlength="10" />
+	</picker> 
+	-
+	<picker mode="date" value="{{endDate}}" bindchange="bindEndDateChange"> 
+		<input disabled="true" type="text" style="width:100%;height:28px;line-height:28px;text-indent:3px" value="{{endDate}}" maxlength="10" />
+	</picker> 
+</view>
+<view class="listBox">
+	<label>站点</label>
+	<input maxlength="40" value="{{buySite}}" name="buySite" placeholder-class="placeholder"/>
+	<image src="../../images/map.png" class="map" bindtap="choseAddress" data-type="site" mode="widthFix"/>
+</view>
+<view class="listBox">
+	<label>地点</label>
+	<input maxlength="40" value="{{findAddress}}" name="findAddress" placeholder-class="placeholder"/>
+	<image src="../../images/map.png" class="map" bindtap="choseAddress" data-type="address" mode="widthFix"/>
+</view>
+<view class="listBox" bindtap="showDetail">
+	<label>宝贝详情</label>
+	<input maxlength="60" value="{{detail}}" disabled="true" name="content" placeholder-class="placeholder"/>
+	<view class="arrow"></view>
+</view>
+<view class="listBox">
+	<label>备注</label>
+	<input maxlength="40" placeholder="输入内容" name="remark" bindinput="remark" value="{{remark}}"  name="remark" placeholder-class="placeholder"/>
+</view>
+<view style="width:100%;height:80px;"></view>
+<view class="footer" wx:if="{{!categoryFlag}}">
+	<block wx:if="{{!popFlag}}">
+		<image src="../../images/btn_save.png" mode="widthFix" bindtap="submit" class="save" data-type="save">
+			<view>保存</view>
+		</image>
+		<image src="../../images/btn_submit.png" mode="widthFix" class="submit" bindtap="submit" data-type="submit">
+			<view>提交</view>
+		</image>
+	</block>
+	<block>
+		<image src="../../images/btn_submit.png" mode="widthFix" class="confirm" bindtap="confirm">
+			<view>确定</view>
+		</image>
+	</block>
+</view>
+<view class="shadow" bindtap="closePop" wx:if="{{popFlag}}"></view>
+<view class="popBox {{popFlag && skuBoxFlag ? 'on':''}}">
+	<view class="tit">规格</view>
+	<view id="sku{{index}}" wx:for="{{skuInfo}}" wx:key="key" class="skuList">
+		<view class="skuName" bindtap="collapse" data-index="{{index}}">
+			规格 {{item.color}}<block wx:if="{{item.scale}}">,{{item.scale}}</block>
+			<view class="arrow {{item.collapse?'on':''}}"></view>
+		</view>
+		<view class="skuInfo {{item.collapse?'on':''}}">
+			<view class="field">
+				<label>颜色</label>
+				<input bindinput="inputColor" maxlength="5" value="{{item.color}}" placeholder="输入颜色" placeholder-class="placeholder" data-index="{{index}}"/>
+			</view>
+			<view class="field">
+				<label>尺码</label>
+				<input bindinput="inputSize" maxlength="5" value="{{item.scale}}" placeholder="输入尺码" placeholder-class="placeholder" data-index="{{index}}"/>
+			</view>
+			<view class="field">
+				<label>重量</label>
+				<input bindinput="inputWeight" type="digit" maxlength="5" value="{{item.weight}}" placeholder="输入重量" placeholder-class="placeholder" data-index="{{index}}"/>
+			</view>
+			<view class="field">
+				<label>库存</label>
+				<input bindinput="inputVirtualInv" type="number" maxlength="5" value="{{item.virtualInv}}" placeholder="输入库存" placeholder-class="placeholder" data-index="{{index}}"/>
+			</view>
+			<view class="field">
+				<label>原价</label>
+				<text>{{currency}}</text><input style="margin-left:0px;width:calc(100% - 66px);" bindinput="inputCostPrice" type="digit" maxlength="8" value="{{item.costPrice}}" placeholder="输入原价" placeholder-class="placeholder" data-index="{{index}}"/>
+			</view>
+			<view class="field">
+				<label>折后价</label>
+				<text>{{currency}}</text><input style="margin-left:0px;width:calc(100% - 66px);" bindinput="inputPurchasePrice" type="digit" maxlength="8" value="{{item.purchasePrice}}" placeholder="输入价格" placeholder-class="placeholder" data-index="{{index}}"/>
+			</view>
+			<view class="field">
+				<label>销售价</label>
+				<text>{{currency}}</text><input style="margin-left:0px;width:calc(100% - 66px);" bindinput="inputSalePrice" type="digit" maxlength="8" value="{{item.salePrice}}" placeholder="输入价格" placeholder-class="placeholder" data-index="{{index}}"/>
+			</view>
+			<view class="field">
+				<label>型号</label>
+				<input bindinput="inputModel" maxlength="8" value="{{item.model}}" placeholder="输入型号" placeholder-class="placeholder" data-index="{{index}}"/>
+			</view>
+			<view class="field" style="width:100%">
+				<label>UPC</label>
+				<input bindinput="inputUpc" maxlength="20" value="{{item.upc}}" data-index="{{index}}"/>
+				<image src="../../images/scan.png" class="scan" mode="widthFix" bindtap="scan" data-index="{{index}}"/>
+			</view>
+			<view class="field">
+				<label>折扣率</label>
+				<input bindinput="inputDiscount" type="digit" maxlength="5" value="{{item.discount}}" placeholder="输入折扣" placeholder-class="placeholder" data-index="{{index}}"/>
+			</view>
+			<view style="width:100%;clear:both;height:2px;"></view>
+		</view>
+	</view>
+	<view class="addBox" bindtap="addSku">
+		<view class="addBtn">+</view>
+		<view class="addTit">继续添加规格</view>
+	</view>
+</view>
+<view class="categoryBox {{popFlag && categoryFlag ? 'on':''}}">
+	<view class="tit">选择类目</view>
+	<view class="parentBox">
+		<view class="item {{ categoryItem == index ?'on':''}}" data-index="{{index}}" bindtap="choseCategoryItem" wx:for="{{category}}" wx:key="key">{{item.name}}</view>
+	</view>
+	<view class="rightBox">
+		<view class="childBox">
+			<view class="secondBox">
+				<view class="item {{ secondCategoryItem == secondIndex ?'on':''}}" data-id="{{item.id}}" data-index="{{secondIndex}}" bindtap="choseSecondCategoryItem" wx:for="{{category[categoryItem].categoryList}}" wx:key="key" wx:for-index="secondIndex">{{item.name}}</view>
+			</view>
+			<view class="threeBox">
+				<view class="item {{threeCategoryItem == threeIndex ?'on':''}}" data-id="{{threeIndex}}" bindtap="choseThreeCategoryItem" wx:for="{{threeCategoryList}}" wx:key="key" wx:for-index="threeIndex" data-index="{{threeIndex}}">{{item.name}}</view>
+			</view>
+		</view>
+		<view class="btnBox">
+			<view class="cancel" bindtap="cancelChoseCategoty">取消</view> | <view class="confirm" bindtap="choseConfirm">确认</view>
+		</view>
+	</view>
+</view>
+<view class="popBox {{popFlag && detailFlag ? 'on':''}}">
+	<view class="tit">商品详情</view>
+	<textarea bindinput="bindTextAreaInput" maxlength="-1" class="textarea" placeholder-class="placeholder" placeholder="商品描述" />
+</view>

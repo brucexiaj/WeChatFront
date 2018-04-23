@@ -16,7 +16,7 @@ input{margin-left:13px;height:20px;line-height:20px;margin-top:10px;font-size: 1
 .taskList{height:130px;border-bottom:1px dashed #c8c8c8;}
 .taskList .main{float:left;width:95px;height:95px;position:relative;margin-right:15px;margin-top:17.5px;overflow:inherit}
 .taskList .info{float:left;width:calc(100% - 110px);margin:15px auto;position:relative}
-.taskList .info .name{font-size:14px;color:#4C4C4C;letter-spacing:0.19px;line-height:18px;height:36px;text-align:left;margin-bottom:3px;-webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;}
+.taskList .info .name{font-size:14px;color:#4C4C4C;letter-spacing:0.19px;line-height:18px;height:36px;text-align:left;margin-bottom:3px;-webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;text-overflow:ellipsis;display:-webkit-box;}
 .taskList .info .upc{font-size: 12px; color: #9B9B9B;height:18px;line-height:18px;}
 .taskList .info .sku{font-size:14px;color:#4A4A4A;height:20px;line-height:20px;margin-bottom:2px;margin-top:2px;}
 .taskList .info .price{font-size: 14px; color: #4A4A4A;height:20px;line-height:20px}

@@ -1,0 +1,38 @@
+.uploadBox{padding:20px;padding-bottom:10px;background:#fff;position:relative;border-bottom:4px solid #f4f4f4;}
+.mainUpload{float:left;display:block;width:65%;margin-right:3px;position:relative}
+.mainPic{position:absolute;top:0px;left:0px;z-index:10;width:100%;}
+.itemBox{float:left; width:calc(100% - 65% - 23px); height:calc(100% - 32px); position:absolute; bottom:0px; right:20px; top:20px;}
+.itemBox .item{width:100%; height:calc(100% / 3 - 3px); background:#f4f4f4; margin-bottom:3px;text-align:center;overflow:hidden}
+.upload{width:30%;display:bolck;margin:auto;margin-top:10%;}
+.upload.on{width:100%;margin:auto;}
+.camera{width:30px;height:30px;position:absolute;right:4px;bottom:4px;z-index:11}
+.listBox{height:44px;line-height:44px;padding:0px 32px 0px 27px;border-bottom:2px solid #f4f4f4;width:calc(100% - 59px;);border-bottom:4px solid #f2f2f2}
+.listBox label{font-size: 13px; color: #9B9B9B; line-height: 44px;float:left;width:55px;}
+.listBox label text{color:#FF2E38;margin-left:5px;}
+.listBox input{float:left;width:230px;height:100%;font-size: 14px;color: #4A4A4A;margin-left:3px;display:block;}
+.placeholder{font-size: 14px; color: rgba(74,74,74,.2);}
+.listBox .scan{float:right;width:24px;margin-top:10px}
+.listBox .arrow{display:inline-block; margin-left:3px; transform:rotate(-45deg); border-bottom:2px solid #999999; border-right:2px solid #999999; width:7px; height:7px; margin-top:18px; float:right;}
+picker{border:1px solid #C8C8C8; border-radius:100px; height:28px; margin:6px 5px; width:30%; display:inline-block; vertical-align:middle;}
+.map{width:18px;float:right;margin-top:12px;}
+.footer{background:#FFFFFF; box-shadow:1px -2px 15px 0 rgba(163,163,163,0.55); position:fixed; z-index:13; bottom:0px; left:0px; width:100%; height:80px; text-align:center;}
+.shadow{width:100%;height:100%;opacity: 0.4; background: #000000;position:fixed;left:0px;top:0px;z-index:12}
+.footer image{width:130px;margin:auto;display:inline-block;line-height:50px;position:relative;margin-top:10px}
+.footer image view{height:100%;width:100%;text-align:center;font-size: 15px;position:absolute;top:0px;left:0px}
+.save{margin-right:-15px;}
+.submit{margin-left:-15px;}
+.content{font-size: 14px;color: #4A4A4A;float:left; width:calc(100% - 90px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
+image.save view{color: #4A4A4A;}
+image.submit view,image.confirm view{ color: #FFFFFF;}
+.tit{height:44px;line-height:44px;text-align:center;font-size: 16px; color: #4A4A4A;border-bottom: 2px solid rgba(151,151,151,.2);}
+.skuList{ border-bottom:3px solid rgba(151,151,151,.2);}
+.skuName{height:44px; line-height:44px; border-bottom:1.5px solid rgba(151,151,151,.2);color:#4a4a4a; font-size:14px;}
+.skuName text{margin-left:20px;color:#9B9B9B;font-size:13px;margin-right:10px;}
+.skuName .arrow{display:inline-block; margin-right:20px; transform:rotate(45deg); border-bottom:2px solid #999999; border-right:2px solid #999999; width:7px; height:7px; margin-top:17px; float:right;}
+picker{border:1px solid #C8C8C8; border-radius:100px; height:28px; margin:6px 5px; width:30%; display:inline-block; vertical-align:middle;}
+.skuName .arrow.on{transform:rotate(-135deg);margin-top: 20px}
+.skuList .skuInfo{padding:0px 25px;border-bottom:3px solid #f2f2f2}
+.skuList .skuInfo .field{width:50%;float:left;height:45px;line-height:45px;position: relative;}
+.skuList .skuInfo label{font-size:12px;color:#9b9b9b;width:45px;text-align:right;float: left;}
+.skuList .skuInfo input{float:left; width:calc(100% - 50px); margin-left:5px; height:45px; line-height:45px;font-size: 14px;color: #4a4a4a}
+.detailContent{padding:20px; text-align:left; font-size:12px; border-bottom:3px solid #f2f2f2; color:#4a4a4a;}

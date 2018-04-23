@@ -41,8 +41,7 @@ Page({
 	},
 	confirm:function(){
 		this.setData({
-			taskDailyList:[],
-			taskDailyDetailList:[],
+			taskList:[],
 			pageNum:0,
 			canLoad:true
 		})

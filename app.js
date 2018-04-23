@@ -1,13 +1,15 @@
 App({
     globalData: {
         userInfo: null,
-        apiUrl: 'http://local.konggeek.com:8080/purchase/api/',
-        //apiUrl: 'https://cg2.logthin.com/api/',
+        //apiUrl: 'http://local.konggeek.com:8080/purchase/api/',
+        apiUrl: 'https://cg2.logthin.com/api/',
         xcxCookieId: null,
         powerCode:0,
         version:"1.0",
         refer:'',
         sessionKey:null,
+        buyerId:null,
+        pageSize:20
     },
     onLaunch: function (res) {
         let that = this;
@@ -27,7 +29,6 @@ App({
 
         setTimeout(function () {
             parame.ownerOpenId = that.globalData.xcxCookieId;
-            //console.log(parame);
             wx.request({
                 url: that.globalData.apiUrl + '/wx/purchaseLogin/setWxAppLaunch.htm',
                 data: parame,
