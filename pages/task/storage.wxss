@@ -3,7 +3,7 @@
 .header .tab.on{border-bottom:2px solid #C6AB92;color:#4A4A4A;}
 .header .tab text{font-size: 18px;color: #4A4A4A;margin-right:8px;}
 .searchBox{margin:10px 32px;height:40px;background: #F2F2F2; border-radius: 50px;position:relative;overflow:hidden}
-.searchBox input{margin-left:13px;height:20px;line-height:20px;margin-top:10px;font-size: 15px; color: #4A4A4A;width:100%;}
+input{margin-left:13px;height:20px;line-height:20px;margin-top:10px;font-size: 15px; color: #4A4A4A;width:100%;}
 .arrow{width:7px; height:7px; border-top:2px solid #979797; border-right:2px solid #979797; transform:rotate(135deg); right:20px; position:absolute; top:20px;}
 .orderType{font-size:14px;color:#4A4A4A;float:right;height:42px;line-height:42px;margin-right:30px;position:relative}
 .orderType .orderArrow{border-style:solid dashed dashed dashed; border-width:4px; border-color:#9b9b9b transparent transparent transparent; width:0; height:0; float:right; transform:scaleY(2); margin-top:21px; margin-left:10px;}
@@ -38,7 +38,7 @@
 .angleTen{position:absolute;top:-8px;left:-9px;width:34px;text-align:center;font-size:18px;color:#FFFFFF;height:26px;line-height:26px;}
 .angleHundred{position:absolute;top:-8px;left:-9px;width:41px;text-align:center;font-size:18px;color:#FFFFFF;height:26px;line-height:26px;}
 .taskBarList{height:50px;border-bottom:1.5px solid rgba(200,200,200,.2);border-top:1.5px solid #eee;clear:both;position:relative;}
-.timeType{float:left;overflow:hidden;width:40%;margin-left:20px;}
+.timeType{float:left;overflow:hidden;width:28%;margin-left:20px;}
 .timeType .title{font-size: 14px; color: #4A4A4A;height:20px;line-height:20px;float:left;width:100%;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;margin-top:6px;}
 .timeType .time{font-size: 12px; color: #4A4A4A;height:17px;line-height:17px;clear:left;width:100%}
 .assigner{font-size:13px;color:4%;float:left;height:50px;line-height:50px;width:15.5%;margin-right:0%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
@@ -51,24 +51,23 @@
 .taskBarList .status .scheduleBox view{background: #FFBA00;height:3px;margin-top:1px;float:left}
 .taskBarList .status .scheduleBox .cancel{background: #FF2E38;}
 .taskBarList .status .scheduleBox .done{background: #21C7D3;}
-.taskListInfo{background:rgba(255,255,255,.95); box-shadow: 1px 2px 15px 0 rgba(163,163,163,0.15);position:fixed;border-top: 1px solid #C8C8C8;border-bottom: 1px solid #C8C8C8;z-index:1111;bottom:0px;left:0px;width:100%;height:83px;}
+.taskListInfo{background:rgba(255,255,255,.95); box-shadow: 1px 2px 15px 0 rgba(163,163,163,0.15);position:fixed;border-top: 1px solid #C8C8C8;border-bottom: 1px solid #C8C8C8;z-index:111;bottom:0px;left:0px;width:100%;height:83px;}
 .taskListInfo .calc{background-image: linear-gradient(-129deg, #E5C297 0%, #A97D43 100%);box-shadow: 0 4px 10px 0 rgba(198,171,146,0.52);border-radius: 20px;text-align:center;width:95px;height:42px;line-height:42px;margin-right:20px;font-size: 14px;color: #FFFFFF;margin-top:20px;float:right}
 .taskListInfo .viewCalc{margin-top:20px;float:right;margin-right:7px;background: #FFFFFF; box-shadow: 0 4px 10px 0 rgba(198,171,146,0.28); border-radius: 20px;border:1px solid #A97D43;height:40px;width:93px;color:#4a4a4a;font-size:14px;line-height:40px;text-align:center;}
 .taskListInfo .info{float:left;height:100%;margin-left:27px;font-size:12px;color:#9B9B9B;margin-top:7.5px}
 .taskListInfo .info .detail{height:35px;line-height:35px;text-align:left;}
 .taskListInfo .info .detail text{margin-left:10px;color:#222222;font-size:18px;}
 .editBox{padding:0px;background:#fff;height:0px;transition: all 0.2s ease-in-out;overflow:hidden}
-.editBox.on{height:105px;padding:13px 17px;}
+.editBox.on{height:77px;padding:13px 17px;}
 .editBox .valueBox .label{font-size: 12px; color: #4A4A4A;}
 .editBox .valueBox{display:inline-block;margin-right:25px;}
 .editBox .label{width:60px;text-align:right;font-size: 12px;color: #4A4A4A;display:inline-block;}
 .editBox .value{display:inline-block;font-size: 12px; color: #222222;margin-left:5px;}
 .editBox .value.price{font-size:16px;color:#FF2E38;margin-left:5px;}
-.topBox{position:relative;height:30px;line-height:30px;margin-bottom:5px;}
+.topBox{position:relative;height:25px;line-height:25px;}
 .doneBtn{border: 1px solid #C6AB92; border-radius: 10px;height:20px;width:48px;line-height:20px;text-align:center;color:#C6AB92;font-size:14px;position:absolute;right:0px;top:2px}
-.editBox .field{display:inline-block;width:50%;height:30px;line-height:30px;margin-bottom:5px;margin-top:5px;}
-.editBox .input{float:right;width:calc(100% - 70px);height:30px;line-height:30px;border: 1px solid #9B9B9B; border-radius: 22px;font-size: 16px; color: #4A4A4A;text-align:center;position:relative}
-.editBox .field .input.disable{background:#eee;color:#999;}
-.editBox .valueBox .input{width:100px;margin-left:10px}
-.editBox .input input{height:100%;width:100%;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;}
-.location{width:15px;float:right;position:absolute;top:6px;right:8px;z-index:1111}
+.editBox .field{display:inline-block;width:50%;height:25px;line-height:25px}
+.footer{position:fixed;bottom:0px;left:0px;height:83px;background: rgba(255,255,255,0.95); box-shadow: 1px 2px 15px 0 rgba(163,163,163,0.15);z-index:11;width:100%;border-top:1px solid #f2f2f2}
+.footer .info{width:50%;float:left;text-align:center;margin-top:20px}
+.footer .info .tit{font-size: 12px; color: #9B9B9B;}
+.footer .info .number{font-size: 20px; color: #222222;}

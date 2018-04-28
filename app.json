@@ -1,12 +1,15 @@
 {
     "pages": [
-        "pages/index/index",
-        "pages/find/itemPub",
+    	"pages/index/index",
+    	"pages/find/itemPub",
         "pages/index/taskList",
         "pages/index/search",
         "pages/task/list",
         "pages/find/list",
-        "pages/find/itemDetail"
+        "pages/find/itemDetail",
+        "pages/task/storage",
+        "pages/task/done",
+        "pages/task/calc"
     ],
     "tabBar": {
 	    "color": "#4A4A4A",
@@ -31,12 +34,6 @@
 	        "iconPath": "images/icon_find.png",
 	        "selectedIconPath": "images/icon_find_on.png",
 	        "text": "发现"
-	      },
-	      {
-	        "pagePath": "pages/index/index",
-	        "iconPath": "images/icon_user.png",
-	        "selectedIconPath": "images/icon_user_on.png",
-	        "text": "我的"
 	      }
 	    ]
 	  },

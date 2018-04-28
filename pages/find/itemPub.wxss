@@ -26,7 +26,7 @@ picker{border:1px solid #C8C8C8; border-radius:100px; height:28px; margin:6px 5p
 image.save view{color: #4A4A4A;}
 image.submit view,image.confirm view{ color: #FFFFFF;}
 .popBox{position:fixed;width:100%;background:#fff;left:0px;height:70%;border-top-left-radius:25px;border-top-right-radius:25px;
-z-index:12;overflow:auto;padding-bottom:20px;bottom: -80%;transition: all 0.5s ease-in-out;}
+z-index:12;overflow:auto;padding-bottom:20px;bottom: -100%;transition: all 0.5s ease-in-out;}
 .categoryBox{position:fixed;width:335px;background:#fff;left:0px;height:80%;background: #FFFFFF; border: 1px solid #CCAB8C; 
 box-shadow: 0 20px 31px -2px rgba(204,171,140,0.29);left: 50%;margin-left: -167.5px; z-index: 13;border-radius: 20px;bottom: -100%;transition: all 0.5s ease-in-out;overflow: hidden;}
 .categoryBox .tit{height: 50px;text-indent: 20px;line-height: 50px;font-size: 16px; color: #4A4A4A;border-bottom:1.5px solid rgba(151,151,151,.2);}
@@ -46,7 +46,7 @@ picker{border:1px solid #C8C8C8; border-radius:100px; height:28px; margin:6px 5p
 .popBox .addBox{ margin-top: 16px;}
 .addBox .addBtn{margin:auto;text-align:center;width:20px;height:20px;border-radius:50%;background:#FF2E38;line-height:18px;color:#fff;font-size:17px;}
 .addBox .addTit{font-size: 13px; color: #9B9B9B;text-align: center;}
-.skuList .scan{width:20px;height:20px;float:right;position:absolute;right:10px;top:10px;z-index: 9}
+.skuList .scan{width:20px;height:20px;float:right;position:absolute;right:10px;top:0px;z-index: 9;padding:10px}
 .progress{position: absolute;bottom:0px;left: 0px;height: 5px;background: #19b955;z-index: 10}
 .bigListBox{height: 60px;padding:0px 28px;border-bottom:2px solid #f4f4f4;width:calc(100% - 56px;)}
 .bigListBox .price{width: 33.33%;float: left;text-align: left;}
@@ -54,7 +54,8 @@ picker{border:1px solid #C8C8C8; border-radius:100px; height:28px; margin:6px 5p
 .bigListBox .price .tit text{color:#FF2E38;margin-left: 5px;}
 .bigListBox .price .tit label{color:#4A4A4A;font-size:14px;float:left;margin-right:4px;}
 .bigListBox .price .tit input{height: 100%;}
-.parentBox,.secondBox,.threeBox{float: left;width:95px;border-right:1.5px solid rgba(151,151,151,.5);height:calc(100% - 10px);text-align: center;padding: 5px 0px}
+.parentBox,.secondBox,.threeBox{float: left;width:95px;border-right:1.5px solid rgba(151,151,151,.5);height:calc(100% - 10px);text-align: center;padding: 5px 0px;overflow:auto}
+.parentBox{height:calc(100% - 70px)}
 .threeBox{border: none;}
 .parentBox .item,.secondBox .item,.threeBox .item{height: 25px;line-height: 25px;font-size: 14px; color: #4A4A4A;opacity: 0.7;width:78px;margin:auto;margin-top: 14px;border-radius: 20px;}
 .secondBox .item,.threeBox .item{border: 1px solid #fff}

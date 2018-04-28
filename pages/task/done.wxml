@@ -1,0 +1,43 @@
+<view class="header">
+	<view class="tab" data-status="" bindtap="switchTab"><text>{{taskingNumber + taskDoneNumber}}</text>全部</view>
+	<view class="tab" data-status="0" bindtap="switchTab"><text>{{taskingNumber}}</text>采购中</view>
+	<view class="tab" bindtap="goStorage"><text>{{purchaseStorage}}</text>预入库</view>
+	<view class="tab on"><text>{{taskDoneNumber}}</text>采购完成</view>
+</view>
+<view class="filterBox">
+	<view class="searchBtn" bindtap="searchSwitch">
+		<image src="../../images/icon_search.png" mode="widthFix"/>
+	</view>
+	<view class="orderType">
+	按最新更新时间
+		<view class="orderArrow"></view>
+	</view>
+</view>
+<view class="searchBox" wx:if="{{searchBoxShow}}">
+	<input placeholder="输入商品名／分配人／采购人" placeholder-class="placeholder" focus maxlength="30" confirm-type="搜索" bindinput="input" bindconfirm="confirm"/>
+	<view class="arrow" bindtap="confirm"></view>
+</view>
+<view class="orderGoodsListBox" wx:if="{{taskDailyList.length > 0}}">
+	<view wx:for="{{taskDailyList}}" wx:item="{{item}}" wx:key="{{key}}">
+		<view class="taskBarList">
+			<view class="timeType" style="width:28%" >
+				<view class="title">{{item.taskTitle}}</view>
+				<view class="time">{{item.taskStartTimeStr}}</view>
+			</view>
+			<view class="status">
+				<view class="statusDes">{{item.statusDes}}</view>
+				<view class="scheduleBox">
+					<view class="{{item.statusValue}}" style="width:{{item.schedule}}%"></view>
+				</view>
+			</view>
+			<view class="purchaseNum">
+			{{item.allInCount}}/{{item.allCount}}
+			</view>
+			<view class="assigner" bindtap="fold" data-detailid="{{item.id}}" data-index="{{index}}">
+				{{item.ownerName}}
+			</view>
+			<view class="arrow {{item.unfold?'on':''}}" wx:if="{{item.status!=1}}"  bindtap="fold" data-detailid="{{item.id}}" data-index="{{index}}">
+			</view>
+		</view>
+	</view>
+</view>

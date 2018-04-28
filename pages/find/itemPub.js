@@ -1,7 +1,25 @@
 var app = getApp();
 var bmap = require('../../utils/bmapwx.min.js');
+var util = require('../../utils/util.js');
+var returnFloat = function (value) {
+    var value = Math.round(parseFloat(value) * 100) / 100;
+    var xsd = value.toString().split(".");
+    if (xsd.length == 1) {
+        value = value.toString() + ".00";
+        return value;
+    }
+    if (xsd.length > 1) {
+        if (xsd[1].length < 2) {
+            value = value.toString() + "0";
+        }
+        return value;
+    }
+}
 Page({
 	data:{
+		globalCostPrice:'0.00',
+		globalPurchasePrice:'0.00',
+		globalDiscount:1,
 		mainPic:'',
 		name:'',
 		findAddress:'',
@@ -10,6 +28,7 @@ Page({
 		upc:'',
 		skuValue:'',
 		startDate:'',
+		id:'',
 		endDate:'',
 		category:null,
 		item:['','',''],
@@ -32,7 +51,7 @@ Page({
 		itemUploadIndex:0,
 		currency:'$',
 		itemProgress:['0px','0px','0px'],
-		skuInfo:[{ "index": 0, "color":'', "scale":'', "collapse":true, "weight":'', "virtualInv":'', "costPrice":'', "purchasePrice":'', "salePrice":'', "upc":'', "discount":''}]
+		skuInfo:[{ "index": 0, "color":'', "scale":'', "collapse":true, "weight":0.0, "virtualInv":0, "costPrice":0.00, "purchasePrice":0.00,"model":'', "salePrice":0.00, "upc":'', "discount":0}]
 	},
 	bindTextAreaInput:function(e){
 		this.setData({
@@ -76,9 +95,10 @@ Page({
 	},
 	choseConfirm:function(){
 		let threeCategoryList = this.data.threeCategoryList;
+		let threeCategoryItem = this.data.threeCategoryItem;
 		this.setData({
-			categoryName:threeCategoryList[0].allPath,
-			categoryId:threeCategoryList[0].id,
+			categoryName:threeCategoryList[threeCategoryItem].allPath,
+			categoryId:threeCategoryList[threeCategoryItem].id,
 			popFlag:false,
 			categoryFlag:false
 		})
@@ -88,6 +108,13 @@ Page({
 			popFlag:false,
 			categoryFlag:false
 		})
+	},
+	choseThreeCategoryItem:function(e){
+		let that = this;
+		let threeCategoryItem = e.currentTarget.dataset.index;
+		that.setData({
+        	threeCategoryItem:threeCategoryItem
+        })
 	},
 	choseSecondCategoryItem:function(e){
 		let that = this;
@@ -163,49 +190,9 @@ Page({
 			    });
 			    return;
 			}
-			if(skuInfo[index-1].weight==''){
-				wx.showToast({
-			        title: "请填写重量",
-			        icon: 'none',
-			    	duration: 2000
-			    });
-			    return;
-			}
-			if(skuInfo[index-1].costPrice==''){
-				wx.showToast({
-			        title: "请填写原价",
-			        icon: 'none',
-			    	duration: 2000
-			    });
-			    return;
-			}
-			if(skuInfo[index-1].purchasePrice==''){
-				wx.showToast({
-			        title: "请填写折扣价",
-			        icon: 'none',
-			    	duration: 2000
-			    });
-			    return;
-			}
-			if(skuInfo[index-1].salePrice==''){
-				wx.showToast({
-			        title: "请填写销售价",
-			        icon: 'none',
-			    	duration: 2000
-			    });
-			    return;
-			}
 			if(skuInfo[index-1].upc==''){
 				wx.showToast({
 			        title: "请填写upc",
-			        icon: 'none',
-			    	duration: 2000
-			    });
-			    return;
-			}
-			if(skuInfo[index-1].discount==''){
-				wx.showToast({
-			        title: "请填写折扣率",
 			        icon: 'none',
 			    	duration: 2000
 			    });
@@ -259,49 +246,9 @@ Page({
 		    });
 		    return;
 		}
-		if(skuInfo[index-1].weight==''){
-			wx.showToast({
-		        title: "请填写重量",
-		        icon: 'none',
-		    	duration: 2000
-		    });
-		    return;
-		}
-		if(skuInfo[index-1].costPrice==''){
-			wx.showToast({
-		        title: "请填写原价",
-		        icon: 'none',
-		    	duration: 2000
-		    });
-		    return;
-		}
-		if(skuInfo[index-1].purchasePrice==''){
-			wx.showToast({
-		        title: "请填写折扣价",
-		        icon: 'none',
-		    	duration: 2000
-		    });
-		    return;
-		}
-		if(skuInfo[index-1].salePrice==''){
-			wx.showToast({
-		        title: "请填写销售价",
-		        icon: 'none',
-		    	duration: 2000
-		    });
-		    return;
-		}
 		if(skuInfo[index-1].upc==''){
 			wx.showToast({
 		        title: "请填写upc",
-		        icon: 'none',
-		    	duration: 2000
-		    });
-		    return;
-		}
-		if(skuInfo[index-1].discount==''){
-			wx.showToast({
-		        title: "请填写折扣率",
 		        icon: 'none',
 		    	duration: 2000
 		    });
@@ -311,8 +258,6 @@ Page({
 		let newSkuInfo = JSON.parse(JSON.stringify(newSkuInfoStr));
 		newSkuInfo.index++;
 		newSkuInfo.collapse = true;
-		newSkuInfo.scale = '';
-		newSkuInfo.color = '';
 		skuInfo.push(newSkuInfo);
 		that.setData({
         	skuInfo:skuInfo
@@ -320,35 +265,58 @@ Page({
 	},
 	inputGlobalCostPrice:function(e){
 		let skuInfo = this.data.skuInfo;
-		if(skuInfo[0].costPrice){
-			return;
-		}
 		let value = e.detail.value;
 		skuInfo[0].costPrice = value;
+		let discount = this.data.globalDiscount;
+		if(discount!=null || discount!=''){
+			value = discount*value
+		}
 		this.setData({
-        	skuInfo:skuInfo
+        	skuInfo:skuInfo,
+        	globalPurchasePrice:value,
+        	globalCostPrice:e.detail.value
+        })
+	},
+	focusCostPrice:function(e){
+		let globalCostPrice = this.data.globalCostPrice;
+		if(globalCostPrice=="0.00"){	
+			globalCostPrice = "";
+		}
+		this.setData({
+			globalCostPrice:globalCostPrice
+		})
+	},
+	focusPurchasePrice:function(){
+		let globalPurchasePrice = this.data.globalPurchasePrice;
+		if(globalPurchasePrice=="0.00"){	
+			globalPurchasePrice = "";
+		}
+		this.setData({
+			globalPurchasePrice:globalPurchasePrice
+		})
+	},
+	inputGlobalDiscount:function(e){
+		let skuInfo = this.data.skuInfo;
+		let value = e.detail.value;
+		skuInfo[0].discount = value;
+		let globalCostPrice = this.data.globalCostPrice;
+		let globalPurchasePrice = returnFloat(globalCostPrice*e.detail.value);
+		this.setData({
+        	skuInfo:skuInfo,
+        	globalDiscount:e.detail.value,
+        	globalPurchasePrice:globalPurchasePrice
         })
 	},
 	inputGlobalPurchasePrice:function(e){
 		let skuInfo = this.data.skuInfo;
-		if(skuInfo[0].purchasePrice){
-			return;
-		}
 		let value = e.detail.value;
 		skuInfo[0].purchasePrice = value;
+		let discount = returnFloat(e.detail.value / this.data.globalCostPrice);
+		skuInfo[0].discount = discount;
 		this.setData({
-        	skuInfo:skuInfo
-        })
-	},
-	inputGlobalSalePrice:function(e){
-		let skuInfo = this.data.skuInfo;
-		if(skuInfo[0].salePrice){
-			return;
-		}
-		let value = e.detail.value;
-		skuInfo[0].salePrice = value;
-		this.setData({
-        	skuInfo:skuInfo
+        	skuInfo:skuInfo,
+        	globalPurchasePrice:e.detail.value,
+        	globalDiscount:discount
         })
 	},
 	inputColor:function(e){
@@ -429,12 +397,12 @@ Page({
         	skuInfo:skuInfo
         })
 	},
-	inputSalePrice:function(e){
+	inputPurchasePrice:function(e){
 		let index = e.currentTarget.dataset.index;
 		let value = e.detail.value;
 		let that = this;
 		let skuInfo = that.data.skuInfo;
-		skuInfo[index].salePrice = value;
+		skuInfo[index].purchasePrice = value;
 		that.setData({
         	skuInfo:skuInfo
         })
@@ -461,6 +429,18 @@ Page({
 	},
 	onLoad:function(e){
 		let that = this;
+		let upc = e.upc;
+    	if(upc!=null){
+    		let skuInfo = that.data.skuInfo;
+    		skuInfo[0].upc = upc;
+    		that.setData({
+    			skuInfo:skuInfo
+    		})
+    	}
+    	let startDate = util.formatTime(new Date()).substring(0, 10).replace(/\//g, '-');//当前时间
+        that.setData({
+            startDate: startDate
+        });
 		wx.request({
 	      url: app.globalData.apiUrl + "/data/list.htm",
 	      success: function (res) {
@@ -478,7 +458,7 @@ Page({
 	        }
 	      }
 	    })  
-	    if(e.id!=""){
+	    if(e.id!="" && e.id !=undefined){
 	    	wx.request({
 		      url: app.globalData.apiUrl + "/find/detail.htm?id="+e.id,
 		      success: function (res) {
@@ -486,7 +466,15 @@ Page({
 		      	if (res.data.retCode == '0') {
 		      		let item = res.data.data.item;
 		      		let category = res.data.data.category;
+		      		if(category==null || category==undefined){
+		      			category = ""
+		      		}
 		      		let skuInfo = res.data.data.itemSkuList;
+		      		let skuValue ="";
+		      		for(let i in skuInfo){
+						skuValue =skuValue +"“"+skuInfo[i].color+" "+skuInfo[i].scale+","+skuInfo[i].virtualInv+"件”";
+						skuInfo[i].collapse = true;
+					}
 			    	that.setData({
 			    		categoryName:category.allPath,
 			    		categoryId:category.id,
@@ -499,7 +487,10 @@ Page({
 			    		detail:item.detail,
 			    		remark:item.remark,
 			    		brand:item.brand,
-			    		name:item.name
+			    		name:item.name,
+			    		id:e.id,
+			    		skuInfo:skuInfo,
+			    		skuValue:skuValue
 			    	})
 			    }
 		      }
@@ -661,23 +652,30 @@ Page({
 		let purchaseStatus = 0;
 		if(type=="save"){
 			purchaseStatus = 2;
+		}else{
+			if(that.data.skuInfo[0].color==''|| that.data.skuInfo[0].costPrice=='' || that.data.skuInfo[0].discount==''|| that.data.skuInfo[0].purchasePrice=='' || that.data.skuInfo[0].upc==''){
+				wx.showToast({
+	                title: '请补全规格信息',
+	            });
+				return;
+			}
 		}
 		param.purchaseStatus = purchaseStatus;
 		param.name = that.data.name;
-		if(that.data.name==null){
+		if(that.data.name==null || that.data.name==''){
 			wx.showToast({
                 title: '请输入商品名称',
             });
 			return;
 		}
 		param.categoryId = that.data.categoryId;
-		if(that.data.categoryId==null){
+		if(that.data.categoryId==null || that.data.categoryId==''){
 			wx.showToast({
                 title: '请选择分类',
             });
 			return;
 		}
-		if(that.data.mainPic==null){
+		if(that.data.mainPic==null || that.data.mainPic==''){
 			wx.showToast({
                 title: '请上传图片',
             });
@@ -691,12 +689,6 @@ Page({
 		}
 		param.brand = that.data.brand;
 		param.mainPic = that.data.pictureList;
-		if(that.data.brand==null){
-			wx.showToast({
-                title: '请填写品牌',
-            });
-			return;
-		}
 		param.reason =that.data.reason;
 		param.startDate=that.data.startDate;
 		param.endDate=that.data.endDate;
@@ -705,7 +697,10 @@ Page({
 		param.buyerId = parseInt(app.globalData.buyerId);
 		param.detail=that.data.detail;
 		param.remark=that.data.remark;
-		param.pictureList = that.data.param;
+		param.pictureList = that.data.pictureList;
+		param.id = that.data.id;
+		let skuInfo = that.data.skuInfo;
+		param.skuInfo = skuInfo;
 		wx.request({
 	      url: app.globalData.apiUrl + "/find/save.htm",
 	      method:"POST",

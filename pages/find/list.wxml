@@ -8,14 +8,14 @@
 <view style="width:100%;height:100%;{{pageStyle}}">
 	<view wx:for="{{findItemList}}" wx:key="{{index}}" class="item">
 		<view bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" data-index="{{index}}" style="{{item.txtStyle}}" class="inner contentBox">
-	  		<image class="mainPic" src="{{item.skuPic}}" bindtap="goDetail" data-id="{{item.id}}" />
-	  		<view class="info" bindtap="goDetail" data-id="{{item.id}}" >
+	  		<image class="mainPic" src="{{item.skuPic}}" data-id="{{item.id}}" bindtap="goDetail" data-status="{{item.purchaseStatus}}"/>
+	  		<view class="info" data-id="{{item.id}}" bindtap="goDetail" data-status="{{item.purchaseStatus}}">
 				<view class="name">{{item.name}}</view>
-				<view class="address">地点: {{item.findAddress}}</view>
+				<view class="priceRange">{{item.priceRange}}</view>
 				<view class="detail">
-					<view class="price">{{item.priceRange}}</view>
+					<view class="price">${{item.costPrice}}</view>
+					<view class="time"><block wx:if="{{item.day>0}}">{{item.day}}天</block>{{item.hours}}:{{item.minutes}}</view>
 					<image src="../../images/icon_time.png" class="timeIcon" mode="widthFix"/>
-					<view class="time">{{item.hours}}:{{item.minutes}}</view>
 				</view>
 			</view>
 			<view class="btn">
@@ -34,7 +34,6 @@
 			</view>
 	  	</view>
 	    <view data-index="{{index}}" class="inner BtnBox">
-	    	<image src="../../images/icon_edit.png" mode="widthFix"  bindtap="editItem" data-index="{{index}}" data-id="{{item.id}}"/>
 	    	<image src="../../images/icon_del.png" mode="widthFix"  bindtap="delItem" data-index="{{index}}" data-id="{{item.id}}"/>
 	    </view>
 	</view>
@@ -58,7 +57,43 @@
 		</view>
 	</block>
 </view>	
-
+<view class="auditShadow" wx:if="{{popFlag}}" bindtap="back"></view>
+<view class="popBox reject" wx:if="{{rejectPopFlag}}">
+	<view class="tit">审核拒绝</view>
+	<view class="info">
+		<image src="{{itemPic}}" mode="widthFix"/>
+		<view class="title">{{itemTitle}}</view>
+	</view>
+	<view class="reason">
+		<view class="label">拒绝原因:</view>
+		<input maxlength="15" bindinput="reason" placeholder="请输入拒绝原因" placeholder-class="placeholder"/>
+	</view>
+	<view class="btnBox">
+		<view class="back" bindtap="back">返回</view>
+		<view class="confirm" bindtap="rejectConfirm">确认</view>
+	</view>
+</view>
+<view class="popBox agree" wx:if="{{agreePopFlag}}">
+	<view class="tit">审核通过</view>
+	<view class="info">
+		<image src="{{itemPic}}" mode="widthFix"/>
+		<view class="infoBox">
+			<view class="title">{{itemTitle}}</view>
+		</view>
+	</view>
+	<view class="skuList" wx:for="{{skuList}}" wx:key="key">
+		<view class="skuInfo">
+			<view class="name">{{item.color}}<block wx:if="{{item.scale}}">,{{item.scale}}</block></view>
+			<view class="price">折后<text>${{item.purchasePrice}}</text></view>
+		</view>
+		<input class="amount" bindinput="amount" maxlength="5" data-index="{{index}}"  placeholder="输入数量" placeholder-class="placeholder"/>
+		<view class="limitBox">
+			$<input bindinput="limit" maxlength="8" data-index="{{index}}"  placeholder="输入限价" placeholder-class="placeholder"/>
+		</view>
+	</view>
+	<view class="tipPurchase">生成{{skuList.length}}件采购单</view>
+	<view class="agreeConfirm" bindtap="agreeConfirm">加入任务采购单</view>
+</view>
 
 
 

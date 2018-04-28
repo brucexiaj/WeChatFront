@@ -1,6 +1,6 @@
 <view class="header">
-	<view class="tab {{status == null || status =='' && status !=0 ? 'on' : ''}}" data-status="" bindtap="switchTab"><text>{{taskingNumber + taskDoneNumber}}</text>全部</view>
-	<view class="tab {{status == 0 ? 'on' : ''}}" data-status="0" bindtap="switchTab"><text>{{taskingNumber}}</text>采购中</view>
+	<view class="tab" data-status="" bindtap="switchTab"><text>{{taskingNumber + taskDoneNumber}}</text>全部</view>
+	<view class="tab on" data-status="0" bindtap="switchTab"><text>{{taskingNumber}}</text>采购中</view>
 	<view class="tab" bindtap="goStorage"><text>{{purchaseStorage}}</text>预入库</view>
 	<view class="tab" bindtap="goDone"><text>{{taskDoneNumber}}</text>采购完成</view>
 </view>
@@ -20,7 +20,7 @@
 <view class="orderGoodsListBox" wx:if="{{taskDailyList.length > 0}}">
 	<view wx:for="{{taskDailyList}}" wx:item="{{item}}" wx:key="{{key}}">
 		<view class="taskBarList">
-			<view class="choseBox" wx:if="{{item.status!=1 && item.taskDailyDetailExtList.length > 0}}">
+			<view class="choseBox" wx:if="{{item.status!=1}}">
 				<image bindtap="choseItem" src="{{item.chose ? '../../images/icon_chose.png':'../../images/icon_unchoose.png'}}" mode="widthFix" data-index="{{index}}" />
 			</view>
 			<view class="timeType" style="width: {{item.status!=1? '40%':'28%'}}" >
@@ -44,11 +44,11 @@
 		</view>
 		<view class="taskListBox {{item.unfold?'on':''}}" wx:for="{{item.taskDailyDetailExtList}}" wx:for-item="list" wx:key="keyItem" wx:for-index="listIndex" data-id="{{list.id}}" data-detailid="{{list.taskId}}" wx:if="{{list.status!=1}}">
 			<view class="taskList">
-				<view class="choseBox" wx:if="{{list.inCount < list.count}}">
+				<view class="choseBox">
 					<image bindtap="chose" src="{{list.chose ? '../../images/icon_chose.png':'../../images/icon_unchoose.png'}}" mode="widthFix" data-listindex="{{listIndex}}" data-index="{{index}}"/>
 				</view>
 				<image src="{{list.skuPic}}" class="main">
-					<image src="../../images/angle_bits.png" class="angleBits" wx:if="{{list.count - list.inCount <10  && list.count - list.inCount>0}}">
+					<image src="../../images/angle_bits.png" class="angleBits" wx:if="{{list.count - list.inCount <10 && list.count - list.inCount>0}}">
 						<text class="angleNum">{{list.count - list.inCount}}</text>
 					</image>
 					<image src="../../images/angle_ten.png" class="angleTen"  wx:if="{{list.count - list.inCount >9 && list.count - list.inCount < 100}}">
@@ -64,10 +64,12 @@
 					<view class="sku">{{list.color}}<block wx:if="{{list.scale}}">+{{list.scale}}</block>，{{list.count - list.inCount}}件</view>
 					<view class="price" wx:if="{{list.taskMaxPrice}}">采购价 <text>{{char_lt}}= ${{list.taskMaxPrice}}</text></view>
 				</view>		
-				<view class="editBtn" wx:if="{{list.inCount < list.count}}">
+				<!--
+				<view class="editBtn">
 					<image src="../../images/icon_taskEdit.png" mode="widthFix"  bindtap="edit" data-index="{{index}}" data-listindex="{{listIndex}}" data-upc="{{list.upc}}" wx:if="{{!list.unfold}}"/>
-					<image src="../../images/icon_upcScan.png" mode="widthFix"  data-upc="{{list.upc}}" data-index="{{index}}" data-listindex="{{listIndex}}" bindtap="upcScan" wx:if="{{list.unfold}}"/>
+					<image src="../../images/icon_upcScan.png" mode="widthFix"  data-upc="{{list.upc}}" data-index="{{index}}" bindtap="upcScan" wx:if="{{list.unfold}}"/>
 				</view>
+				-->
 			</view>
 			<view class="editBox {{list.unfold?'on':''}}">
 				<view class="topBox">
@@ -76,23 +78,27 @@
 						<view class="value">{{list.costPrice}}</view>
 					</view>
 					<view class="valueBox">
-						<view class="label">采购价:</view>
-						<view class="input"><input bindinput="purchase" value="{{list.purchasePrice}}" data-listindex="{{listIndex}}" data-index="{{index}}"/></view>
+						<view class="label">折扣价:</view>
+						<view class="value price">{{list.purchsePrice}}</view>
 					</view>
 					<view class="doneBtn" bindtap="edit" data-listindex="{{listIndex}}" data-index="{{index}}">完成</view>
 				</view>
 				<view class="field">
 					<view class="label">线下:</view>
-					<view class="input disable">{{list.quantity}}</view>
+					<view class="input"><input bindinput="quantity" value="0" data-listindex="{{listIndex}}" data-index="{{index}}" data-max="{{list.count - list.inCount}}"/></view>
 				</view>
 				<view class="field">
 					<view class="label">在途:</view>
-					<view class="input"><input bindinput="transQuantity" value="{{list.transQuantity>(list.count - list.inCount)?list.count - list.inCount:list.transQuantity}}" data-listindex="{{listIndex}}" data-index="{{index}}" data-max="{{list.count - list.inCount}}"/></view>
+					<view class="input"><input bindinput="transQuantity" value="0" data-listindex="{{listIndex}}" data-index="{{index}}" data-max="{{list.count - list.inCount}}"/></view>
 				</view>
-				<view class="field" style="width:100%">
+				<view class="field">
+					<view class="label">货源情况:</view>
+					<view class="input"></view>
+				</view>
+				<view class="field">
 					<view class="label">采购点:</view>
-					<view class="input" bindtap="choseAddress"  data-listindex="{{listIndex}}" data-index="{{index}}" >
-						<input value="{{list.skuBuysite}}" />
+					<view class="input">
+						{{list.skuBuysite}}
 						<image src="../../images/location.png" mode="widthFix" class="location"/>
 					</view>
 				</view>
@@ -100,12 +106,19 @@
 		</view>
 	</view>
 </view>
-<view style="width:100%;height:83px;"></view>
-<view class="taskListInfo">
-	<view class="info">
-		<view class="detail">线下总件数<text>{{quantity}}</text></view>
-		<view class="detail">在途总件数<text>{{transQuantity}}</text></view>
-	</view>
-	<view class="calc" bindtap="calc">结算</view>
-	<view class="viewCalc" bindtap="viewCalc">查看已结算</view>
+<view style="height:155px;width:100%;">
+</view>
+<view class="footer">
+	<image class="bg" src="../../images/foot.png" mode="widthFix" />
+	<view class="infoBox">
+		<view class="info">
+			总件数
+			<text class="number">{{transQuantity+quantity}}</text>
+		</view>
+		<view class="info">
+			付款总额
+			<text class="number">{{amount}}</text>
+		</view>
+		<view class="btn">加入预入库</view>
+	</view>	
 </view>

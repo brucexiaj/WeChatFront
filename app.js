@@ -9,7 +9,10 @@ App({
         refer:'',
         sessionKey:null,
         buyerId:null,
-        pageSize:20
+        pageSize:20,
+        taskId:null,
+        status:null,
+        findStatus:null
     },
     onLaunch: function (res) {
         let that = this;
@@ -26,7 +29,6 @@ App({
         if (res.scene) {
             parame.scene = res.scene;
         }
-
         setTimeout(function () {
             parame.ownerOpenId = that.globalData.xcxCookieId;
             wx.request({

@@ -3,7 +3,7 @@
 		<input placeholder="输入任务名称／分配人／采购人" placeholder-class="placeholder" focus maxlength="30" confirm-type="搜索" bindinput="input" bindconfirm="confirm"/>
 		<view class="arrow" bindtap="confirm"></view>
 	</view>
-	<view class="taskList" wx:for="{{taskList}}" wx:item="{{item}}" wx:key="{{key}}" bindtap="detail" data-id="{{item.id}}">
+	<view class="taskList" wx:for="{{taskList}}" wx:item="{{item}}" wx:key="{{key}}"  data-status="{{item.status}}" bindtap="detail" data-id="{{item.id}}">
 		<view class="timeType">
 			<view class="title">{{item.taskTitle}}</view>
 			<view class="time">{{item.taskStartTimeStr}}</view>

@@ -15,35 +15,34 @@
 <view class="listBox">
 	<label>商品名<text>*</text></label>
 	<input maxlength="40" name="name" bindinput="name" value="{{name}}" placeholder-class="placeholder"/>
-	<image src="../../images/scan.png" class="scan" mode="widthFix"/>
 </view>
 <view class="bigListBox">
 	<view class="price">
 		<view class="tit">原价<text>*</text></view>
 		<view class="tit">
-			<label>{{currency}}</label><input bindinput="inputGlobalCostPrice" type="digit" placeholder-class="placeholder" placeholder="输入原价" maxlength="5"/>
+			<label>{{currency}}</label><input bindfocus="focusCostPrice" bindinput="inputGlobalCostPrice" type="digit" placeholder-class="placeholder" placeholder="输入原价" maxlength="10" value="{{globalCostPrice}}"/>
 		</view>
 	</view>
 	<view class="price">
-		<view class="tit">折后价</view>
+		<view class="tit">折扣</view>
 		<view class="tit">
-			<label>{{currency}}</label><input bindinput="inputGlobalPurchasePrice" type="digit" placeholder-class="placeholder" placeholder="输入折后价" maxlength="5" />
+			<input bindinput="inputGlobalDiscount" type="digit" placeholder-class="placeholder" placeholder="输入折扣" maxlength="10"  value="{{globalDiscount}}"/>
 		</view>
 	</view>
 	<view class="price">
-		<view class="tit">销售价</view>
+		<view class="tit">采购价</view>
 		<view class="tit">
-			<label>{{currency}}</label><input bindinput="inputGlobalSalePrice" type="digit" placeholder-class="placeholder" placeholder="输入销售价" maxlength="5" />
+			<label>{{currency}}</label><input  bindfocus="focusPurchasePrice" bindinput="inputGlobalPurchasePrice" type="digit" placeholder-class="placeholder" placeholder="输入采购价" maxlength="10"  value="{{globalPurchasePrice}}"/>
 		</view>
 	</view>
 </view>
 <view class="listBox" bindtap="openSkuPopBox">
-	<label>规格<text>*</text></label>
+	<label>规格</label>
 	<view class="content">{{skuValue}}</view>
 	<view class="arrow"></view>
 </view>
 <view class="listBox">
-	<label>品牌<text>*</text></label>
+	<label>品牌</label>
 	<input maxlength="20" placeholder="输入品牌"  bindinput="brand" value="{{brand}}" placeholder-class="placeholder"/>
 </view>
 <view class="listBox" bindtap="choseCategory">
@@ -60,7 +59,7 @@
 		<input disabled="true" type="text" style="width:100%;height:28px;line-height:28px;text-indent:3px" value="{{startDate}}" maxlength="10" />
 	</picker> 
 	-
-	<picker mode="date" value="{{endDate}}" bindchange="bindEndDateChange"> 
+	<picker mode="date" start="{{startDate}}" value="{{endDate}}" bindchange="bindEndDateChange"> 
 		<input disabled="true" type="text" style="width:100%;height:28px;line-height:28px;text-indent:3px" value="{{endDate}}" maxlength="10" />
 	</picker> 
 </view>
@@ -93,7 +92,7 @@
 			<view>提交</view>
 		</image>
 	</block>
-	<block>
+	<block  wx:if="{{popFlag}}">
 		<image src="../../images/btn_submit.png" mode="widthFix" class="confirm" bindtap="confirm">
 			<view>确定</view>
 		</image>
@@ -126,15 +125,15 @@
 			</view>
 			<view class="field">
 				<label>原价</label>
-				<text>{{currency}}</text><input style="margin-left:0px;width:calc(100% - 66px);" bindinput="inputCostPrice" type="digit" maxlength="8" value="{{item.costPrice}}" placeholder="输入原价" placeholder-class="placeholder" data-index="{{index}}"/>
+				<text>{{currency}}</text><input style="margin-left:0px;width:100px" bindinput="inputCostPrice" type="digit" maxlength="8" value="{{item.costPrice}}" placeholder="输入原价" placeholder-class="placeholder" data-index="{{index}}"/>
 			</view>
 			<view class="field">
-				<label>折后价</label>
-				<text>{{currency}}</text><input style="margin-left:0px;width:calc(100% - 66px);" bindinput="inputPurchasePrice" type="digit" maxlength="8" value="{{item.purchasePrice}}" placeholder="输入价格" placeholder-class="placeholder" data-index="{{index}}"/>
+				<label>折扣</label>
+				<input bindinput="inputDiscount" type="digit" maxlength="5" value="{{item.discount}}" placeholder="输入折扣" placeholder-class="placeholder" data-index="{{index}}"/>
 			</view>
 			<view class="field">
-				<label>销售价</label>
-				<text>{{currency}}</text><input style="margin-left:0px;width:calc(100% - 66px);" bindinput="inputSalePrice" type="digit" maxlength="8" value="{{item.salePrice}}" placeholder="输入价格" placeholder-class="placeholder" data-index="{{index}}"/>
+				<label>采购价</label>
+				<text>{{currency}}</text><input style="margin-left:0px;width:100px;" bindinput="inputPurchasePrice" type="digit" maxlength="8" value="{{item.purchasePrice}}" placeholder="输入价格" placeholder-class="placeholder" data-index="{{index}}"/>
 			</view>
 			<view class="field">
 				<label>型号</label>
@@ -142,12 +141,8 @@
 			</view>
 			<view class="field" style="width:100%">
 				<label>UPC</label>
-				<input bindinput="inputUpc" maxlength="20" value="{{item.upc}}" data-index="{{index}}"/>
-				<image src="../../images/scan.png" class="scan" mode="widthFix" bindtap="scan" data-index="{{index}}"/>
-			</view>
-			<view class="field">
-				<label>折扣率</label>
-				<input bindinput="inputDiscount" type="digit" maxlength="5" value="{{item.discount}}" placeholder="输入折扣" placeholder-class="placeholder" data-index="{{index}}"/>
+				<input bindinput="inputUpc" maxlength="20" value="{{item.upc}}" style="width:220px" data-index="{{index}}"/>
+				<image src="../../images/scan.png" class="scan" bindtap="scan" data-index="{{index}}"/>
 			</view>
 			<view style="width:100%;clear:both;height:2px;"></view>
 		</view>

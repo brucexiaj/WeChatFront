@@ -31,9 +31,12 @@ Page({
 	},
 	detail:function(e){
 		let id = e.currentTarget.dataset.id;
-		wx.navigateTo({
-      		url: "../purchase/list?id="+id
-      	})	
+		let status = e.currentTarget.dataset.status;
+		app.globalData.taskId = id;
+		app.globalData.status = status;
+		wx.switchTab({
+	    	url:'/pages/task/list'
+	    })
 	},
 	onLoad:function(){
 		var that = this;

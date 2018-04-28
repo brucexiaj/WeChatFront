@@ -18,8 +18,7 @@
 </view>
 <view class="listBox">
 	<label>商品名<text>*</text></label>
-	<input disable="true" maxlength="40" name="name" placeholder-class="placeholder" value="{{item.name}}"/>
-	<image src="../../images/scan.png" class="scan" mode="widthFix"/>
+	<input disabled="true" maxlength="40" name="name" placeholder-class="placeholder" value="{{item.name}}"/>
 </view>
 <view class="skuName" bindtap="collapse" data-type="sku">
 	<text>规格</text>
@@ -32,39 +31,39 @@
 	<view class="skuInfo">
 		<view class="field">
 			<label>颜色</label>
-			<input disable="true" bindinput="inputColor" maxlength="5" value="{{item.color}}" placeholder-class="placeholder" data-index="{{index}}"/>
+			<input disabled="true" bindinput="inputColor" maxlength="5" value="{{item.color}}" placeholder-class="placeholder" data-index="{{index}}"/>
 		</view>
 		<view class="field">
 			<label>尺码</label>
-			<input disable="true" bindinput="inputSize" maxlength="5" value="{{item.scale}}"  placeholder-class="placeholder" data-index="{{index}}"/>
+			<input disabled="true" bindinput="inputSize" maxlength="5" value="{{item.scale}}"  placeholder-class="placeholder" data-index="{{index}}"/>
 		</view>
 		<view class="field">
 			<label>重量</label>
-			<input disable="true" bindinput="inputWeight" maxlength="5" value="{{item.weight}}"   placeholder-class="placeholder" data-index="{{index}}"/>
+			<input disabled="true" bindinput="inputWeight" maxlength="5" value="{{item.weight}}"   placeholder-class="placeholder" data-index="{{index}}"/>
 		</view>
 		<view class="field">
 			<label>库存</label>
-			<input disable="true" bindinput="inputVirtualInv" maxlength="5" value="{{item.virtualInv}}" placeholder-class="placeholder" data-index="{{index}}"/>
+			<input disabled="true" bindinput="inputVirtualInv" maxlength="5" value="{{item.virtualInv}}" placeholder-class="placeholder" data-index="{{index}}"/>
 		</view>
 		<view class="field">
 			<label>原价</label>
-			<input disable="true" bindinput="inputCostPrice" maxlength="8" value="{{item.costPrice}}"  placeholder-class="placeholder" data-index="{{index}}"/>
+			<input disabled="true" bindinput="inputCostPrice" maxlength="8" value="{{item.costPrice}}"  placeholder-class="placeholder" data-index="{{index}}"/>
 		</view>
 		<view class="field">
 			<label>折后价</label>
-			<input disable="true" bindinput="inputPurchasePrice" maxlength="8" value="{{item.purchasePrice}}"  placeholder-class="placeholder" data-index="{{index}}"/>
+			<input disabled="true" bindinput="inputPurchasePrice" maxlength="8" value="{{item.purchasePrice}}"  placeholder-class="placeholder" data-index="{{index}}"/>
 		</view>
 		<view class="field">
 			<label>销售价</label>
-			<input disable="true" bindinput="inputSalePrice" maxlength="8" value="{{item.salePrice}}" placeholder-class="placeholder" data-index="{{index}}"/>
+			<input disabled="true" bindinput="inputSalePrice" maxlength="8" value="{{item.salePrice}}" placeholder-class="placeholder" data-index="{{index}}"/>
 		</view>
 		<view class="field">
 			<label>UPC</label>
-			<input disable="true" bindinput="inputUpc" maxlength="20" value="{{item.upc}}" data-index="{{index}}"/>
+			<input disabled="true" bindinput="inputUpc" maxlength="20" value="{{item.upc}}" data-index="{{index}}"/>
 		</view>
 		<view class="field">
 			<label>折扣率</label>
-			<input disable="true" bindinput="inputDiscount" maxlength="2" value="{{item.discount}}"   placeholder-class="placeholder" data-index="{{index}}"/>
+			<input disabled="true" bindinput="inputDiscount" maxlength="2" value="{{item.discount}}"   placeholder-class="placeholder" data-index="{{index}}"/>
 		</view>
 		<view style="width:100%;clear:both;height:2px;"></view>
 	</view>
@@ -76,32 +75,32 @@
 <block  wx:if="{{paramsCollapse}}">
 <view class="listBox">
 	<label>商品类目</label>
-	<input maxlength="40" disable="true" value="{{category.allPath}}" name="reason" placeholder-class="placeholder"/>
+	<input maxlength="40" disabled="true" value="{{category.allPath}}" name="reason" placeholder-class="placeholder"/>
 </view>
 <view class="listBox">
 	<label>品牌</label>
-	<input maxlength="40" disable="true" value="{{item.brand}}" name="reason" placeholder-class="placeholder"/>
+	<input maxlength="40" disabled="true" value="{{item.brand}}" name="reason" placeholder-class="placeholder"/>
 </view>
 <view class="listBox">
 	<label>站点</label>
-	<input maxlength="40" disable="true" value="{{item.buySite}}" name="reason" placeholder-class="placeholder"/>
+	<input maxlength="40" disabled="true" value="{{item.buySite}}" name="reason" placeholder-class="placeholder"/>
 </view>
 <view class="listBox">
 	<label>地点</label>
-	<input maxlength="40" disable="true" value="{{item.findAddress}}" name="reason" placeholder-class="placeholder"/>
+	<input maxlength="40" disabled="true" value="{{item.findAddress}}" name="reason" placeholder-class="placeholder"/>
 </view>
 <view class="listBox">
 	<label>推荐原因</label>
-	<input maxlength="40" disable="true" value="{{item.reason}}" name="reason" placeholder-class="placeholder"/>
+	<input maxlength="40" disabled="true" value="{{item.reason}}" name="reason" placeholder-class="placeholder"/>
 </view>
 <view class="listBox">
 	<label>有效时间</label>
-	<picker mode="date" disabled="true" value="{{startDateStr}}" > 
-		<input disabled="true" type="text" style="width:100%;" value="{{item.startDateStr}}" maxlength="10" />
+	<picker mode="date" disabledd="true" value="{{startDateStr}}" > 
+		<input disabledd="true" type="text" style="width:100%;" value="{{item.startDateStr}}" maxlength="10" />
 	</picker> 
 	-
-	<picker mode="date" disabled="true" value="{{endDateStr}}"> 
-		<input disabled="true" type="text" style="width:100%;" value="{{item.endDateStr}}" maxlength="10" />
+	<picker mode="date" disabledd="true" value="{{endDateStr}}"> 
+		<input disabledd="true" type="text" style="width:100%;" value="{{item.endDateStr}}" maxlength="10" />
 	</picker> 
 </view>
 </block>
@@ -114,5 +113,5 @@
 </view>
 <view class="listBox">
 	<label>备注</label>
-	<input maxlength="40" disable="true" value="{{item.remark}}" name="reason" placeholder-class="placeholder"/>
+	<input maxlength="40" disabled="true" value="{{item.remark}}" name="reason" placeholder-class="placeholder"/>
 </view>
