@@ -209,7 +209,7 @@ Page({
 		}
 		wx.showModal({
 			title: '提示',
-		    content: '您是否确认结算',
+		    content: '您是否确认加入预入库',
 		    success: function(res) {
 			    if (res.confirm) {
 			    	wx.showNavigationBarLoading();

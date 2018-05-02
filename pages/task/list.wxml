@@ -20,7 +20,7 @@
 <view class="orderGoodsListBox" wx:if="{{taskDailyList.length > 0}}">
 	<view wx:for="{{taskDailyList}}" wx:item="{{item}}" wx:key="{{key}}">
 		<view class="taskBarList">
-			<view class="choseBox" wx:if="{{item.status!=1 && item.taskDailyDetailExtList.length > 0}}">
+			<view class="choseBox" wx:if="{{item.status!=1 && item.taskDailyDetailExtList.length > 0 && item.allInCount<item.allCount}}">
 				<image bindtap="choseItem" src="{{item.chose ? '../../images/icon_chose.png':'../../images/icon_unchoose.png'}}" mode="widthFix" data-index="{{index}}" />
 			</view>
 			<view class="timeType" style="width: {{item.status!=1? '40%':'28%'}}" >
