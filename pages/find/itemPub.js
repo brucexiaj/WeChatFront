@@ -17,12 +17,21 @@ var returnFloat = function (value) {
 }
 Page({
 	data:{
+		mode:"scaleToFill",
+		popSwiperBox:false,
+	    arr:[],
+	    indicatorDots: true,
+	    autoplay: false,
+	    interval: 1000,
+	    currencyFlag:false,
+	    duration: 300,
 		globalCostPrice:'0.00',
 		globalPurchasePrice:'0.00',
 		globalDiscount:1,
-		mainPic:'',
 		name:'',
+		selectIndex:'',
 		findAddress:'',
+		startDateLimit:'',
 		buySite:'',
 		detail:'',
 		upc:'',
@@ -31,9 +40,8 @@ Page({
 		id:'',
 		endDate:'',
 		category:null,
-		item:['','',''],
+		item:['','','','','','','','',''],
 		pictureList:[],
-		itemClass:['','',''],
 		threeCategoryList:[],
 		popFlag:false,
 		popType:'sku',
@@ -50,7 +58,8 @@ Page({
 		uploadType:'mainPic',
 		itemUploadIndex:0,
 		currency:'$',
-		itemProgress:['0px','0px','0px'],
+		current:0,
+		itemProgress:['0px','0px','0px','0px','0px','0px','0px','0px','0px'],
 		skuInfo:[{ "index": 0, "color":'', "scale":'', "collapse":true, "weight":0.0, "virtualInv":0, "costPrice":0.00, "purchasePrice":0.00,"model":'', "salePrice":0.00, "upc":'', "discount":0}]
 	},
 	bindTextAreaInput:function(e){
@@ -72,6 +81,38 @@ Page({
 		this.setData({
 			remark:e.detail.value
 		})
+	},
+	choseCurrency:function(e){
+		let type = e.currentTarget.dataset.type;
+		this.setData({
+			currency:type,
+			currencyFlag:false
+		})
+	},
+	mytouchstart: function (e) {  
+		let that = this;  
+		that.setData({  
+			touch_start: e.timeStamp  
+		})  
+	},  
+	mytouchend: function (e) {  
+		let that = this;  
+		that.setData({  
+			touch_end: e.timeStamp  
+		})  
+	}, 
+	selectCurrency:function(e){
+		this.setData({
+			currencyFlag:true
+		})
+	},
+	closePopSwiperBox:function(){
+		this.setData({
+			popSwiperBox:false
+		})
+	},	
+	settingImg:function(e){
+		console.log("aaa");
 	},
 	brand:function(e){
 		this.setData({
@@ -266,15 +307,44 @@ Page({
 	inputGlobalCostPrice:function(e){
 		let skuInfo = this.data.skuInfo;
 		let value = e.detail.value;
-		skuInfo[0].costPrice = value;
 		let discount = this.data.globalDiscount;
 		if(discount!=null || discount!=''){
 			value = discount*value
 		}
+		skuInfo[0].purchasePrice = value;
+		skuInfo[0].discount = this.data.globalDiscount;
+		skuInfo[0].costPrice = e.detail.value;
 		this.setData({
         	skuInfo:skuInfo,
         	globalPurchasePrice:value,
         	globalCostPrice:e.detail.value
+        })
+	},
+	inputGlobalDiscount:function(e){
+		let skuInfo = this.data.skuInfo;
+		let value = e.detail.value;
+		let globalCostPrice = this.data.globalCostPrice;
+		let globalPurchasePrice = returnFloat(globalCostPrice*e.detail.value);
+		skuInfo[0].purchasePrice =globalPurchasePrice;
+		skuInfo[0].discount = e.detail.value;
+		skuInfo[0].costPrice = this.data.globalCostPrice;
+		this.setData({
+        	skuInfo:skuInfo,
+        	globalDiscount:e.detail.value,
+        	globalPurchasePrice:globalPurchasePrice
+        })
+	},
+	inputGlobalPurchasePrice:function(e){
+		let skuInfo = this.data.skuInfo;
+		let value = e.detail.value;
+		let discount = returnFloat(e.detail.value / this.data.globalCostPrice);
+		skuInfo[0].purchasePrice = e.detail.value;;
+		skuInfo[0].discount = discount;
+		skuInfo[0].costPrice = this.data.globalCostPrice;
+		this.setData({
+        	skuInfo:skuInfo,
+        	globalPurchasePrice:e.detail.value,
+        	globalDiscount:discount
         })
 	},
 	focusCostPrice:function(e){
@@ -294,30 +364,6 @@ Page({
 		this.setData({
 			globalPurchasePrice:globalPurchasePrice
 		})
-	},
-	inputGlobalDiscount:function(e){
-		let skuInfo = this.data.skuInfo;
-		let value = e.detail.value;
-		skuInfo[0].discount = value;
-		let globalCostPrice = this.data.globalCostPrice;
-		let globalPurchasePrice = returnFloat(globalCostPrice*e.detail.value);
-		this.setData({
-        	skuInfo:skuInfo,
-        	globalDiscount:e.detail.value,
-        	globalPurchasePrice:globalPurchasePrice
-        })
-	},
-	inputGlobalPurchasePrice:function(e){
-		let skuInfo = this.data.skuInfo;
-		let value = e.detail.value;
-		skuInfo[0].purchasePrice = value;
-		let discount = returnFloat(e.detail.value / this.data.globalCostPrice);
-		skuInfo[0].discount = discount;
-		this.setData({
-        	skuInfo:skuInfo,
-        	globalPurchasePrice:e.detail.value,
-        	globalDiscount:discount
-        })
 	},
 	inputColor:function(e){
 		let index = e.currentTarget.dataset.index;
@@ -439,7 +485,8 @@ Page({
     	}
     	let startDate = util.formatTime(new Date()).substring(0, 10).replace(/\//g, '-');//当前时间
         that.setData({
-            startDate: startDate
+            startDateLimit: startDate,
+            startDate:startDate
         });
 		wx.request({
 	      url: app.globalData.apiUrl + "/data/list.htm",
@@ -478,7 +525,6 @@ Page({
 			    	that.setData({
 			    		categoryName:category.allPath,
 			    		categoryId:category.id,
-			    		mainPic:item.pictureList[0].url,
 			    		reason:item.reason,
 			    		startDate:item.startDateStr,
 			    		endDate:item.endDateStr,
@@ -551,30 +597,93 @@ Page({
 			endDate:endDate
 		})
 	},
+	setFirst:function(e){
+		console.log('设置首图');
+	},
+	delImg:function(e){
+		console.log('删除图片');
+	},
 	choseImg:function(e){
 		let type = e.currentTarget.dataset.type;
 		let index = e.currentTarget.dataset.index;
+		let item = this.data.item;
 		let that = this;
 		let count = 1;
 		if("mainPic"==type){
 			count = 9;
 		}
 		that.setData({
-			uploadType:type,
 			itemUploadIndex:index
 		})
-		wx.chooseImage({
-		    count: count,
-		    success: function (res) {
-	    		let tempFilePaths = res.tempFilePaths;
-				if("mainPic"==type){
-					for (let i in tempFilePaths) { 
-						that.uploadFileServer(that,tempFilePaths[i],i,type);
-				    }	
-	    		}else{
-				    that.uploadFileServer(that,tempFilePaths[0],index,type)
-	    		}
-		    }
+		if("mainPic"!=type && item[index]!=''){
+			this.setData({
+				popSwiperBox:true
+			})
+		}else{
+			wx.chooseImage({
+			    count: count,
+			    success: function (res) {
+		    		let tempFilePaths = res.tempFilePaths;
+					if("mainPic"==type){
+						for (let i in tempFilePaths) { 
+							that.uploadFileServer(that,tempFilePaths[i],i,type);
+					    }	
+		    		}else{
+					    that.uploadFileServer(that,tempFilePaths[0],index,type)
+		    		}
+			    }
+			})
+		}
+	},
+	closePopSwiperBox:function(){
+		this.setData({
+			popSwiperBox:false
+		})
+	},
+	setting:function(){
+		let item = this.data.item;
+		let current = this.data.current;
+		let imageSrc = item[0];
+		if(current==0){
+			if(item[1]!=null){
+				item[0] = item[1];
+				item[1] = imageSrc;
+			}else{
+				return
+			}
+		}else{
+			item[0] = item[current];
+			item[current] = imageSrc;
+		}
+		this.setData({
+			item:item,
+			current:0
+		})
+	},
+	imgChange:function(e){
+		this.setData({
+			current:e.detail.current
+		})
+	},
+	delImg:function(){
+		let item = this.data.item;
+		let current = this.data.current;
+		let imageList = 0;
+		for(let i=0;i<this.data.item.length;i++){
+			if(this.data.item[i]==""){
+				imageList++;
+			}
+		}
+		if(imageList==this.data.item.length-1){
+			this.setData({
+				popSwiperBox:false
+			})
+		}
+		item.splice(current, 1);
+		item.push('');
+		this.setData({
+			item:item,
+			current:0
 		})
 	},
 	uploadFileServer:function(that, filePath, i,type) {
@@ -585,64 +694,22 @@ Page({
 			success: function(res){
 				let resData = JSON.parse(res.data);
 		        let data = resData.data.pictureList;
-		        if(type=="mainPic"){
-		        	if(i==0){
-			        	that.setData({
-					    	mainPic:data[0]
-					    })
-				    }else{
-				    	let item = that.data.item;
-			        	let itemClass = that.data.itemClass;
-			        	let itemProgress = that.data.itemProgress;
-			        	item[i-1] = data[0]
-			        	itemClass[i-1] = 'on';
-			   			itemProgress[i-1] = '0px';
-			        	that.setData({
-					    	item:item,
-					    	itemClass:itemClass,
-					    	itemProgress:itemProgress
-					    })
-				    }
-		        }else{
-		        	let item = that.data.item;
-		        	let itemClass = that.data.itemClass;
-		        	let itemProgress = that.data.itemProgress;
-		        	item[i] = data
-		        	itemClass[i] = 'on';
-		        	itemProgress[i] = '0px';
-		        	that.setData({
-				    	item:item,
-				    	itemClass:itemClass,
-				    	itemProgress:itemProgress
-				    })
-		        }    
+	        	let item = that.data.item;
+	        	let itemProgress = that.data.itemProgress;
+	        	item[i] = data
+	        	itemProgress[i] = '0px';
+	        	that.setData({
+			    	item:item,
+			    	itemProgress:itemProgress
+			    })		          
 			}    
 		})
 		uploadTask.onProgressUpdate((res) => {
-		    if(that.data.uploadType=='mainPic'){
-		    	if(i==0){
-		    		that.setData({
-			    		mainProgress:res.progress+'px'
-			    	})
-			    	if(res.progress==100){
-			    		that.setData({
-				    		mainProgress:'0px'
-				    	})
-			    	}
-		    	}else{
-		    		let itemProgress = that.data.itemProgress;
-			    	itemProgress[i-1] = res.progress+'px';
-			    	that.setData({
-			    		itemProgress:itemProgress
-			    	})
-		    	}	
-		    }else{
-		    	let itemProgress = that.data.itemProgress;
-		    	itemProgress[i] = res.progress+'px';
-		    	that.setData({
-		    		itemProgress:itemProgress
-		    	})
-		    }
+		    let itemProgress = that.data.itemProgress;
+	    	itemProgress[i] = res.progress+'px';
+	    	that.setData({
+	    		itemProgress:itemProgress
+	    	})
 		})
 	},
 	submit:function(e){
@@ -675,17 +742,17 @@ Page({
             });
 			return;
 		}
-		if(that.data.mainPic==null || that.data.mainPic==''){
+		let imageList = 0;
+		for(let i=0;i<that.data.item.length;i++){
+			if(that.data.item[i]==""){
+				imageList++;
+			}
+		}
+		if(imageList==9){
 			wx.showToast({
-                title: '请上传图片',
+                title: '请上传商品图片',
             });
 			return;
-		}
-		that.data.pictureList[0] = that.data.mainPic;
-		for(let i=0;i<that.data.item.length;i++){
-			if(that.data.item[i]!=""){
-				that.data.pictureList[i+1] = that.data.item[i];
-			}
 		}
 		param.brand = that.data.brand;
 		param.mainPic = that.data.pictureList;

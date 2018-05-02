@@ -64,12 +64,10 @@
 					<view class="sku">{{list.color}}<block wx:if="{{list.scale}}">+{{list.scale}}</block>，{{list.count - list.inCount}}件</view>
 					<view class="price" wx:if="{{list.taskMaxPrice}}">采购价 <text>{{char_lt}}= ${{list.taskMaxPrice}}</text></view>
 				</view>		
-				<!--
 				<view class="editBtn">
 					<image src="../../images/icon_taskEdit.png" mode="widthFix"  bindtap="edit" data-index="{{index}}" data-listindex="{{listIndex}}" data-upc="{{list.upc}}" wx:if="{{!list.unfold}}"/>
 					<image src="../../images/icon_upcScan.png" mode="widthFix"  data-upc="{{list.upc}}" data-index="{{index}}" bindtap="upcScan" wx:if="{{list.unfold}}"/>
 				</view>
-				-->
 			</view>
 			<view class="editBox {{list.unfold?'on':''}}">
 				<view class="topBox">
@@ -78,28 +76,23 @@
 						<view class="value">{{list.costPrice}}</view>
 					</view>
 					<view class="valueBox">
-						<view class="label">折扣价:</view>
-						<view class="value price">{{list.purchsePrice}}</view>
+						<view class="label">采购价:</view>
+						<view class="input"><input bindinput="purchase" value="{{list.purchasePrice}}" data-listindex="{{listIndex}}" data-index="{{index}}"/></view>
 					</view>
 					<view class="doneBtn" bindtap="edit" data-listindex="{{listIndex}}" data-index="{{index}}">完成</view>
 				</view>
 				<view class="field">
 					<view class="label">线下:</view>
-					<view class="input"><input bindinput="quantity" value="0" data-listindex="{{listIndex}}" data-index="{{index}}" data-max="{{list.count - list.inCount}}"/></view>
+					<view class="input"><input bindinput="quantity" value="{{list.inCount}}" data-listindex="{{listIndex}}" data-max="{{list.count - list.inCount}}" data-index="{{index}}"/></view>
 				</view>
 				<view class="field">
 					<view class="label">在途:</view>
-					<view class="input"><input bindinput="transQuantity" value="0" data-listindex="{{listIndex}}" data-index="{{index}}" data-max="{{list.count - list.inCount}}"/></view>
+					<view class="input"><input bindinput="transQuantity" value="{{list.transQuantity>(list.count - list.inCount)?list.count - list.inCount:list.transQuantity}}" data-listindex="{{listIndex}}" data-index="{{index}}" data-max="{{list.count - list.inCount}}"/></view>
 				</view>
-				<view class="field">
-					<view class="label">货源情况:</view>
-					<view class="input"></view>
-				</view>
-				<view class="field">
+				<view class="field" style="width:100%">
 					<view class="label">采购点:</view>
-					<view class="input">
+					<view class="input disable" data-listindex="{{listIndex}}" data-index="{{index}}" >
 						{{list.skuBuysite}}
-						<image src="../../images/location.png" mode="widthFix" class="location"/>
 					</view>
 				</view>
 			</view>
@@ -119,6 +112,6 @@
 			付款总额
 			<text class="number">{{amount}}</text>
 		</view>
-		<view class="btn">加入预入库</view>
+		<view class="btn" bindtap="calc">加入预入库</view>
 	</view>	
 </view>

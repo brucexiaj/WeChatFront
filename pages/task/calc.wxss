@@ -64,12 +64,13 @@
 .editBox .label{width:60px;text-align:right;font-size: 12px;color: #4A4A4A;display:inline-block;}
 .editBox .value{display:inline-block;font-size: 12px; color: #222222;margin-left:5px;}
 .editBox .value.price{font-size:16px;color:#FF2E38;margin-left:5px;}
-.topBox{position:relative;height:25px;line-height:25px;margin-bottom:5px;}
+.topBox{position:relative;height:30px;line-height:30px;margin-bottom:5px;}
 .doneBtn{border: 1px solid #C6AB92; border-radius: 10px;height:20px;width:48px;line-height:20px;text-align:center;color:#C6AB92;font-size:14px;position:absolute;right:0px;top:2px}
 .editBox .field{display:inline-block;width:50%;height:30px;line-height:30px;margin-bottom:5px;margin-top:5px;}
-.editBox .field .input{float:right;width:calc(100% - 70px);height:30px;line-height:30px;border: 1px solid #9B9B9B; border-radius: 22px;font-size: 16px; color: #4A4A4A;text-align:center;position:relative}
+.editBox .input{float:right;width:calc(100% - 70px);height:30px;line-height:30px;border: 1px solid #9B9B9B; border-radius: 22px;font-size: 16px; color: #4A4A4A;text-align:center;position:relative}
 .editBox .field .input.disable{background:#eee;color:#999;}
-.editBox .field .input input{height:100%;width:100%;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;}
+.editBox .valueBox .input{width:100px;margin-left:10px}
+.editBox .input input{height:100%;width:100%;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;}
 .location{width:15px;float:right;position:absolute;top:6px;right:8px;z-index:1111}
 .footer .info{width:50%;float:left;text-align:center;margin-top:20px;font-size: 12px; color: #9B9B9B;}
 .footer .infoBox{position:absolute;top:0px;z-index:1111;width:100%;}

@@ -329,6 +329,13 @@ Page({
 		})
 	},
 	rejectConfirm:function(e){
+		this.setData({
+			skuIdArr:'',
+			skuAmountArr:'',
+			skuUpcArr:'',
+			skuCodeArr:'',
+			skuLimitArr:''
+		})
 		audit(this.data.itemId,this.data.itemStatus,this);
 		this.back();
 	},

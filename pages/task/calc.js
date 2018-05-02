@@ -44,9 +44,6 @@ Page({
 		let listIndex = e.currentTarget.dataset.listindex;
 		let taskDailyList = this.data.taskDailyList;
 		let max = e.currentTarget.dataset.max;
-		if(e.detail.value>max){
-			e.detail.value = max;
-		}
 		taskDailyList[index].taskDailyDetailExtList[listIndex].quantity = e.detail.value;
 		this.setData({
 			taskDailyList:taskDailyList
@@ -144,6 +141,16 @@ Page({
 		})
 		ajaxLoad(0,this);
 	},
+	purchase:function(e){
+		let index = e.currentTarget.dataset.index;
+		let listIndex = e.currentTarget.dataset.listindex;
+		let taskDailyList = this.data.taskDailyList;
+		let value = e.detail.value;
+		taskDailyList[index].taskDailyDetailExtList[listIndex].purchasePrice = value;
+		this.setData({
+			taskDailyList:taskDailyList
+		})
+	},
 	switchTab:function(e){
 		let status = e.currentTarget.dataset.status;
 		if(status==''){
@@ -153,6 +160,84 @@ Page({
 		wx.switchTab({
 	    	url:'/pages/task/list'
 	    })
+	},
+	calc:function(){
+		let choseNum = 0;
+		let that = this;
+		let taskDailyList = that.data.taskDailyList;
+		let taskDetailId = "";
+		let transQuantity = "";
+		let skuBuysite = "";
+		let purchaseUpc = "";
+		let skuId = "";
+		let purchasePrice = "";
+		for(let i in taskDailyList){
+			if(taskDailyList[i].chose){
+				for(let j in taskDailyList[i].taskDailyDetailExtList){
+					if(taskDailyList[i].taskDailyDetailExtList[j].chose){
+						taskDetailId = taskDetailId + taskDailyList[i].taskDailyDetailExtList[j].id+",";
+						if(transQuantity +taskDailyList[i].taskDailyDetailExtList[j].transQuantity==0 || transQuantity +taskDailyList[i].taskDailyDetailExtList[j].transQuantity==''){
+							wx.showToast({
+						        title: "请填写在途数量",
+						        icon: 'none',
+						    	duration: 2000
+						    });
+							return;
+						}
+						transQuantity = transQuantity +taskDailyList[i].taskDailyDetailExtList[j].transQuantity+",";
+						skuBuysite = skuBuysite+taskDailyList[i].taskDailyDetailExtList[j].skuBuysite+",";
+						purchaseUpc = purchaseUpc+taskDailyList[i].taskDailyDetailExtList[j].purchaseUpc+",";
+						skuId = skuId +taskDailyList[i].taskDailyDetailExtList[j].skuId+",";
+						purchasePrice = purchasePrice +taskDailyList[i].taskDailyDetailExtList[j].purchasePrice+",";
+					}
+				}
+			}
+		}
+		taskDetailId = taskDetailId.substring(0,taskDetailId.length-1);
+		transQuantity = transQuantity.substring(0,transQuantity.length-1);
+		skuBuysite = skuBuysite.substring(0,skuBuysite.length-1);
+		purchaseUpc = purchaseUpc.substring(0,purchaseUpc.length-1);
+		skuId = skuId.substring(0,skuId.length-1);
+		purchasePrice = purchasePrice.substring(0,purchasePrice.length-1);
+		if(taskDetailId==""){
+			wx.showToast({
+		        title: "请选择结算的采购商品",
+		        icon: 'none',
+		    	duration: 2000
+		    });
+			return;
+		}
+		wx.showModal({
+			title: '提示',
+		    content: '您是否确认结算',
+		    success: function(res) {
+			    if (res.confirm) {
+			    	wx.showNavigationBarLoading();
+			   		wx.request({
+				      url: app.globalData.apiUrl + "/task/calc.htm",
+				      data: {taskDetailId:taskDetailId,transQuantity:transQuantity,skuBuysite:skuBuysite,purchaseUpc:purchaseUpc,skuId:skuId,buyerId:app.globalData.buyerId,purchasePrice:purchasePrice},
+				      success: function (res) {
+				      	wx.hideNavigationBarLoading();
+				      	if (res.data.retCode == '0') {
+				      		wx.navigateTo({
+								url:'../task/calc'
+							})
+					    }else {
+				            wx.showToast({
+						        title: res.data.errorMsg,
+						        icon: 'none',
+						    	duration: 2000
+						    })
+				        }
+				      },
+					  fail: function () {
+					  	wx.hideNavigationBarLoading();
+						util.errorCallback();
+					  } 
+				    }) 
+			    }
+		    }
+		})
 	},
 	onShow:function(){
 		console.log("onShow");
