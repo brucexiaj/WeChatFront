@@ -149,12 +149,12 @@
 		</view>
 		<view class="skuInfo {{item.collapse?'on':''}}">
 			<view class="field">
-				<label>颜色</label>
-				<input bindinput="inputColor" maxlength="5" value="{{item.color}}" placeholder="输入颜色" placeholder-class="placeholder" data-index="{{index}}"/>
+				<label>规格一</label>
+				<input bindinput="inputColor" maxlength="5" value="{{item.color}}" placeholder="输入规格一" placeholder-class="placeholder" data-index="{{index}}"/>
 			</view>
 			<view class="field">
-				<label>尺码</label>
-				<input bindinput="inputSize" maxlength="5" value="{{item.scale}}" placeholder="输入尺码" placeholder-class="placeholder" data-index="{{index}}"/>
+				<label>规格二</label>
+				<input bindinput="inputSize" maxlength="5" value="{{item.scale}}" placeholder="输入规格二" placeholder-class="placeholder" data-index="{{index}}"/>
 			</view>
 			<view class="field">
 				<label>重量</label>

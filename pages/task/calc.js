@@ -167,34 +167,41 @@ Page({
 		let taskDailyList = that.data.taskDailyList;
 		let taskDetailId = "";
 		let transQuantity = "";
+		let quantity = "";
 		let skuBuysite = "";
 		let purchaseUpc = "";
 		let skuId = "";
 		let purchasePrice = "";
 		for(let i in taskDailyList){
-			if(taskDailyList[i].chose){
-				for(let j in taskDailyList[i].taskDailyDetailExtList){
-					if(taskDailyList[i].taskDailyDetailExtList[j].chose){
-						taskDetailId = taskDetailId + taskDailyList[i].taskDailyDetailExtList[j].id+",";
-						if(transQuantity +taskDailyList[i].taskDailyDetailExtList[j].transQuantity==0 || transQuantity +taskDailyList[i].taskDailyDetailExtList[j].transQuantity==''){
-							wx.showToast({
-						        title: "请填写在途数量",
-						        icon: 'none',
-						    	duration: 2000
-						    });
-							return;
-						}
-						transQuantity = transQuantity +taskDailyList[i].taskDailyDetailExtList[j].transQuantity+",";
-						skuBuysite = skuBuysite+taskDailyList[i].taskDailyDetailExtList[j].skuBuysite+",";
-						purchaseUpc = purchaseUpc+taskDailyList[i].taskDailyDetailExtList[j].purchaseUpc+",";
-						skuId = skuId +taskDailyList[i].taskDailyDetailExtList[j].skuId+",";
-						purchasePrice = purchasePrice +taskDailyList[i].taskDailyDetailExtList[j].purchasePrice+",";
+			for(let j in taskDailyList[i].taskDailyDetailExtList){
+				if(taskDailyList[i].taskDailyDetailExtList[j].chose){
+					taskDetailId = taskDetailId + taskDailyList[i].taskDailyDetailExtList[j].id+",";
+					if(taskDailyList[i].taskDailyDetailExtList[j].quantity + taskDailyList[i].taskDailyDetailExtList[j].transQuantity==0){
+						wx.showToast({
+					        title: "请填写结算数量",
+					        icon: 'none',
+					    	duration: 2000
+					    });
+						return;
 					}
+					if(!taskDailyList[i].taskDailyDetailExtList[j].skuBuysite){
+						taskDailyList[i].taskDailyDetailExtList[j].skuBuysite = '';
+					}
+					if(!taskDailyList[i].taskDailyDetailExtList[j].purchaseUpc){
+						taskDailyList[i].taskDailyDetailExtList[j].purchaseUpc = '';
+					}
+					transQuantity = transQuantity +taskDailyList[i].taskDailyDetailExtList[j].transQuantity+",";
+					quantity = quantity + taskDailyList[i].taskDailyDetailExtList[j].quantity+",";
+					skuBuysite = skuBuysite+taskDailyList[i].taskDailyDetailExtList[j].skuBuysite+",";
+					purchaseUpc = purchaseUpc+taskDailyList[i].taskDailyDetailExtList[j].purchaseUpc+",";
+					skuId = skuId +taskDailyList[i].taskDailyDetailExtList[j].skuId+",";
+					purchasePrice = purchasePrice +taskDailyList[i].taskDailyDetailExtList[j].purchasePrice+",";
 				}
 			}
 		}
 		taskDetailId = taskDetailId.substring(0,taskDetailId.length-1);
 		transQuantity = transQuantity.substring(0,transQuantity.length-1);
+		quantity = quantity.substring(0,quantity.length-1);
 		skuBuysite = skuBuysite.substring(0,skuBuysite.length-1);
 		purchaseUpc = purchaseUpc.substring(0,purchaseUpc.length-1);
 		skuId = skuId.substring(0,skuId.length-1);
@@ -209,13 +216,13 @@ Page({
 		}
 		wx.showModal({
 			title: '提示',
-		    content: '您是否确认加入预入库',
+		    content: '您是否确认结算',
 		    success: function(res) {
 			    if (res.confirm) {
 			    	wx.showNavigationBarLoading();
 			   		wx.request({
 				      url: app.globalData.apiUrl + "/task/calc.htm",
-				      data: {taskDetailId:taskDetailId,transQuantity:transQuantity,skuBuysite:skuBuysite,purchaseUpc:purchaseUpc,skuId:skuId,buyerId:app.globalData.buyerId,purchasePrice:purchasePrice},
+				      data: {quantity:quantity,taskDetailId:taskDetailId,transQuantity:transQuantity,skuBuysite:skuBuysite,purchaseUpc:purchaseUpc,skuId:skuId,buyerId:app.globalData.buyerId,purchasePrice:purchasePrice},
 				      success: function (res) {
 				      	wx.hideNavigationBarLoading();
 				      	if (res.data.retCode == '0') {

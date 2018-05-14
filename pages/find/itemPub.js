@@ -225,7 +225,7 @@ Page({
 			let index = skuInfo.length;
 			if(skuInfo[index-1].color==''){
 				wx.showToast({
-			        title: "请填写颜色",
+			        title: "请填写规格一",
 			    	duration: 2000
 			    });
 			    return;
@@ -279,7 +279,7 @@ Page({
 		let index = that.data.skuInfo.length;
 		if(skuInfo[index-1].color==''){
 			wx.showToast({
-		        title: "请填写颜色",
+		        title: "请填写规格一",
 		    	duration: 2000
 		    });
 		    return;
