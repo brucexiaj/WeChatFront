@@ -1,5 +1,5 @@
 <view class="header">
-	<text>点击添加图片</text>
+	<text>点击添加图片（左滑继续添加，最多可添加9张）</text>
 	<image src="../../images/camera.png"  bindtap="choseImg" data-type="mainPic" mode="widthFix" />
 </view>
 <swiper class="swiper" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="true"> 

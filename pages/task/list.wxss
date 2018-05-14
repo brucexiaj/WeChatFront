@@ -21,7 +21,7 @@
 .taskListBox{overflow:hidden}
 .taskListBox.on{height:0px;}
 .choseBox{float:left;margin-left:10px;}
-.choseBox image{width:17px;height:17px;margin-top:17px;}
+.choseBox image{width:17px;height:17px;padding:10px;margin-top:5px;margin-left:-10px;}
 .taskList{height:130px;border-bottom:1px dashed #c8c8c8;position:relative}
 .taskList .choseBox{position:absolute;left:0px;top:50%;margin-top:-20px;}
 .orderGoodsListBox .taskList:last-child{border-bottom:7px solid #f2f2f2;}
@@ -57,7 +57,7 @@
 .taskListInfo .info{float:left;height:100%;margin-left:27px;font-size:12px;color:#9B9B9B;margin-top:7.5px}
 .taskListInfo .info .detail{height:35px;line-height:35px;text-align:left;}
 .taskListInfo .info .detail text{margin-left:10px;color:#222222;font-size:18px;}
-.editBox{padding:0px;background:#fff;height:0px;transition: all 0.2s ease-in-out;overflow:hidden}
+.editBox{padding:0px;background:#fff;height:0px;transition: all 0.2s ease-in-out;overflow:hidden;border-bottom:1px solid #ddd}
 .editBox.on{height:105px;padding:13px 17px;}
 .editBox .valueBox .label{font-size: 12px; color: #4A4A4A;}
 .editBox .valueBox{display:inline-block;margin-right:25px;}

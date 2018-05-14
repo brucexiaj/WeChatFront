@@ -39,7 +39,7 @@ view{ box-sizing: border-box; }
 .popBox.agree .info{height:100px;padding:10px 15px;}
 .infoBox{height:90px;float:left;width:calc(100% - 82px);}
 .popBox .info image{float: left;width: 56px;margin-right: 12px;}
-.popBox.agree .info image{width:70px}
+.popBox.agree .info image{width:70px;height:70px}
 .popBox .info .title{width: calc(100% - 68px);float: left;font-size:14px;color:#4C4C4C;letter-spacing:0.19px;line-height:18px;text-align:left;margin-bottom:3px;-webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;text-overflow:ellipsis;display:-webkit-box;margin-top: 10px;}
 .popBox.agree .info .title{margin-top: 20px}
 .popBox .reason{padding: 15px;}

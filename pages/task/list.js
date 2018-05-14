@@ -106,6 +106,11 @@ Page({
 		let listIndex = e.currentTarget.dataset.listindex;
 		let taskDailyList = this.data.taskDailyList;
 		let max = e.currentTarget.dataset.max;
+		if(taskDailyList[index].taskDailyDetailExtList[listIndex].quantity && taskDailyList[index].taskDailyDetailExtList[listIndex].quantity!="undefined"){
+			max = max -taskDailyList[index].taskDailyDetailExtList[listIndex].quantity;
+		}else{
+			taskDailyList[index].taskDailyDetailExtList[listIndex].quantity = 0;
+		}
 		let value = e.detail.value;
 		if(e.detail.value>max){
 			value = max;
@@ -115,11 +120,34 @@ Page({
 			taskDailyList:taskDailyList
 		})
 	},
+	quantity:function(e){
+		let index = e.currentTarget.dataset.index;
+		let listIndex = e.currentTarget.dataset.listindex;
+		let taskDailyList = this.data.taskDailyList;
+		let max = e.currentTarget.dataset.max;
+		if(taskDailyList[index].taskDailyDetailExtList[listIndex].transQuantity && taskDailyList[index].taskDailyDetailExtList[listIndex].transQuantity!="undefined"){
+			max = max -taskDailyList[index].taskDailyDetailExtList[listIndex].transQuantity;
+		}else{
+			taskDailyList[index].taskDailyDetailExtList[listIndex].transQuantity = 0;
+		}
+		let value = e.detail.value;
+		if(e.detail.value>max){
+			value = max;
+		}
+		taskDailyList[index].taskDailyDetailExtList[listIndex].quantity = value;
+		this.setData({
+			taskDailyList:taskDailyList
+		})
+	},
 	purchase:function(e){
 		let index = e.currentTarget.dataset.index;
 		let listIndex = e.currentTarget.dataset.listindex;
 		let taskDailyList = this.data.taskDailyList;
 		let value = e.detail.value;
+		let maxValue = e.currentTarget.dataset.max;
+		if(value>maxValue){
+			value = maxValue;
+		}
 		taskDailyList[index].taskDailyDetailExtList[listIndex].purchasePrice = value;
 		this.setData({
 			taskDailyList:taskDailyList
@@ -182,34 +210,41 @@ Page({
 		let taskDailyList = that.data.taskDailyList;
 		let taskDetailId = "";
 		let transQuantity = "";
+		let quantity = "";
 		let skuBuysite = "";
 		let purchaseUpc = "";
 		let skuId = "";
 		let purchasePrice = "";
 		for(let i in taskDailyList){
-			if(taskDailyList[i].chose){
-				for(let j in taskDailyList[i].taskDailyDetailExtList){
-					if(taskDailyList[i].taskDailyDetailExtList[j].chose){
-						taskDetailId = taskDetailId + taskDailyList[i].taskDailyDetailExtList[j].id+",";
-						if(transQuantity +taskDailyList[i].taskDailyDetailExtList[j].transQuantity==0 || transQuantity +taskDailyList[i].taskDailyDetailExtList[j].transQuantity==''){
-							wx.showToast({
-						        title: "请填写在途数量",
-						        icon: 'none',
-						    	duration: 2000
-						    });
-							return;
-						}
-						transQuantity = transQuantity +taskDailyList[i].taskDailyDetailExtList[j].transQuantity+",";
-						skuBuysite = skuBuysite+taskDailyList[i].taskDailyDetailExtList[j].skuBuysite+",";
-						purchaseUpc = purchaseUpc+taskDailyList[i].taskDailyDetailExtList[j].purchaseUpc+",";
-						skuId = skuId +taskDailyList[i].taskDailyDetailExtList[j].skuId+",";
-						purchasePrice = purchasePrice +taskDailyList[i].taskDailyDetailExtList[j].purchasePrice+",";
+			for(let j in taskDailyList[i].taskDailyDetailExtList){
+				if(taskDailyList[i].taskDailyDetailExtList[j].chose){
+					taskDetailId = taskDetailId + taskDailyList[i].taskDailyDetailExtList[j].id+",";
+					if(taskDailyList[i].taskDailyDetailExtList[j].quantity + taskDailyList[i].taskDailyDetailExtList[j].transQuantity==0){
+						wx.showToast({
+					        title: "请填写结算数量",
+					        icon: 'none',
+					    	duration: 2000
+					    });
+						return;
 					}
+					if(!taskDailyList[i].taskDailyDetailExtList[j].skuBuysite){
+						taskDailyList[i].taskDailyDetailExtList[j].skuBuysite = '';
+					}
+					if(!taskDailyList[i].taskDailyDetailExtList[j].purchaseUpc){
+						taskDailyList[i].taskDailyDetailExtList[j].purchaseUpc = '';
+					}
+					transQuantity = transQuantity +taskDailyList[i].taskDailyDetailExtList[j].transQuantity+",";
+					quantity = quantity + taskDailyList[i].taskDailyDetailExtList[j].quantity+",";
+					skuBuysite = skuBuysite+taskDailyList[i].taskDailyDetailExtList[j].skuBuysite+",";
+					purchaseUpc = purchaseUpc+taskDailyList[i].taskDailyDetailExtList[j].purchaseUpc+",";
+					skuId = skuId +taskDailyList[i].taskDailyDetailExtList[j].skuId+",";
+					purchasePrice = purchasePrice +taskDailyList[i].taskDailyDetailExtList[j].purchasePrice+",";
 				}
 			}
 		}
 		taskDetailId = taskDetailId.substring(0,taskDetailId.length-1);
 		transQuantity = transQuantity.substring(0,transQuantity.length-1);
+		quantity = quantity.substring(0,quantity.length-1);
 		skuBuysite = skuBuysite.substring(0,skuBuysite.length-1);
 		purchaseUpc = purchaseUpc.substring(0,purchaseUpc.length-1);
 		skuId = skuId.substring(0,skuId.length-1);
@@ -230,7 +265,7 @@ Page({
 			    	wx.showNavigationBarLoading();
 			   		wx.request({
 				      url: app.globalData.apiUrl + "/task/calc.htm",
-				      data: {taskDetailId:taskDetailId,transQuantity:transQuantity,skuBuysite:skuBuysite,purchaseUpc:purchaseUpc,skuId:skuId,buyerId:app.globalData.buyerId,purchasePrice:purchasePrice},
+				      data: {quantity:quantity,taskDetailId:taskDetailId,transQuantity:transQuantity,skuBuysite:skuBuysite,purchaseUpc:purchaseUpc,skuId:skuId,buyerId:app.globalData.buyerId,purchasePrice:purchasePrice},
 				      success: function (res) {
 				      	wx.hideNavigationBarLoading();
 				      	if (res.data.retCode == '0') {

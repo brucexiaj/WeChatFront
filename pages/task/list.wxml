@@ -21,7 +21,7 @@
 	<view wx:for="{{taskDailyList}}" wx:item="{{item}}" wx:key="{{key}}">
 		<view class="taskBarList">
 			<view class="choseBox" wx:if="{{item.status!=1 && item.taskDailyDetailExtList.length > 0 && item.allInCount<item.allCount}}">
-				<image bindtap="choseItem" src="{{item.chose ? '../../images/icon_chose.png':'../../images/icon_unchoose.png'}}" mode="widthFix" data-index="{{index}}" />
+				<image bindtap="choseItem" src="{{item.chose ? '../../images/icon_chose.png':'../../images/icon_unchoose.png'}}" data-index="{{index}}" />
 			</view>
 			<view class="timeType" style="width: {{item.status!=1? '40%':'28%'}}" >
 				<view class="title">{{item.taskTitle}}</view>
@@ -45,7 +45,7 @@
 		<view class="taskListBox {{item.unfold?'on':''}}" wx:for="{{item.taskDailyDetailExtList}}" wx:for-item="list" wx:key="keyItem" wx:for-index="listIndex" data-id="{{list.id}}" data-detailid="{{list.taskId}}" wx:if="{{list.status!=1}}">
 			<view class="taskList">
 				<view class="choseBox" wx:if="{{list.inCount < list.count}}">
-					<image bindtap="chose" src="{{list.chose ? '../../images/icon_chose.png':'../../images/icon_unchoose.png'}}" mode="widthFix" data-listindex="{{listIndex}}" data-index="{{index}}"/>
+					<image bindtap="chose" src="{{list.chose ? '../../images/icon_chose.png':'../../images/icon_unchoose.png'}}" data-listindex="{{listIndex}}" data-index="{{index}}"/>
 				</view>
 				<image src="{{list.skuPic}}" class="main">
 					<image src="../../images/angle_bits.png" class="angleBits" wx:if="{{list.count - list.inCount <10  && list.count - list.inCount>0}}">
@@ -77,17 +77,17 @@
 					</view>
 					<view class="valueBox">
 						<view class="label">采购价:</view>
-						<view class="input"><input bindinput="purchase" value="{{list.purchasePrice}}" data-listindex="{{listIndex}}" data-index="{{index}}"/></view>
+						<view class="input"><input bindinput="purchase" value="{{list.purchasePrice}}" data-max="{{list.taskMaxPrice}}" data-listindex="{{listIndex}}" data-index="{{index}}"/></view>
 					</view>
 					<view class="doneBtn" bindtap="edit" data-listindex="{{listIndex}}" data-index="{{index}}">完成</view>
 				</view>
 				<view class="field">
 					<view class="label">线下:</view>
-					<view class="input disable">{{list.quantity}}</view>
+					<view class="input"><input bindinput="quantity" value="{{list.quantity}}" data-listindex="{{listIndex}}" data-index="{{index}}" data-max="{{list.count - list.inCount}}"/></view>
 				</view>
 				<view class="field">
 					<view class="label">在途:</view>
-					<view class="input"><input bindinput="transQuantity" value="{{list.transQuantity>(list.count - list.inCount)?list.count - list.inCount:list.transQuantity}}" data-listindex="{{listIndex}}" data-index="{{index}}" data-max="{{list.count - list.inCount}}"/></view>
+					<view class="input"><input bindinput="transQuantity" value="{{list.transQuantity}}" data-listindex="{{listIndex}}" data-index="{{index}}" data-max="{{list.count - list.inCount}}"/></view>
 				</view>
 				<view class="field" style="width:100%">
 					<view class="label">采购点:</view>

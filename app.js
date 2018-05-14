@@ -1,8 +1,8 @@
 App({
     globalData: {
         userInfo: null,
-        //apiUrl: 'http://local.konggeek.com:8080/purchase/api/',
-        apiUrl: 'https://cg2.logthin.com/api/',
+        apiUrl: 'http://local.konggeek.com:8080/purchase/api/',
+        //apiUrl: 'https://xcx.buyer007.com/api/',
         xcxCookieId: null,
         powerCode:0,
         version:"1.0",

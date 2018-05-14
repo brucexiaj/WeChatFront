@@ -76,7 +76,7 @@
 <view class="popBox agree" wx:if="{{agreePopFlag}}">
 	<view class="tit">审核通过</view>
 	<view class="info">
-		<image src="{{itemPic}}" mode="widthFix"/>
+		<image src="{{itemPic}}"/>
 		<view class="infoBox">
 			<view class="title">{{itemTitle}}</view>
 		</view>
@@ -92,7 +92,7 @@
 		</view>
 	</view>
 	<view class="tipPurchase">生成{{skuList.length}}件采购单</view>
-	<view class="agreeConfirm" bindtap="agreeConfirm">加入任务采购单</view>
+	<view class="agreeConfirm" bindtap="agreeConfirm">加入采购任务单</view>
 </view>
 
 

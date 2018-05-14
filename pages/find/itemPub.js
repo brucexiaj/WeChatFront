@@ -226,7 +226,6 @@ Page({
 			if(skuInfo[index-1].color==''){
 				wx.showToast({
 			        title: "请填写颜色",
-			        icon: 'none',
 			    	duration: 2000
 			    });
 			    return;
@@ -234,7 +233,6 @@ Page({
 			if(skuInfo[index-1].upc==''){
 				wx.showToast({
 			        title: "请填写upc",
-			        icon: 'none',
 			    	duration: 2000
 			    });
 			    return;
@@ -282,7 +280,6 @@ Page({
 		if(skuInfo[index-1].color==''){
 			wx.showToast({
 		        title: "请填写颜色",
-		        icon: 'none',
 		    	duration: 2000
 		    });
 		    return;
@@ -290,7 +287,6 @@ Page({
 		if(skuInfo[index-1].upc==''){
 			wx.showToast({
 		        title: "请填写upc",
-		        icon: 'none',
 		    	duration: 2000
 		    });
 		    return;
@@ -476,6 +472,10 @@ Page({
 	onLoad:function(e){
 		let that = this;
 		let upc = e.upc;
+		let items = this.data.item;
+		let globalCostPrice = this.data.globalCostPrice
+		let globalPurchasePrice = this.data.globalPurchasePrice
+		let globalDiscount = this.data.globalDiscount
     	if(upc!=null){
     		let skuInfo = that.data.skuInfo;
     		skuInfo[0].upc = upc;
@@ -499,7 +499,6 @@ Page({
 		    }else {
 	            wx.showToast({
 			        title: "获取分类数据失败",
-			        icon: 'none',
 			    	duration: 2000
 			    })
 	        }
@@ -517,15 +516,25 @@ Page({
 		      			category = ""
 		      		}
 		      		let skuInfo = res.data.data.itemSkuList;
+		      		let itemList = res.data.data.item.pictureArr;
+		      		for(let i in itemList){
+		      			items[i] = itemList[i]
+		      		}
 		      		let skuValue ="";
 		      		for(let i in skuInfo){
 						skuValue =skuValue +"“"+skuInfo[i].color+" "+skuInfo[i].scale+","+skuInfo[i].virtualInv+"件”";
 						skuInfo[i].collapse = true;
 					}
+					if(skuInfo[0]){
+						globalCostPrice = skuInfo[0].costPrice
+						globalPurchasePrice = skuInfo[0].purchasePrice
+						globalDiscount = skuInfo[0].discount
+					}
 			    	that.setData({
 			    		categoryName:category.allPath,
 			    		categoryId:category.id,
 			    		reason:item.reason,
+			    		item:items,
 			    		startDate:item.startDateStr,
 			    		endDate:item.endDateStr,
 			    		findAddress:item.findAddress,
@@ -536,7 +545,10 @@ Page({
 			    		name:item.name,
 			    		id:e.id,
 			    		skuInfo:skuInfo,
-			    		skuValue:skuValue
+			    		skuValue:skuValue,
+			    		globalCostPrice:globalCostPrice,
+						globalPurchasePrice:globalPurchasePrice,
+						globalDiscount:globalDiscount
 			    	})
 			    }
 		      }
@@ -743,9 +755,12 @@ Page({
 			return;
 		}
 		let imageList = 0;
+		let picture = '';
 		for(let i=0;i<that.data.item.length;i++){
 			if(that.data.item[i]==""){
 				imageList++;
+			}else{
+				picture = picture+that.data.item[i]+",";
 			}
 		}
 		if(imageList==9){
@@ -754,8 +769,8 @@ Page({
             });
 			return;
 		}
+		picture = picture.substring(0,picture.length-1);
 		param.brand = that.data.brand;
-		param.mainPic = that.data.pictureList;
 		param.reason =that.data.reason;
 		param.startDate=that.data.startDate;
 		param.endDate=that.data.endDate;
@@ -764,7 +779,7 @@ Page({
 		param.buyerId = parseInt(app.globalData.buyerId);
 		param.detail=that.data.detail;
 		param.remark=that.data.remark;
-		param.pictureList = that.data.pictureList;
+		param.pictureList = picture;
 		param.id = that.data.id;
 		let skuInfo = that.data.skuInfo;
 		param.skuInfo = skuInfo;
