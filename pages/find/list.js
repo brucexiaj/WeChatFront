@@ -6,67 +6,23 @@ Page({
 		pageNum:0,
 		findItemList:[],
 		key:'',
-		status:null,
+		status:0,
 		orderTimeType:'asc',
 		countAll:0,
 		filterBoxShow:false,
 		audit:0,
-		passed:0,
+		draft:0,
 		currentIndex:0,
-		scrollTop:0,
-		popFlag:false,
-		rejectPopFlag:false,
-		agreePopFlag:false,
-		token:'',
-		skuIds:'',
-		skuAmounts:'',
-		skuLimits:'',
+		token:''
 	},
-	amount:function(e){
-		let skuList = this.data.skuList;
-		let index = e.currentTarget.dataset.index;
-		skuList[index].amount = e.detail.value;
-		this.setData({
-			skuList:skuList
-		})
-	},
-	limit:function(e){
-		let skuList = this.data.skuList;
-		let index = e.currentTarget.dataset.index;
-		skuList[index].limit = e.detail.value;
-		this.setData({
-			skuList:skuList
-		})
-	},
-	onPageScroll:function(e){
-		if(Math.abs(this.data.scrollTop - e.scrollTop)>30){	
-			let findItemList = this.data.findItemList;
-			findItemList[this.data.currentIndex].txtStyle = 'left:0px';
-			this.setData({
-				findItemList: findItemList,
-			})
-		}
-		this.setData({
-			scrollTop: e.scrollTop,
-		})
-	},
-	onShow: function(options) {
+	onShow: function() {
 		let status = app.globalData.findStatus;
-		if(!(status!=null && status !='')){
-			status = null
-		}
 		this.setData({
-			delBtnWidth:180,
 			canLoad:true,
 			pageNum:0,
-			status:status,
-			scrollTop:0
+			status:status
 		})
-		this.initEleWidth();
 		ajaxLoad(0,this,"refresh")
-	},
-	onHidden:function(){
-		app.globalData.findStatus = null;
 	},
 	filterSwitch:function(){
 		let that = this;
@@ -84,6 +40,7 @@ Page({
 	switchTab:function(e){
 		let that = this;
 		let status = e.currentTarget.dataset.status;
+		app.globalData.findStatus = status;
 		that.setData({
 			status:status,
 			filterBoxShow:false,
@@ -163,156 +120,24 @@ Page({
 		wx.showNavigationBarLoading();
 		ajaxLoad(that.data.pageNum,that,"load");
 	},
-	touchS: function(e) {
-		let findItemList = this.data.findItemList;
-		findItemList[this.data.currentIndex].txtStyle = 'left:0px';
-		this.setData({
-			findItemList: findItemList,
-		})
-		if (e.touches.length == 1) {
-			this.setData({
-				startX: e.touches[0].clientX
-			})
-		}
-	},
-	touchM: function(e) {
-		if (e.touches.length == 1) {
-			let moveX = e.touches[0].clientX;
-			let disX = this.data.startX - moveX;
-			let delBtnWidth = this.data.delBtnWidth;
-			let txtStyle = "";
-			if (disX == 0 || disX < 0) {
-				txtStyle = "left:0px"
-			}
-			else if(disX > 0) {
-				txtStyle = "left:-" + disX + "px";
-				if (disX >= delBtnWidth) {
-					txtStyle = "left:-" + delBtnWidth + "px"
-				}
-			}
-			let index = e.currentTarget.dataset.index;
-			let findItemList = this.data.findItemList;
-			findItemList[index].txtStyle = txtStyle;
-			this.setData({
-				findItemList: findItemList,
-				currentIndex:index
-			})
-		}
-	},
-	touchE: function(e) {
-		if (e.changedTouches.length == 1) {
-			let endX = e.changedTouches[0].clientX;
-			let disX = this.data.startX - endX;
-			let delBtnWidth = this.data.delBtnWidth;
-			let txtStyle = disX > delBtnWidth / 2 ? "left:-" + delBtnWidth + "px": "left:0px";
-			let index = e.currentTarget.dataset.index;
-			let findItemList = this.data.findItemList;
-			findItemList[index].txtStyle = txtStyle;
-			this.setData({
-				findItemList: findItemList,
-				currentIndex:index
-			})
-		}
-	},
-	getEleWidth: function(w) {
-		let real = 0;
-		try {
-			let res = wx.getSystemInfoSync().windowWidth;
-			let scale = (750 / 2) / (w / 2);
-			real = Math.floor(res / scale);
-			return real
-		} catch(e) {
-			return false
-		}
-	},
-	initEleWidth: function() {
-		let delBtnWidth = this.getEleWidth(this.data.delBtnWidth);
-		this.setData({
-			delBtnWidth: delBtnWidth
-		})
-	},
-	delItem: function(e) {
-		let index = e.currentTarget.dataset.index;
-		let id = e.currentTarget.dataset.id;
-		let findItemList = this.data.findItemList;
-		let that = this;
-		wx.request({
-	      url: app.globalData.apiUrl + "/find/delItem.htm",
-	      data: {id:id},
-	      success: function (res) {
-	      	wx.hideNavigationBarLoading();
-	      	if (res.data.retCode == '0') {
-	      		findItemList.splice(index, 1);
-				that.setData({
-					findItemList: findItemList
-				})
-	      		wx.showToast({
-			        title: "删除成功",
-			        icon: 'none',
-			    	duration: 2000
-			    });
-		    }else {
-	            wx.showToast({
-			        title: res.data.errorMsg,
-			        icon: 'none',
-			    	duration: 2000
-			    })
-	            findItemList[index].txtStyle = '';
-				that.setData({
-					findItemList: findItemList
-				})
-	        }
-	      },
-		  fail: function () {
-		  	wx.hideNavigationBarLoading();
-			util.errorCallback();
-		  } 
-	    }) 
-	},
 	audit:function(e){
 		let index = e.currentTarget.dataset.index;
 		let id = e.currentTarget.dataset.id;
 		let status = e.currentTarget.dataset.status;
 		let findItemList = this.data.findItemList;
-		let that = this;
-		that.setData({
-			itemPic:findItemList[index].skuPic,
-			itemTitle:findItemList[index].name,
-			itemId:findItemList[index].id,
-			itemStatus:status,
-			itemIndex:index
-		})
+		let itemId = findItemList[index].id;
+		let item = {};
+		item.costPrice = findItemList[index].costPrice;
+		item.day = findItemList[index].day;
+		item.hours = findItemList[index].hours;
+		item.minutes = findItemList[index].minutes;
 		if(status==-1){
-			that.setData({
-				popFlag:true,
-				rejectPopFlag:true,
-			})	
+			wx.navigateTo({
+				url:'../find/reject?itemId='+itemId+'&itemJsonStr='+JSON.stringify(item)
+			})
 		}else{
-			wx.request({
-		      url: app.globalData.apiUrl + "/find/skuList.htm",
-		      data: {itemId:findItemList[index].id},
-		      success: function (res) {
-		      	wx.hideNavigationBarLoading();
-		      	if (res.data.retCode == '0') {
-					that.setData({
-						skuList: res.data.data.skuList
-					})
-			    }else {
-		            wx.showToast({
-				        title: res.data.errorMsg,
-				        icon: 'none',
-				    	duration: 2000
-				    })
-		        }
-		      },
-			  fail: function () {
-			  	wx.hideNavigationBarLoading();
-				util.errorCallback();
-			  } 
-		    })
-			that.setData({
-				popFlag:true,
-				agreePopFlag:true,
+			wx.navigateTo({
+				url:'../find/agree?itemId='+itemId+'&itemJsonStr='+JSON.stringify(item)
 			})
 		}
 	},
@@ -428,7 +253,9 @@ let ajaxLoad = function(pageNum,that,loadType){
       	if (res.data.retCode == '0') {
       		let token = that.data.token;
       		that.setData({
-      			token:res.data.data.token
+      			token:res.data.data.token,
+      			draft:res.data.data.draft,
+	        	audit:res.data.data.audit
       		})	
       		if(loadType=="refresh" && res.data.data.token!=token){
 	        	that.setData({
@@ -455,7 +282,7 @@ let ajaxLoad = function(pageNum,that,loadType){
       		}
       		let findItemList = that.data.findItemList.concat(res.data.data.findItemList);
 	        that.setData({
-	        	passed:res.data.data.passed,
+	        	draft:res.data.data.draft,
 	        	audit:res.data.data.audit,
 	        	countAll:res.data.data.countAll,
 	        	pageNum:pageNum+1

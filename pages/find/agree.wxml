@@ -1,0 +1,44 @@
+<view class="inner contentBox">
+	<image class="mainPic" src="{{item.skuPic}}" data-id="{{item.id}}"/>
+	<view class="info" data-id="{{item.id}}">
+		<view class="name">{{item.name}}</view>
+		<view class="priceRange">${{item.priceRange}}</view>
+		<view class="detail">
+			<view class="price">${{item.costPrice}}</view>
+			<view class="time"><block wx:if="{{item.day>0}}">{{item.day}}天</block>{{item.hours}}:{{item.minutes}}</view>
+			<image src="../../images/icon_time.png" class="timeIcon" mode="widthFix"/>
+		</view>
+	</view>
+</view>
+<view class="popBox agree">
+	<view class="skuList" wx:for="{{skuList}}" wx:key="key">
+		<view class="skuInfo">
+			<view class="name">规格：{{item.color}}<block wx:if="{{item.scale}}">,{{item.scale}}</block></view>
+			<view class="price">折后<text>${{item.purchasePrice}}</text></view>
+			<view class="price">原价<text class="costPrice">${{item.costPrice}}</text></view>
+		</view>
+		<view class="taskAmount" style="height:45px;font-size:14px;color:#4a4a4a;">
+			<label>采购价{{lt}}=</label>
+			<input class="limit" bindinput="limit" maxlength="8" data-index="{{index}}"  placeholder="输入限价" placeholder-class="placeholder"/>
+			<label>采购数量</label>
+			<input class="amount" bindinput="amount" maxlength="5" data-index="{{index}}"  placeholder="输入数量" placeholder-class="placeholder"/>
+		</view>
+	</view>
+</view>
+<view class="fixedBox">
+	<view class="tipPurchase">生成{{skuList.length}}件采购单</view>
+	<view style="width:100%; height:67px; border-top:3px solid #f6f6f6;">
+		<view class="agreeConfirm" bindtap="agreeConfirm">加入采购任务单</view>
+	</view>
+</view>
+
+
+
+
+
+
+
+
+
+
+

@@ -59,6 +59,7 @@ Page({
 		itemUploadIndex:0,
 		currency:'$',
 		current:0,
+		swiperHeight:wx.getSystemInfoSync().windowWidth/3,
 		itemProgress:['0px','0px','0px','0px','0px','0px','0px','0px','0px'],
 		skuInfo:[{ "index": 0, "color":'', "scale":'', "collapse":true, "weight":0.0, "virtualInv":0, "costPrice":0.00, "purchasePrice":0.00,"model":'', "salePrice":0.00, "upc":'', "discount":0}]
 	},
@@ -708,7 +709,7 @@ Page({
 		        let data = resData.data.pictureList;
 	        	let item = that.data.item;
 	        	let itemProgress = that.data.itemProgress;
-	        	item[i] = data
+	        	item[i] = data+'?x-oss-process=image/resize,m_fill,h_420,w_420';
 	        	itemProgress[i] = '0px';
 	        	that.setData({
 			    	item:item,
@@ -729,8 +730,10 @@ Page({
 		let that = this;
 		let param = {};
 		let purchaseStatus = 0;
+		app.globalData.findStatus = 0 ;
 		if(type=="save"){
 			purchaseStatus = 2;
+			app.globalData.findStatus=2;
 		}else{
 			if(that.data.skuInfo[0].color==''|| that.data.skuInfo[0].costPrice=='' || that.data.skuInfo[0].discount==''|| that.data.skuInfo[0].purchasePrice=='' || that.data.skuInfo[0].upc==''){
 				wx.showToast({
@@ -760,7 +763,7 @@ Page({
 			if(that.data.item[i]==""){
 				imageList++;
 			}else{
-				picture = picture+that.data.item[i]+",";
+				picture = picture+that.data.item[i]+";";
 			}
 		}
 		if(imageList==9){

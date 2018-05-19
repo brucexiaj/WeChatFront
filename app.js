@@ -2,7 +2,7 @@ App({
     globalData: {
         userInfo: null,
         //apiUrl: 'http://local.konggeek.com:8080/purchase/api/',
-        apiUrl: 'https://xcx.buyer007.com/api/',
+        apiUrl: 'https://xcx.buyer007.cn/api/',
         xcxCookieId: null,
         powerCode:0,
         version:"1.0",
@@ -11,8 +11,10 @@ App({
         buyerId:null,
         pageSize:20,
         taskId:null,
-        status:null,
-        findStatus:null
+        status:0,
+        findStatus:0,
+        calc:false,
+        storage:false
     },
     onLaunch: function (res) {
         let that = this;

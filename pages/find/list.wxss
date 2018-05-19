@@ -1,28 +1,32 @@
-.pub{position:fixed;width:100%;height:50px;left:0px;bottom:0px;text-align:center;border-top:1px solid rgba(151,151,151,0.4);z-index:11;background:#fff;z-index:1111}
-.pub image{width:35px;display:block;margin:auto;margin-top:7.5px}
-view{ box-sizing: border-box; } 
-.item{ position: relative; width: calc(100% - 40px); margin: 20px;height:115px;} 
-.inner .btn{position:absolute;right:18px;top:0;}
-.btn image{width:18px;margin-top:30px;margin-bottom:-10px;float:right;clear:both;}
-.btn .large{width:22px;margin-right:-2px;}
-.inner{ position: absolute; top:0;} 
-.inner.contentBox{ background-color: #fff; width: 100%; z-index: 5; padding:0 10rpx; transition: left 0.2s ease-in-out;box-shadow: 0 1px 10px 0 rgba(133,133,133,0.14); border-radius: 20px;height:100%;} 
-.inner.BtnBox{height:100%;width: 70px;text-align: center; z-index: 4; right: 0;text-align:center;} 
-.inner.BtnBox image{display:block;width:45px;margin:auto;margin-top:33px;}
-.mainPic{float:left;margin:9px;width:97px;height:97px;border-radius: 10px;overflow:hidden;}
-.contentBox .info{float:left;width:calc(100% - 160px);position:relative;margin-top:10px;}
-.contentBox .info .name{font-size:14px;color:#4C4C4C;letter-spacing:0.19px;line-height:18px;text-align:left;margin-bottom:3px;-webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;text-overflow:ellipsis;display:-webkit-box;}
-.contentBox .info .priceRange{color:#FF2E38;font-size:16px;margin-top:5px;margin-bottom:5px;}
+.pub{position:fixed;right:12px;bottom:45px;z-index:1;width:80px;}
+.pub image{width:100%;display:block;}
+view{ box-sizing: border-box; }
+.itemBox{ position: relative; width:100%;height:180px;border-bottom:3px solid #f6f6f6} 
+.itemBox .userInfoBox{float:right;width:calc(20.5% - 2px);height:100%;}
+.itemBox .userInfoBox .avatar{display:block;margin:auto;width:32px;height:32px;border-radius:50%;border:2px solid #CAA470;margin-top:15px;}
+.itemBox .userInfoBox .nickname{font-size: 12px;color: #4A4A4A;text-align:center;height:20px;line-height:20px;overflow:hidden;margin-bottom:2px;}
+.itemBox .btn{font-size:16px;color:#FFFFFF;letter-spacing:0;text-align:center;height:26px;line-height:26px;width:50px;margin:auto;margin-bottom:10px;margin-top:20px;border-radius:12.5px;}
+.itemBox .btn.agree{background:#FF2E38}
+.itemBox .btn.reject{background:#4A4A4A}
+.itemBox .inner{ position: absolute; top:0;} 
+.itemBox .inner.contentBox{background-color:#fff; width:79.5%; float:left; z-index:5; height:100%; border-right:2px solid #f2f2f2;height:100%} 
+.itemBox .inner.BtnBox{height:100%;width: 70px;text-align: center; z-index: 4; right: 0;text-align:center;} 
+.itemBox .inner.BtnBox image{display:block;width:45px;margin:auto;margin-top:33px;}
+.itemBox .mainPic{width:90px;height:90px;border-radius:10px;overflow:hidden;margin-left:24px;margin-top:5px;margin-right:10px;}
+.itemBox .pictureBox{float:left;width:125px;overflow:hidden}
+.itemBox .contentBox .info{float:left;width:calc(100% - 160px);position:relative;margin-top:10px;}
+.itemBox .contentBox .info .name{font-size:14px;color:#4C4C4C;letter-spacing:0.19px;line-height:18px;text-align:left;margin-bottom:3px;-webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;text-overflow:ellipsis;display:-webkit-box;}
+.itemBox .contentBox .info .priceRange{color:#FF2E38;font-size:16px;}
+.itemBox .reason{clear:both;font-size:14px;color:#4a4a4a;margin-left:25px;}
 .contentBox .info .address{font-size: 13px; color: #B7B7B7;line-height:18px;width:100%;text-align:left;margin-bottom:1px;-webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;text-overflow:ellipsis;display:-webkit-box;}
-.header{height:55px;line-height:40px;padding-top:15px;border-bottom:1.5px solid rgba(200,200,200,.6);font-size: 12px;position:fixed;top:0px;left:0px;width:100%;z-index:1111;background:#fff}
-.header text{font-size: 18px; color: #4A4A4A;margin-right:4px;}
-.header .tab{float:left;text-align:center;font-size:12px;color:#9B9B9B;height:100%;width:25%}
-.header .tab.on{border-bottom:1.5px solid rgba(0,0,0,.6);}
+.header{height:55px;line-height:40px;padding-top:15px;border-bottom:1.5px solid rgba(200,200,200,.6);font-size: 14px;position:fixed;top:0px;left:0px;width:100%;z-index:1111;background:#fff;padding-left:30px}
+.header text{font-size:12px; color:#fff; display:inline-block; height:20px; padding:0px 10px; background:#FF2E38; line-height:20px; border-radius:12px; margin-left:5px;}
+.header .tab{float:left;text-align:center;font-size:14px;color:#9B9B9B;height:100%;margin-right:20px;}
+.header .tab.on{border-bottom:1.5px solid rgba(0,0,0,.6);color:#4a4a4a}
 .header .filter{width:17px;float:right;margin-top:11px;margin-right:25px;}
 .info .price{float:left;font-size: 13px; color: #4A4A4A;margin-right:5px;height:25px;line-height:25px;text-decoration:line-through }
-.info .time{opacity: 0.7; font-size: 12px; color: #4A4A4A;float:left;height:25px;line-height:28px;float:right}
-.info .timeIcon{float:left;margin-right:3px;width:12px;margin-top:8px;float:right}
-.info .detail{margin-top:2px}
+.pictureBox .time{opacity:0.7;font-size:12px;color:#4A4A4A;float:12px;height:25px;line-height:28px;margin-top:4px;}
+.pictureBox .timeIcon{float:left;margin-right:7px;width:12px;margin-top:7px;margin-left:24px;margin-bottom:10px;}
 .shadow{position:fixed;width:100%;height:100%;z-index:11;opacity: 0.2;background: #4A4A4A;top:0px;left:0px;}
 .filterBox{position:fixed;z-index:111;top:65px;right:20px;width:132px;border-radius: 20px;background: #FFFFFF;overflow:hidden}
 .filterBox .listItem{height:35px;line-height:35px;text-align:center;border-bottom:1px solid rgba(151,151,151,.63);font-size: 14px;color: rgba(74,74,74,.5);position:relative}
@@ -58,5 +62,17 @@ view{ box-sizing: border-box; }
 .amount{float: right;background: #FFFFFF; border: 1px solid #979797; border-radius: 10px;width: 80px;height: 34px;text-align: center;font-size: 14px;}
 .limitBox{line-height:34px;font-size: 14px; color: #4A4A4A;float: right;margin-right: 8px;padding-left: 10px;width: 90px;height: 34px;background: #FFFFFF; border: 1px solid #979797; border-radius: 10px;}
 .limitBox input{width:67px;float:right;display:inline-block;height:35px;line-height:35px;}
-
-
+.itemListBox .inner.contentBox{background-color:#fff; width:100%; z-index:5; padding:10px; transition:left 0.2s ease-in-out; border-bottom:1px solid #ddd; border-top:1px solid #ddd;} 
+.itemListBox .inner.BtnBox{height:100%;width: 70px;text-align: center; z-index: 4; right: 0;text-align:center;} 
+.itemListBox .inner.BtnBox image{display:block;width:45px;margin:auto;margin-top:33px;}
+.mainPic{float:left;margin:9px;width:97px;height:97px;border-radius: 10px;overflow:hidden;}
+.itemListBox .contentBox .info{float:left;width:calc(100% - 160px);position:relative;margin-top:10px;}
+.itemListBox .contentBox .info .name{font-size:14px;color:#4C4C4C;letter-spacing:0.19px;line-height:18px;text-align:left;margin-bottom:3px;-webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;text-overflow:ellipsis;display:-webkit-box;}
+.itemListBox .contentBox .info .priceRange{color:#FF2E38;font-size:16px;margin-top:5px;margin-bottom:5px;}
+.itemListBox .contentBox .info .address{font-size: 13px; color: #B7B7B7;line-height:18px;width:100%;text-align:left;margin-bottom:1px;-webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;text-overflow:ellipsis;display:-webkit-box;}
+.itemListBox .info .price{float:left;font-size: 13px; color: #4A4A4A;margin-right:5px;height:25px;line-height:25px;text-decoration:line-through }
+.itemListBox .info .time{opacity: 0.7; font-size: 12px; color: #4A4A4A;float:left;height:25px;line-height:28px;float:right}
+.itemListBox .info .timeIcon{float:left;margin-right:3px;width:12px;margin-top:8px;float:right}
+.itemListBox .info .detail{margin-top:2px}
+.itemListBox .reasonBox{margin:0 10px;clear: both;font-size: 12px; color: #2B2B2B;}
+.itemListBox .reasonBox text{color: #9b9b9b;}
