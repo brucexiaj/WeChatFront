@@ -15,7 +15,7 @@
 	<view wx:for="{{taskDailyList}}" wx:item="{{item}}" wx:key="{{key}}" style="border-bottom:2px solid #f2f2f2">
 		<view class="taskBarList" bindtap="fold" data-detailid="{{item.id}}" data-index="{{index}}">
 			<view class="timeType">
-				<view class="title">{{item.taskTitle}}</view>
+				<view class="title">{{item.title}}</view>
 				<view class="time">{{item.taskStartTimeStr}}</view>
 			</view>
 			<view class="status">
@@ -57,7 +57,7 @@
 				<image bindtap="choseItem" src="{{item.chose ? '../../images/icon_chose.png':'../../images/icon_unchoose.png'}}" data-index="{{index}}" />
 			</view>
 			<view class="timeType" style="width:50%;margin-left:5px;">
-				<view class="title">{{item.taskTitle}}</view>
+				<view class="title">{{item.title}}</view>
 				<view class="time">{{item.taskStartTimeStr}}</view>
 			</view>
 			<view class="purchaseNum">

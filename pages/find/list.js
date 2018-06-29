@@ -1,4 +1,5 @@
 var app = getApp();
+var util = require('../../utils/util.js');
 Page({
 	data: {
 		delBtnWidth: 180,

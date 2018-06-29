@@ -212,13 +212,18 @@ Page({
 		})
 	},
 	choseCategory:function(){
+		console.log(this)
 		let that = this;
 		that.setData({
 			categoryFlag:!that.data.categoryFlag,
 			popFlag:!that.data.popFlag,
 		})
 		let threeCategoryList = [];
+		// console.log(that.data)
+		// console.log(that.data.category[0])
+		// console.log(that.data.category[0].categoryList[0])
 		let pid = that.data.category[0].categoryList[0].id;
+
 		wx.request({
 	      url: app.globalData.apiUrl + "/data/child_list.htm?pid="+pid,
 	      success: function (res) {
@@ -827,8 +832,11 @@ Page({
 			filePath: filePath,
 			name: 'item',
 			success: function(res){
-				let resData = JSON.parse(res.data);
-		        let data = resData.data.pictureList;
+				console.log(res)
+                let resData = JSON.parse(res.data);
+                let data = resData.data.pictureList.toString().replace(/img.haihu.com/, "img-us.haihu.com");
+                console.log(data.toString().replace(/img.haihu.com/, "img-us.haihu.com"))
+                console.log(data)
 	        	let item = that.data.item;
 	        	let itemProgress = that.data.itemProgress;
 	        	item[i] = data+'?x-oss-process=image/resize,m_fill,h_420,w_420';
@@ -894,12 +902,12 @@ Page({
 				picture = picture+that.data.item[i]+";";
 			}
 		}
-		if(imageList==9){
-			wx.showToast({
-                title: '请上传商品图片',
-            });
-			return;
-		}
+		// if(imageList==9){
+		// 	wx.showToast({
+        //         title: '请上传商品图片',
+        //     });
+		// 	return;
+		// }
 		picture = picture.substring(0,picture.length-1);
 		param.brand = that.data.brand;
 		param.reason =that.data.reason;
@@ -914,12 +922,15 @@ Page({
 		param.id = that.data.id;
 		let skuInfo = that.data.skuInfo;
 		param.skuInfo = skuInfo;
+		console.log('thisthsithsitshi')
+		console.log(param)
 		wx.request({
 	      url: app.globalData.apiUrl + "/find/save.htm",
 	      method:"POST",
 	      data: param,
 	      success: function (res) {
-	      	wx.hideNavigationBarLoading();
+			  wx.hideNavigationBarLoading();
+			  console.log('this')
 	      	if (res.data.retCode == '0') {
 			    wx.switchTab({
 			    	url:'list'
