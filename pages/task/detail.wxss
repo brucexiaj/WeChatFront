@@ -17,7 +17,7 @@ page{background:#f2f2f2;}
 .taskList .info .upc.error{color:#FF2E38}
 .taskList .info .upc.true{color:#21C7D3}
 .taskList .info .price{font-size: 14px; color: #4A4A4A;height:20px;line-height:20px}
-.taskList .info .price text{font-size: 15px;color:red;}
+.taskList .info .price text{font-size: 15px;color:#B38E6B;}
 .taskList .info .status{border: 1px solid #9DD321; border-radius: 48px;width:66px;height:26px;font-size: 14px; color: #7ED321;text-align:center;position:absolute;right:20px;bottom:2px;line-height:26px}
 .angleBits{position:absolute;top:-8px;left:-9px;width:30px;text-align:center;font-size:18px;color:#FFFFFF;height:30px;line-height:30px;}
 .angleNum{position:absolute;width:100%;height:100%;left:0px;top:0px;font-size:15px;}
@@ -30,7 +30,7 @@ page{background:#f2f2f2;}
 .assigner{font-size:13px;color:4%;float:left;height:50px;line-height:50px;width:15.5%;margin-right:0%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .editBtn{height:26px;width:70px;position:absolute;right:16px;bottom:9px;background:rgba(200,200,200,.5); border-radius: 20px;}
 .editBtn image{width:20px;float:left;display:block;margin-left:11px;margin-top:4px;}
-.editBtn text{background:#ff2e38;border-radius:80px;float:right;display:block;margin-right:3px;height:22px;line-height:22px;margin-top:2px;font-size:14px;color:#fff;text-align:center;padding:0px 5px}
+.editBtn text{background:#B38E6B;border-radius:80px;float:right;display:block;margin-right:3px;height:22px;line-height:22px;margin-top:2px;font-size:14px;color:#fff;text-align:center;padding:0px 5px}
 .taskBarList .purchaseNum{width:15%;margin-left:2%;margin-right:2%;texe-align:center;float:left;font-size:13px;color:#4A4A4A;height:50px;line-height:50px;}
 .taskBarList .status{float:left;margin-left:4%;margin-right:4%;width:15%;}
 .taskBarList .status .statusDes{font-size: 12px; color: #4A4A4A;height:17px;line-height:17px;margin-top:10px;}
@@ -38,6 +38,8 @@ page{background:#f2f2f2;}
 .taskBarList .status .scheduleBox view{background: #FFBA00;height:3px;margin-top:1px;float:left}
 .taskBarList .status .scheduleBox .cancel{background: #FF2E38;}
 .taskBarList .status .scheduleBox .done{background: #21C7D3;}
+.listBox input.trueUpc{color:#21C7D3;}
+.listBox input.trueUpc:after{content:'核对成功'}
 .taskListInfo{background:rgba(255,255,255,.95); box-shadow: 1px 2px 15px 0 rgba(163,163,163,0.15);position:fixed;border-top: 1px solid #C8C8C8;border-bottom: 1px solid #C8C8C8;z-index:1111;bottom:0px;left:0px;width:100%;height:83px;}
 .taskListInfo .calc{background-image: linear-gradient(-129deg, #E5C297 0%, #A97D43 100%);box-shadow: 0 4px 10px 0 rgba(198,171,146,0.52);border-radius: 20px;text-align:center;width:95px;height:42px;line-height:42px;margin-right:20px;font-size: 14px;color: #FFFFFF;margin-top:20px;float:right}
 .taskListInfo .viewCalc{margin-top:20px;float:right;margin-right:7px;background: #FFFFFF; box-shadow: 0 4px 10px 0 rgba(198,171,146,0.28); border-radius: 20px;border:1px solid #A97D43;height:40px;width:93px;color:#4a4a4a;font-size:14px;line-height:40px;text-align:center;}
@@ -47,7 +49,7 @@ page{background:#f2f2f2;}
 .footerBox{height:65px;position:fixed;background:#fff;bottom:0px;left:0px;z-index:111;width: 100%;}
 .footerBox .price{height: 100%;float: left; width:50%;line-height: 65px;font-size: 14px; color: #9B9B9B;padding-left: 30px;}
 .footerBox .price text{font-size: 18px; color: #091420;margin-left: 20px;}
-.footerBox .calcBtn{background: #FF2E38;border-radius: 10px;width: 100px;height: 45px;line-height: 45px;font-size: 16px; color: #FFFFFF;text-align: center;float: right;margin-top: 10px;margin-right: 35px;}
+.footerBox .calcBtn{background-image:linear-gradient(-180deg, #E5C297 0%, #A97D43 100%);border-radius: 10px;width: 100px;height: 45px;line-height: 45px;font-size: 16px; color: #FFFFFF;text-align: center;float: right;margin-top: 10px;margin-right: 35px;}
 .listBox{height:52px;line-height:44px;padding:0px 16px 0px 27px;border-bottom:2px solid #f4f4f4;width:calc(100% - 59px;)}
 .listBox label{font-size: 14px; color: #4a4a4a; line-height: 52px;float:left;width:45px;}
 .listBox label text{color:#FF2E38;margin-left:5px;}

@@ -1,0 +1,10 @@
+page{position:relative}
+.searchBtn{position:absolute;width:18px;right:35px;top:40px}
+.notifications{position:fixed;width:18px;left:30px;top:35px}
+.avatar{border: 6px solid rgba(202,164,112,0.26);width:90px;height:90px;top:40px;position:relative;left:50%;margin-left:-48px;border-radius:50%}
+.nickname{margin-top:40px;text-align:center;font-size:12px;color:#4A4A4A;}
+.container{padding-bottom:10px;border-bottom:2px solid #f2f2f2;}
+.logo{width:75px;margin:auto;display:block}
+.about{color:#4A4A4A;font-size:16px;margin-top:20px;text-align:center;}
+.content{padding:55px;font-size:13px;color:#4a4a4a;padding-top:20px;text-align:center;}
+.version{color:#4A4A4A;font-size:13px;text-align:center;}

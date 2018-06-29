@@ -1,15 +1,21 @@
-.uploadBox{padding:20px;padding-bottom:10px;background:#fff;position:relative;border-bottom:4px solid #f4f4f4;}
-.mainUpload{float:left;display:block;width:65%;margin-right:3px;position:relative}
-.mainPic{position:absolute;top:0px;left:0px;z-index:10;width:100%;}
-.itemBox{float:left; width:calc(100% - 65% - 23px); height:calc(100% - 32px); position:absolute; bottom:0px; right:20px; top:20px;}
-.itemBox .item{width:100%; height:calc(100% / 3 - 3px); background:#f4f4f4; margin-bottom:3px;text-align:center;overflow:hidden}
-.upload{width:30%;display:bolck;margin:auto;margin-top:10%;}
-.upload.on{width:100%;margin:auto;}
+.uploadBox{padding:0 5px;background:#fff;position:relative;overflow:auto;width:calc(100% - 10px)}
+.swiper{border-bottom:4px solid #f4f4f4;height:100px}
+.header{height:45px;line-height:45px;padding:0px 15px;}
+.header text{color:#9B9B9B;height:45px;line-height:45px;font-size:13px;display:inline-block;}
+.header image{width:25px;margin-top:13px;float:right;margin-right:10px;}
+.uploadBox .item{margin-right:5px;width:calc((100% - 10px) / 3);float:left;position:relative;height:90px;overflow:hidden}
+.uploadBox .item:last-child{margin-right:0px;}
+.swiper .wx-swiper-dot,.popSwiper .wx-swiper-dot{width:4px;height:4px;}
+.uploadBox .item .upload{width:100%;height:100%}
+.currencyArrow{border-style:solid dashed dashed dashed; border-width:4px; border-color:#9b9b9b transparent transparent transparent; width:0; height:0; display:inline-block; transform:scaleY(2); margin-top:6px; margin-left:10px; vertical-align:middle;}
+.currencyBox{background: #FFFFFF; border: 0 solid #C8C8C8; box-shadow: 0 3px 11px -2px rgba(74,74,74,0.41); border-radius: 10px;position:absolute;width:70px;z-index:111;top:30px;}
+.currencyItem{height:33px;border-bottom: .5px solid #C8C8C8;text-align:center;line-height:33px;font-size: 14px; color: #4A4A4A;width:100%}
+.currencyItem:last-child{border:none}
 .camera{width:30px;height:30px;position:absolute;right:4px;bottom:4px;z-index:11}
-.listBox{height:44px;line-height:44px;padding:0px 32px 0px 27px;border-bottom:2px solid #f4f4f4;width:calc(100% - 59px;);border-bottom:4px solid #f2f2f2}
+.listBox{height:44px;line-height:44px;padding:0px 32px 0px 27px;border-bottom:2px solid #f4f4f4;width:calc(100% - 59px;)}
 .listBox label{font-size: 13px; color: #9B9B9B; line-height: 44px;float:left;width:55px;}
 .listBox label text{color:#FF2E38;margin-left:5px;}
-.listBox input{float:left;width:230px;height:100%;font-size: 14px;color: #4A4A4A;margin-left:3px;display:block;}
+.listBox input{float:left;width:230px;height:44px;line-height: 44px;font-size: 14px;color: #4A4A4A;margin-left:3px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
 .placeholder{font-size: 14px; color: rgba(74,74,74,.2);}
 .listBox .scan{float:right;width:24px;margin-top:10px}
 .listBox .arrow{display:inline-block; margin-left:3px; transform:rotate(-45deg); border-bottom:2px solid #999999; border-right:2px solid #999999; width:7px; height:7px; margin-top:18px; float:right;}
@@ -20,19 +26,63 @@ picker{border:1px solid #C8C8C8; border-radius:100px; height:28px; margin:6px 5p
 .footer image{width:130px;margin:auto;display:inline-block;line-height:50px;position:relative;margin-top:10px}
 .footer image view{height:100%;width:100%;text-align:center;font-size: 15px;position:absolute;top:0px;left:0px}
 .save{margin-right:-15px;}
+.popBox .tit{height:44px;line-height:44px;text-align:center;font-size: 16px; color: #4A4A4A;border-bottom: 2px solid rgba(151,151,151,.2);}
+.swiper .wx-swiper-dots.wx-swiper-dots-horizontal{background: rgba(255,255,255,.2);width: 6px;height: 6px;}
+.swiper .wx-swiper-dot-active{width: 24px;height: 6px;border-radius: 4px;}
+.swiper .wx-swiper-dot-active::before{background:rgba(244,0,0,0.8);}
 .submit{margin-left:-15px;}
 .content{font-size: 14px;color: #4A4A4A;float:left; width:calc(100% - 90px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
 image.save view{color: #4A4A4A;}
 image.submit view,image.confirm view{ color: #FFFFFF;}
-.tit{height:44px;line-height:44px;text-align:center;font-size: 16px; color: #4A4A4A;border-bottom: 2px solid rgba(151,151,151,.2);}
-.skuList{ border-bottom:3px solid rgba(151,151,151,.2);}
-.skuName{height:44px; line-height:44px; border-bottom:1.5px solid rgba(151,151,151,.2);color:#4a4a4a; font-size:14px;}
-.skuName text{margin-left:20px;color:#9B9B9B;font-size:13px;margin-right:10px;}
-.skuName .arrow{display:inline-block; margin-right:20px; transform:rotate(45deg); border-bottom:2px solid #999999; border-right:2px solid #999999; width:7px; height:7px; margin-top:17px; float:right;}
+.popBox{position:fixed;width:100%;background:#fff;left:0px;height:70%;border-top-left-radius:25px;border-top-right-radius:25px;
+z-index:12;overflow:auto;padding-bottom:20px;bottom: -100%;transition: all 0.5s ease-in-out;}
+.categoryBox{position:fixed;width:335px;background:#fff;left:0px;height:80%;background: #FFFFFF; border: 1px solid #CCAB8C; 
+box-shadow: 0 20px 31px -2px rgba(204,171,140,0.29);left: 50%;margin-left: -167.5px; z-index: 13;border-radius: 20px;bottom: -100%;transition: all 0.5s ease-in-out;overflow: hidden;}
+.categoryBox .tit{height: 50px;text-indent: 20px;line-height: 50px;font-size: 16px; color: #4A4A4A;border-bottom:1.5px solid rgba(151,151,151,.2);}
+.popBox.on{bottom:78px;}
+.categoryBox.on{bottom:80px;}
+.skuList{ border-bottom:1.5px solid rgba(151,151,151,.2);}
+.skuList .skuName{height:44px; line-height:44px; border-bottom:1.5px solid rgba(151,151,151,.2); text-indent:40px; color:#4a4a4a; font-size:14px;}
+.skuList .skuName .arrow{display:inline-block; margin-right:20px; transform:rotate(45deg); border-bottom:2px solid #999999; border-right:2px solid #999999; width:7px; height:7px; margin-top:17px; float:right;}
 picker{border:1px solid #C8C8C8; border-radius:100px; height:28px; margin:6px 5px; width:30%; display:inline-block; vertical-align:middle;}
-.skuName .arrow.on{transform:rotate(-135deg);margin-top: 20px}
-.skuList .skuInfo{padding:0px 25px;border-bottom:3px solid #f2f2f2}
+.skuList .skuName .arrow.on{transform:rotate(-135deg);margin-top: 20px}
+.skuList .skuInfo{padding:0px 25px;transition: all 0.5s ease-in-out;overflow: hidden;height: 0px;}
+.skuList .skuInfo.on{height: auto;}
 .skuList .skuInfo .field{width:50%;float:left;height:45px;line-height:45px;position: relative;}
 .skuList .skuInfo label{font-size:12px;color:#9b9b9b;width:45px;text-align:right;float: left;}
+.skuList .skuInfo .field text{margin-left:5px;font-size: 14px;color: #4a4a4a;width: 11px;text-align: right;float: left;}
 .skuList .skuInfo input{float:left; width:calc(100% - 50px); margin-left:5px; height:45px; line-height:45px;font-size: 14px;color: #4a4a4a}
-.detailContent{padding:20px; text-align:left; font-size:12px; border-bottom:3px solid #f2f2f2; color:#4a4a4a;}
+.popBox .addBox{ margin-top: 16px;}
+.addBox .addBtn{margin:auto;text-align:center;width:20px;height:20px;border-radius:50%;background:#FF2E38;line-height:18px;color:#fff;font-size:17px;}
+.imgBtnBox{position:absolute;background: #4A4A4A;border-radius:10px;bottom:8px;height:30px;width:80%;margin-left:10px;display:-webkit-box;line-height:30px;color:#fff;font-size:13px;transition: all 1s ease-out;opacity:0;}
+.imgBtnBox.on{opacity:1}
+.imgBtnBox view{width:61%;text-align:center;}
+.imgBtnBox view:last-child{width:39%;}
+.addBox .addTit{font-size: 13px; color: #9B9B9B;text-align: center;}
+.skuList .scan{width:20px;height:20px;float:right;position:absolute;right:10px;top:0px;z-index: 9;padding:10px}
+.progress{position: absolute;bottom:0px;left: 0px;height: 5px;background: #19b955;z-index: 10}
+.bigListBox{height: 60px;padding:0px 28px;border-bottom:2px solid #f4f4f4;width:calc(100% - 56px;)}
+.bigListBox .price{width: 33.33%;float: left;text-align: left;}
+.bigListBox .price .tit{height: 30px;line-height: 30px;font-size: 13px;color: #9B9B9B;position:relative}
+.bigListBox .price .tit text{color:#FF2E38;margin-left: 5px;}
+.bigListBox .price .tit label{color:#4A4A4A;font-size:14px;float:left;margin-right:4px;}
+.bigListBox .price .tit input{height: 100%;}
+.parentBox,.secondBox,.threeBox{float:left;width:95px;border-right:1.5px solid rgba(151,151,151,.5);height:calc(100% - 10px);text-align: center;padding: 5px 0px;overflow:auto;text-align:center;}
+.parentBox{height:calc(100% - 70px)}
+.threeBox{border: none;}
+.parentBox .item,.secondBox .item,.threeBox .item{height: 25px;line-height: 25px;font-size: 14px; color: #4A4A4A;opacity: 0.7;width:78px;margin:auto;margin-top: 14px;border-radius: 20px;}
+.secondBox .item,.threeBox .item{border: 1px solid #fff}
+.parentBox .item.on{background: #C6AB92;color: #fff;opacity:1}
+.secondBox .item.on,.threeBox .item.on{border: 1px solid #C6AB92;color: #C6AB92;opacity: 1}
+.rightBox{width:calc(100% - 97px); float:left; height:100%;}
+.rightBox .childBox{width:100%; height:calc(100% - 101px); border-bottom:1px solid rgba(151,151,151,.5);}
+.rightBox .btnBox{height:50px;line-height:50px;margin-right:20px;text-align:right;}
+.rightBox .btnBox view{display: inline-block;font-size: 15px; color: #4A4A4A;margin: 0px 10px;}
+.rightBox .btnBox .cancel{color: #9b9b9b}
+.textarea{padding:10px 40px; color:#4A4A4A; font-size:14px; width:calc(100% - 80px); height:100%;overflow: hidden;}
+.popSwiperBox{position:fixed;z-index:1112;top:65px;left:0px;width:100%;height:100%;}
+.popSwiper{width:100%;min-height:60%;}
+.popSwiper image{width:100%}
+.popSwiperBox .btnBox{display:flex; justify-content:center; align-items:center;text-align:center;margin-top:30px;color:#fff}
+.popSwiperBox .btnBox view{font-size:14px;color:#fff;margin:0px 10px;}
+.popSwiperBox .btnBox .setting{color:#4A90E2;}

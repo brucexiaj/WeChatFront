@@ -8,7 +8,7 @@
 .swiper .wx-swiper-dot,.popSwiper .wx-swiper-dot{width:4px;height:4px;}
 .uploadBox .item .upload{width:100%;height:100%}
 .currencyArrow{border-style:solid dashed dashed dashed; border-width:4px; border-color:#9b9b9b transparent transparent transparent; width:0; height:0; display:inline-block; transform:scaleY(2); margin-top:6px; margin-left:10px; vertical-align:middle;}
-.currencyBox{background: #FFFFFF; border: 0 solid #C8C8C8; box-shadow: 0 3px 11px -2px rgba(74,74,74,0.41); border-radius: 10px;position:absolute;width:70px;height:99px;z-index:111;top:30px;}
+.currencyBox,.unitBox{background: #FFFFFF; border: 0 solid #C8C8C8; box-shadow: 0 3px 11px -2px rgba(74,74,74,0.41); border-radius: 10px;position:absolute;width:70px;z-index:111;top:30px;}
 .currencyItem{height:33px;border-bottom: .5px solid #C8C8C8;text-align:center;line-height:33px;font-size: 14px; color: #4A4A4A;width:100%}
 .currencyItem:last-child{border:none}
 .camera{width:30px;height:30px;position:absolute;right:4px;bottom:4px;z-index:11}

@@ -20,7 +20,9 @@ Page({
 	      		that.setData({
 	      			item:res.data.data.item,
 	      			skuInfo:res.data.data.itemSkuList,
-	      			category:res.data.data.category
+	      			category:res.data.data.category,
+	      			mainPicHeight:wx.getSystemInfoSync().windowWidth,
+	      			mainPicIndex:0
 	      		})
 		    }else {
 	            wx.showToast({
@@ -36,13 +38,16 @@ Page({
 		  } 
 	    }) 
 	},
-	collapse:function(e){
-		let type = e.currentTarget.dataset.type;
-		let that = this;
-		switch(type){
-			case "detail":that.setData({detailCollapse:!that.data.detailCollapse});break;
-			case "params":that.setData({paramsCollapse:!that.data.paramsCollapse});break;
-			case "sku":that.setData({skuCollapse:!that.data.skuCollapse});break;
-		}
+	mytouchstart: function (e) {  
+		let that = this;  
+		that.setData({  
+			touch_start: e.timeStamp  
+		})  
+	},  
+	mytouchend: function (e) {  
+		let that = this;  
+		that.setData({  
+			touch_end: e.timeStamp  
+		})  
 	}
 })

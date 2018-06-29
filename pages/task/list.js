@@ -18,6 +18,26 @@ Page({
 		transQuantity:0,
 		amount:0,
 	},
+	onGotUserInfo:function(){
+		app.requestAndUpdateUserInfo();
+		let that = this;
+		setTimeout(function () {
+            that.setData({
+            	userInfo:app.globalData.userInfo
+            })
+        }, 1000);
+		if(app.globalData.userInfo==null){
+			wx.showToast({
+	          title: '授权失败',
+	          icon:'none'
+	        });
+		}else{
+			wx.showToast({
+	          title: '授权成功',
+	          icon:'none'
+	        });
+		}
+	},
     onReachBottom:function(){
 		let that = this;
 		if(!app.globalData.storage && !app.globalData.calc){
@@ -69,6 +89,33 @@ Page({
       		url: "../task/detail?id="+detailId+'&taskDailyJson='+JSON.stringify(tempTaskDaily)
       	})	
 	},
+	goDetail:function(e){
+		let detailId =  e.currentTarget.dataset.detail;
+		let taskJsonStr = e.currentTarget.dataset.taskid;
+		let index = e.currentTarget.dataset.index;
+		let type = e.currentTarget.dataset.type;
+		let taskDaily = this.data.taskDailyList[index];
+		let tempTaskDaily = {};
+		tempTaskDaily.id = this.data.taskDailyList[index].id;
+		tempTaskDaily.taskTitle= this.data.taskDailyList[index].taskTitle;
+		tempTaskDaily.taskStartTimeStr= this.data.taskDailyList[index].taskStartTimeStr;
+		tempTaskDaily.statusDes= this.data.taskDailyList[index].statusDes;
+		tempTaskDaily.statusValue= this.data.taskDailyList[index].statusValue;
+		tempTaskDaily.schedule= this.data.taskDailyList[index].schedule;
+		tempTaskDaily.allInCount= this.data.taskDailyList[index].allInCount;
+		tempTaskDaily.allCount= this.data.taskDailyList[index].allCount;
+		tempTaskDaily.ownerName= this.data.taskDailyList[index].allCount;
+		wx.navigateTo({
+      		url: "../task/detail?id="+detailId+'&taskDailyJson='+JSON.stringify(tempTaskDaily)+'&type='+type
+      	})	
+	},
+	preview:function(e){
+		let pic = e.currentTarget.dataset.src;
+		wx.previewImage({
+		  current: pic, // 当前显示图片的http链接
+		  urls: [pic] // 需要预览的图片http链接列表
+		})
+	},
 	addStorage:function(){
 		let receiptIds = "";
 		let that = this;
@@ -102,6 +149,7 @@ Page({
 	goCalc:function(){
 		this.setData({
 			taskDailyList:[],
+			taskReceiptList:[],
 			calc:true,
 			storage:false,
 			token:'',
@@ -110,7 +158,10 @@ Page({
 			transQuantity:0,
 			amount:0,
 			status:null
-		})
+		});
+		app.globalData.status = null;
+		app.globalData.calc = true;
+		app.globalData.storage = false;
 		ajaxLoadTaskReceiptList(0,this,"refresh");
 	},
 	goStorage:function(){
@@ -122,6 +173,9 @@ Page({
 			pageNum:0,
 			token:''
 		})
+		app.globalData.status = null;
+		app.globalData.calc = false;
+		app.globalData.storage = true;
 		ajaxLoadStorageList(0,this,"refresh");
 	},
 	switchTab:function(e){
@@ -131,6 +185,8 @@ Page({
 			status = null;
 		}
 		app.globalData.status = status;
+		app.globalData.calc = false;
+		app.globalData.storage = false;
 		app.globalData.taskId = '';
 		that.setData({
 			pageNum:0,
@@ -175,7 +231,8 @@ Page({
 			status:status,
 			pageNum:0,
 			canLoad:true,
-			key:''
+			key:'',
+			userInfo:app.globalData.userInfo
 		})
 		if(!app.globalData.storage && !app.globalData.calc){
 			ajaxLoad(0,this,"refresh");
@@ -202,19 +259,19 @@ Page({
 
 	},
 	fold:function(e){
-		if(this.data.calc){
-			let taskReceiptList = this.data.taskReceiptList;
-			let index = e.currentTarget.dataset.index;
-			taskReceiptList[index].unfold = !taskReceiptList[index].unfold
-			this.setData({
-				taskReceiptList:taskReceiptList
-			})
-		}else{
+		if(!app.globalData.storage && !app.globalData.calc){
 			let taskDailyList = this.data.taskDailyList;
 			let index = e.currentTarget.dataset.index;
 			taskDailyList[index].unfold = !taskDailyList[index].unfold
 			this.setData({
 				taskDailyList:taskDailyList
+			})
+		}else{
+			let taskReceiptList = this.data.taskReceiptList;
+			let index = e.currentTarget.dataset.index;
+			taskReceiptList[index].unfold = !taskReceiptList[index].unfold
+			this.setData({
+				taskReceiptList:taskReceiptList
 			})
 		}
 	},
@@ -428,6 +485,9 @@ var ajaxLoadTaskReceiptList = function(pageNum,that,loadType){
       		let amount = that.data.amount;
       		let quantity = that.data.quantity;
       		let transQuantity = that.data.transQuantity;
+      		if(res.data.data.amount==undefined){
+      			res.data.data.amount = 0;
+      		}
 	        that.setData({
 	        	pageNum:pageNum+1,
 	        	amount:amount+res.data.data.amount,

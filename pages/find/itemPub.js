@@ -20,6 +20,7 @@ Page({
 		mode:"scaleToFill",
 		popSwiperBox:false,
 	    arr:[],
+	    unit:'克',
 	    indicatorDots: true,
 	    autoplay: false,
 	    interval: 1000,
@@ -66,6 +67,17 @@ Page({
 	bindTextAreaInput:function(e){
 		this.setData({
 			detail:e.detail.value
+		})
+	},
+	selectUnit:function(){
+		this.setData({
+			unitFlag:true
+		})
+	},
+	choseUnit:function(e){
+		this.setData({
+			unitFlag:false,
+			unit:e.currentTarget.dataset.type
 		})
 	},
 	name:function(e){
@@ -420,6 +432,116 @@ Page({
         	skuInfo:skuInfo
         })
 	},
+	iFocus:function(e){
+		let index = e.currentTarget.dataset.index;
+		let that = this;
+		let skuInfo = that.data.skuInfo;
+		if(skuInfo[index].virtualInv==0){
+			skuInfo[index].virtualInv =''
+		}
+		that.setData({
+        	skuInfo:skuInfo
+        })
+	},
+	iBlur:function(e){
+		let index = e.currentTarget.dataset.index;
+		let that = this;
+		let skuInfo = that.data.skuInfo;
+		if(skuInfo[index].virtualInv==''){
+			skuInfo[index].virtualInv =0
+		}
+		that.setData({
+        	skuInfo:skuInfo
+        })
+	},
+	cpFocus:function(e){
+		let index = e.currentTarget.dataset.index;
+		let that = this;
+		let skuInfo = that.data.skuInfo;
+		if(skuInfo[index].costPrice==0){
+			skuInfo[index].costPrice =''
+		}
+		that.setData({
+        	skuInfo:skuInfo
+        })
+	},
+	cpBlur:function(e){
+		let index = e.currentTarget.dataset.index;
+		let that = this;
+		let skuInfo = that.data.skuInfo;
+		if(skuInfo[index].costPrice==''){
+			skuInfo[index].costPrice =0
+		}
+		that.setData({
+        	skuInfo:skuInfo
+        })
+	},
+	dFocus:function(e){
+		let index = e.currentTarget.dataset.index;
+		let that = this;
+		let skuInfo = that.data.skuInfo;
+		if(skuInfo[index].discount==0){
+			skuInfo[index].discount =''
+		}
+		that.setData({
+        	skuInfo:skuInfo
+        })
+	},
+	dBlur:function(e){
+		let index = e.currentTarget.dataset.index;
+		let that = this;
+		let skuInfo = that.data.skuInfo;
+		if(skuInfo[index].discount==''){
+			skuInfo[index].discount =0
+		}
+		that.setData({
+        	skuInfo:skuInfo
+        })
+	},
+	wFocus:function(e){
+		let index = e.currentTarget.dataset.index;
+		let that = this;
+		let skuInfo = that.data.skuInfo;
+		if(skuInfo[index].weight==0){
+			skuInfo[index].weight =''
+		}
+		that.setData({
+        	skuInfo:skuInfo
+        })
+	},
+	wBlur:function(e){
+		let index = e.currentTarget.dataset.index;
+		let that = this;
+		let skuInfo = that.data.skuInfo;
+		if(skuInfo[index].weight==''){
+			skuInfo[index].weight =0
+		}
+		that.setData({
+        	skuInfo:skuInfo
+        })
+	},
+	ppFocus:function(e){
+		let index = e.currentTarget.dataset.index;
+		let that = this;
+		let skuInfo = that.data.skuInfo;
+		if(skuInfo[index].purchasePrice==0){
+			skuInfo[index].purchasePrice =''
+		}
+		that.setData({
+        	skuInfo:skuInfo
+        })
+	},
+	ppBlur:function(e){
+		let index = e.currentTarget.dataset.index;
+		let that = this;
+		let skuInfo = that.data.skuInfo;
+		if(skuInfo[index].purchasePrice==''){
+			skuInfo[index].purchasePrice =0
+		}
+		that.setData({
+        	skuInfo:skuInfo
+        })
+	},
 	inputCostPrice:function(e){
 		let index = e.currentTarget.dataset.index;
 		let value = e.detail.value;
@@ -754,6 +876,12 @@ Page({
 		if(that.data.categoryId==null || that.data.categoryId==''){
 			wx.showToast({
                 title: '请选择分类',
+            });
+			return;
+		}
+		if(that.data.startDate=='' || that.data.endDate=='' || that.data.endDate==null){
+			wx.showToast({
+                title: '请选择时间',
             });
 			return;
 		}
