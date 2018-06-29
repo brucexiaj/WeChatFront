@@ -1,10 +1,11 @@
 <view class="header">
-	<view class="tab {{status == 0 ? 'on' : ''}}" data-status="0" bindtap="switchTab">最新任务</view>
+	<view class="tab {{status == 0 ? 'on' : ''}}" data-status="0" bindtap="switchTab">全部任务</view>
 	<view class="tab {{status == 2 ? 'on' : ''}}" data-status="2" bindtap="switchTab">采购中</view>
 	<view class="tab {{calc ? 'on' : ''}}" bindtap="goCalc">已结算</view>
 	<view class="tab {{storage ? 'on' : ''}}" bindtap="goStorage">预入库</view>
 	<image mode="widthFix" src="../../images/icon_search.png" class="filter"  bindtap="searchSwitch"/>
 </view>
+<!--<button wx:if="{{!userInfo}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style="position:fixed;width:60px;height:60px;border-radius:50%;overflow:hidden;bottom:20px;right:20px;z-index:1111;line-height:60px;border:1px solid #ddd;font-size:14px">授权</button>-->
 <view style="height:55px;width:100%"></view>
 <view class="searchBox" wx:if="{{searchBoxShow}}">
 	<input placeholder="输入商品名／分配人／采购人" placeholder-class="placeholder" focus maxlength="30" confirm-type="搜索" bindinput="input" bindconfirm="confirm"/>
@@ -34,8 +35,8 @@
 		</view>
 		<view class="taskListBox {{item.unfold?'on':''}}" wx:for="{{item.taskDailyDetailExtList}}" wx:for-item="list" wx:key="keyItem" wx:for-index="listIndex" data-id="{{list.id}}" data-detailid="{{list.taskId}}">
 			<view class="taskList">
-				<image src="{{list.skuPic}}" class="main" />
-				<view class="info">
+				<image src="{{list.skuPic}}" class="main" data-src="{{list.skuPic}}" bindtap="preview" data-type="{{list.inCount < list.count?'':'detail'}}" data-taskid="{{item.id}}" data-detail="{{list.id}}" data-index="{{index}}"/>
+				<view class="info" bindtap="goDetail" data-type="{{list.inCount < list.count?'':'detail'}}"  data-taskid="{{item.id}}" data-detail="{{list.id}}" data-index="{{index}}">
 					<view class="name">{{list.name}}</view>
 					<view class="upc">upc: {{list.upc}}</view>
 					<view class="sku">{{list.color}}<block wx:if="{{list.scale}}">+{{list.scale}}</block></view>
@@ -73,20 +74,21 @@
 				<view class="choseBox"  wx:if="{{calc}}">
 					<image bindtap="chose" src="{{list.chose ? '../../images/icon_chose.png':'../../images/icon_unchoose.png'}}" data-listindex="{{listIndex}}" data-index="{{index}}"/>
 				</view>
-				<image src="{{list.skuPic}}" class="main" />
+				<image src="{{list.skuPic}}" class="main" data-src="{{list.skuPic}}" bindtap="preview"/>
 				<view class="info">
 					<view class="name">{{list.name}}</view>
 					<view class="upc" style="color:#21C7D3;">upc: {{list.upc}}</view>
 					<view class="sku">{{list.color}}<block wx:if="{{list.scale}}">+{{list.scale}}</block></view>
 					<view class="price"><text style="margin-right:10px;">${{list.purchasePrice}}</text>${{list.costPrice}}</view>
 				</view>	
+				<view class="batchNo">批次{{listIndex+1}}</view>
 				<view class="transQuantityBox">
 					<label class="tit">线下</label>
-					<label class="number">{{list.transQuantity}}</label>
+					<label class="number {{list.quantity==0 ? 'zero':''}}">{{list.quantity}}</label>
 				</view>	
 				<view class="quantityBox">
 					<label class="tit">在途</label>
-					<label class="number">{{list.quantity}}</label>
+					<label class="number {{list.transQuantity==0 ? 'zero':''}}">{{list.transQuantity}}</label>
 				</view>	
 			</view>
 		</view>

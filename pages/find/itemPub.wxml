@@ -70,6 +70,9 @@
 				<view class="currencyItem" bindtap="choseCurrency" data-type="$" data-id="">$ 美元</view>
 				<view class="currencyItem" bindtap="choseCurrency" data-type="€" data-id="">€ 欧元</view>
 				<view class="currencyItem" bindtap="choseCurrency" data-type="¥" data-id="">¥ 人民币</view>
+				<view class="currencyItem" bindtap="choseCurrency" data-type="￡" data-id="">￡ 英镑</view>
+				<view class="currencyItem" bindtap="choseCurrency" data-type="₩" data-id="">₩ 韩币</view>
+				<view class="currencyItem" bindtap="choseCurrency" data-type="JPY(¥)" data-id="">¥ 日元</view>
 			</view>
 		</view>
 		<view class="tit">
@@ -91,7 +94,7 @@
 	<view class="arrow"></view>
 </view>
 <view class="listBox">
-	<label>有效时间</label>
+	<label style="width:65px;">有效时间<text>*</text></label>
 	<picker mode="date" start="{{startDateLimit}}" value="{{startDate}}"  bindchange="bindStartDateChange"> 
 		<input disabled="true" type="text" style="width:100%;height:28px;line-height:28px;text-indent:3px" value="{{startDate}}" maxlength="10" />
 	</picker> 
@@ -157,24 +160,28 @@
 				<input bindinput="inputSize" maxlength="5" value="{{item.scale}}" placeholder="输入规格二" placeholder-class="placeholder" data-index="{{index}}"/>
 			</view>
 			<view class="field">
-				<label>重量</label>
-				<input bindinput="inputWeight" type="digit" maxlength="5" value="{{item.weight}}" placeholder="输入重量" placeholder-class="placeholder" data-index="{{index}}"/>
+				<label  bindtap="selectUnit">重量<view class="currencyArrow"></view></label>
+				<text style="width:20px;font-size:12px;margin-left:0px;">({{unit}})</text><input style="width:80px" bindinput="inputWeight" type="digit" maxlength="5" value="{{item.weight}}" placeholder="输入重量" placeholder-class="placeholder" data-index="{{index}}" bindfocus="wFocus" bindblur="wBlur"/>
+				<view class="unitBox" wx:if="{{unitFlag}}" style="margin-top:5px;">
+					<view class="currencyItem" bindtap="choseUnit" data-type="克" data-id="">克</view>
+					<view class="currencyItem" bindtap="choseUnit" data-type="磅" data-id="">磅</view>
+				</view>
 			</view>
 			<view class="field">
 				<label>库存</label>
-				<input bindinput="inputVirtualInv" type="number" maxlength="5" value="{{item.virtualInv}}" placeholder="输入库存" placeholder-class="placeholder" data-index="{{index}}"/>
+				<input bindinput="inputVirtualInv" type="number" maxlength="5" value="{{item.virtualInv}}" placeholder="输入库存" placeholder-class="placeholder" data-index="{{index}}"  bindfocus="iFocus" bindblur="iBlur"/>
 			</view>
 			<view class="field">
 				<label>原价</label>
-				<text>{{currency}}</text><input style="margin-left:0px;width:100px" bindinput="inputCostPrice" type="digit" maxlength="8" value="{{item.costPrice}}" placeholder="输入原价" placeholder-class="placeholder" data-index="{{index}}"/>
+				<text>{{currency}}</text><input style="margin-left:0px;width:100px" bindinput="inputCostPrice" type="digit" maxlength="8" value="{{item.costPrice}}" placeholder="输入原价" placeholder-class="placeholder" data-index="{{index}}"  bindfocus="cpFocus" bindblur="cpBlur"/>
 			</view>
 			<view class="field">
 				<label>折扣</label>
-				<input bindinput="inputDiscount" type="digit" maxlength="5" value="{{item.discount}}" placeholder="输入折扣" placeholder-class="placeholder" data-index="{{index}}"/>
+				<input bindinput="inputDiscount" type="digit" maxlength="5" value="{{item.discount}}" placeholder="输入折扣" placeholder-class="placeholder" data-index="{{index}}"  bindfocus="dFocus" bindblur="dBlur"/>
 			</view>
 			<view class="field">
 				<label>采购价</label>
-				<text>{{currency}}</text><input style="margin-left:0px;width:100px;" bindinput="inputPurchasePrice" type="digit" maxlength="8" value="{{item.purchasePrice}}" placeholder="输入价格" placeholder-class="placeholder" data-index="{{index}}"/>
+				<text>{{currency}}</text><input style="margin-left:0px;width:100px;" bindinput="inputPurchasePrice" type="digit" maxlength="8" value="{{item.purchasePrice}}" placeholder="输入价格" placeholder-class="placeholder" data-index="{{index}}"  bindfocus="ppFocus" bindblur="ppBlur"/>
 			</view>
 			<view class="field">
 				<label>型号</label>

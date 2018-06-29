@@ -1,0 +1,11 @@
+<view class="container">
+	<image src="{{userInfo.avatarUrl}}" class="avatar"/>
+	<view class="nickname">{{userInfo.nickName}}</view>
+</view>
+<image src="../../images/spider.png" class="logo" mode="widthFix" />
+<view class="about">关于采购神器</view>
+<view class="content">
+采购神器，帮助全球代购商家高效网遍天下好货，解决采购、结算、理货、发货等环节效率痛点，提升团队总体效能，突破天花板，赢得更大的未来。
+</view>
+<view class="version">V1.0
+</view>

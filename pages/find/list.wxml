@@ -1,7 +1,7 @@
 <view class="header">
 	<view class="tab {{status == 0 ? 'on' : ''}}" data-status="0" bindtap="switchTab">待审核<text wx:if="{{audit>0}}">{{audit}}</text></view>
 	<view class="tab {{status == 2 ? 'on' : ''}}" data-status="2" bindtap="switchTab">待提交<text wx:if="{{draft>0}}">{{draft}}</text></view>
-	<view class="tab {{status == 1 ? 'on' : ''}}" data-status="1" bindtap="switchTab">已通过</view>
+	<view class="tab {{status == 1 ? 'on' : ''}}" data-status="1" bindtap="switchTab">已审核</view>
 	<view class="tab on" bindtap="filterSwitch" style="position:absolute;right:5px;padding-right:25px;height:38.5px;" data-status="-1" wx:if="{{status==-1}}">已拒绝</view>
 	<image mode="widthFix" src="../../images/icon_findItem_filter.png" class="filter"  bindtap="filterSwitch"/>
 </view>
@@ -54,7 +54,7 @@
 		<view class="filterBox">
 			<view class="listItem {{status == 0 ? 'on' : ''}}" data-status="0" bindtap="switchTab">待审核</view>
 			<view class="listItem {{status == 2 ? 'on' : ''}}" data-status="2" bindtap="switchTab">待提交</view>
-			<view class="listItem {{status == 1 ? 'on' : ''}}" data-status="1" bindtap="switchTab">已通过</view>
+			<view class="listItem {{status == 1 ? 'on' : ''}}" data-status="1" bindtap="switchTab">已审核</view>
 			<view class="listItem {{status == -1 ? 'on' : ''}}" data-status="-1" bindtap="switchTab">已拒绝</view>
 			<view class="listItem" bindtap="changeOrder">
 				<image src="../../images/icon_order_top{{orderTimeType=='asc' ? '_on' : ''}}.png" mode="widthFix" class="left"/>

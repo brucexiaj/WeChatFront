@@ -2,7 +2,8 @@ App({
     globalData: {
         userInfo: null,
         //apiUrl: 'http://local.konggeek.com:8080/purchase/api/',
-        apiUrl: 'https://xcx.buyer007.cn/api/',
+        //apiUrl: 'http://apex.buyer007.com/api/',
+        apiUrl: 'https://xcx.buyer007.com/api',
         xcxCookieId: null,
         powerCode:0,
         version:"1.0",

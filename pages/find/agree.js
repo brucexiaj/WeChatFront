@@ -111,6 +111,9 @@ let audit = function(that){
 		        icon: 'none',
 		    	duration: 2000
 		    });
+		    app.globalData.storage = false;
+		    app.globalData.calc = false;
+		    app.globalData.status = 0;
 		    wx.switchTab({
 		    	url:'/pages/task/list'
 		    })
