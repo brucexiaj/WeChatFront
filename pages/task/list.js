@@ -329,8 +329,9 @@ var ajaxLoad = function(pageNum,that,loadType){
       url: app.globalData.apiUrl + "/task/list.htm",
       data: {pageNum:pageNum,key:key,status:status,taskId:taskId},
       success: function (res) {
-      	wx.hideNavigationBarLoading();
+		  wx.hideNavigationBarLoading();
       	if (res.data.retCode == '0') {
+			console.log(that.data)
       		let token = that.data.token;
       		that.setData({
       			token:res.data.data.token

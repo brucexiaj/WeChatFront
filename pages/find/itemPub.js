@@ -902,12 +902,12 @@ Page({
 				picture = picture+that.data.item[i]+";";
 			}
 		}
-		// if(imageList==9){
-		// 	wx.showToast({
-        //         title: '请上传商品图片',
-        //     });
-		// 	return;
-		// }
+		if(imageList==9){
+			wx.showToast({
+                title: '请上传商品图片',
+            });
+			return;
+		}
 		picture = picture.substring(0,picture.length-1);
 		param.brand = that.data.brand;
 		param.reason =that.data.reason;
