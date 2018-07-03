@@ -670,7 +670,7 @@ Page({
 			    		detail:item.detail,
 			    		remark:item.remark,
 			    		brand:item.brand,
-			    		name:item.name,
+			    		name:item.itemName,
 			    		id:e.id,
 			    		skuInfo:skuInfo,
 			    		skuValue:skuValue,
@@ -873,7 +873,7 @@ Page({
 			}
 		}
 		param.purchaseStatus = purchaseStatus;
-		param.name = that.data.name;
+		param.itemName = that.data.name;
 		if(that.data.name==null || that.data.name==''){
 			wx.showToast({
                 title: '请输入商品名称',
