@@ -215,6 +215,7 @@ Page({
                     app.globalData.xcxCookieId = xcxCookieId;
                     app.globalData.sessionKey = res.data.data.session_key;
 					app.globalData.companyNo = res.data.data.company_no;
+                    app.globalData.buyerId = res.data.data.buyer_id;
 					console.log(app.globalData.companyNo)
                     app.requestAndUpdateUserInfo();
 				}else{
