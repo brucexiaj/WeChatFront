@@ -922,6 +922,7 @@ Page({
 		param.id = that.data.id;
 		let skuInfo = that.data.skuInfo;
 		param.skuInfo = skuInfo;
+		param.companyNo = app.globalData.companyNo
 		console.log('thisthsithsitshi')
 		console.log(param)
 		wx.request({

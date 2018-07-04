@@ -137,7 +137,7 @@ Page({
 		receiptIds = receiptIds.substring(0,receiptIds.length-1);
 		wx.request({
 		  url: app.globalData.apiUrl + "/task/addStorage.htm",
-		  data: {receiptIds:receiptIds,buyerId:app.globalData.buyerId},
+		  data: {receiptIds:receiptIds,buyerId:app.globalData.buyerId,companyNo: app.globalData.companyNo},
 		  success: function (res) {
 		  	wx.showToast({
 	          title: '预入库成功',
@@ -214,7 +214,8 @@ Page({
                     wx.setStorageSync('xcxCookieId', xcxCookieId);
                     app.globalData.xcxCookieId = xcxCookieId;
                     app.globalData.sessionKey = res.data.data.session_key;
-                    app.globalData.companyNo = res.data.data.company_no;
+					app.globalData.companyNo = res.data.data.company_no;
+					console.log(app.globalData.companyNo)
                     app.requestAndUpdateUserInfo();
 				}else{
                     wx.showToast({
@@ -334,7 +335,7 @@ var ajaxLoad = function(pageNum,that,loadType){
 	}
 	wx.request({
       url: app.globalData.apiUrl + "/task/list.htm",
-      data: {pageNum:pageNum,key:key,status:status,taskId:taskId},
+      data: {pageNum:pageNum,key:key,status:status,taskId:taskId,companyNo: app.globalData.companyNo},
       success: function (res) {
 		  wx.hideNavigationBarLoading();
       	if (res.data.retCode == '0') {
@@ -399,7 +400,7 @@ var ajaxLoadStorageList = function(pageNum,that,loadType){
 	}
 	wx.request({
       url: app.globalData.apiUrl + "/task/taskReceiptList.htm",
-      data: {pageNum:pageNum,key:key,status:status,taskId:taskId},
+      data: {pageNum:pageNum,key:key,status:status,taskId:taskId,companyNo: app.globalData.companyNo},
       success: function (res) {
       	wx.hideNavigationBarLoading();
       	if (res.data.retCode == '0') {
@@ -465,7 +466,7 @@ var ajaxLoadTaskReceiptList = function(pageNum,that,loadType){
 	}
 	wx.request({
       url: app.globalData.apiUrl + "/task/taskReceiptList.htm",
-      data: {pageNum:pageNum,key:key,status:status,taskId:taskId,type:'calc'},
+      data: {pageNum:pageNum,key:key,status:status,taskId:taskId,type:'calc',companyNo: app.globalData.companyNo},
       success: function (res) {
       	wx.hideNavigationBarLoading();
       	if (res.data.retCode == '0') {

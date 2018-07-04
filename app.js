@@ -36,6 +36,7 @@ App({
         }
         setTimeout(function () {
             parame.ownerOpenId = that.globalData.xcxCookieId;
+            parame.companyNo = app.globalData.companyNo;
             wx.request({
                 url: that.globalData.apiUrl + '/wx/purchaseLogin/setWxAppLaunch.htm',
                 data: parame,
@@ -73,6 +74,7 @@ App({
 
                     param.encryptedData = res.encryptedData;
                     param.iv = res.iv;
+                    param.companyNo = app.globalData.companyNo;
                     if (that.globalData.sessionKey) {
                         param.sessionKey = that.globalData.sessionKey;
                     }
