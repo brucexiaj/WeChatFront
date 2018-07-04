@@ -55,13 +55,13 @@
 			<input disabled="{{type !='detail'?false:true}}" style="width:100px" type="number" maxlength="5" placeholder=""  bindinput="transQuantityInput" value="{{transQuantity}}" placeholder-class="placeholder" bindfocus="tqFocus" bindblur="tqBlur"/>
 		</view>
 	</view>
-	<view class="listBox"  wx:if="{{type !='detail'}}">
+	<view class="listBox"  wx:if="{{type =='detail'}}">
 		<label style="width:75px">采购地点：</label>
 		<input placeholder="采购地点" maxlength="20" placeholder=""  bindinput="addInput" value="{{buySite}}" placeholder-class="placeholder"/>
 		<image src="../../images/location.png" class="location" mode="widthFix" bindtap="choseAddress"/>
 	</view>
 </view>
-<view class="footerBox" wx:if="{{type !='detail'}}">
+<view class="footerBox" wx:if="{{type =='detail'}}">
 	<view class="price">
 		付款额
 		<text>${{totalPrice}}</text>
