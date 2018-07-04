@@ -209,11 +209,18 @@ Page({
 	            code: res.code
 	          },
 	          success: function (res) {
-                var xcxCookieId = res.data.data.openid;
-                wx.setStorageSync('xcxCookieId', xcxCookieId);
-                app.globalData.xcxCookieId = xcxCookieId;
-                app.globalData.sessionKey = res.data.data.session_key;
-	            app.requestAndUpdateUserInfo();
+	          	if('60001' != res.data.retCode ){
+                    var xcxCookieId = res.data.data.openid;
+                    wx.setStorageSync('xcxCookieId', xcxCookieId);
+                    app.globalData.xcxCookieId = xcxCookieId;
+                    app.globalData.sessionKey = res.data.data.session_key;
+                    app.globalData.companyNo = res.data.data.company_no;
+                    app.requestAndUpdateUserInfo();
+				}else{
+                    wx.showToast({
+                        title: '登录小程序失败,当前微信未属于任何公司'+res.data.errorMsg,
+                    });
+				}
 	          }
 	        })
 	        wx.stopPullDownRefresh();
