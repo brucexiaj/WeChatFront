@@ -247,7 +247,7 @@ let ajaxLoad = function(pageNum,that,loadType){
 	}
 	wx.request({
       url: app.globalData.apiUrl + "/find/list.htm",
-      data: {pageNum:pageNum,key:that.data.key,status:status,orderTimeType:that.data.orderTimeType,appid: app.globalData.appid},
+      data: {pageNum:pageNum,key:that.data.key,status:status,orderTimeType:that.data.orderTimeType,appid:app.globalData.appid},
       success: function (res) {
       	wx.hideNavigationBarLoading();
       	wx.stopPullDownRefresh();

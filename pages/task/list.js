@@ -42,7 +42,7 @@ Page({
 	},
     onReachBottom:function(){
 		let that = this;
-		if(app.globalData.userInfo){
+		if(app.globalData.appid){
 			if(!app.globalData.storage && !app.globalData.calc){
 				ajaxLoad(that.data.pageNum,that,"load");
 			}else{
@@ -222,9 +222,9 @@ Page({
 	                wx.setStorageSync('xcxCookieId', xcxCookieId);
 	                app.globalData.xcxCookieId = xcxCookieId;
                   app.globalData.sessionKey = res.data.data.session_key;
-                  app.globalData.companyNo = res.data.data.company_no;
+                  app.globalData.appid = res.data.data.appid;
                   app.globalData.buyerId = res.data.data.buyer_id;
-                  console.log(app.globalData.companyNo)
+                  console.log(app.globalData.appid)
 		            app.requestAndUpdateUserInfo();
 	          	}
 	      //     	if('60001' != res.data.retCode ){
@@ -232,9 +232,9 @@ Page({
         //             wx.setStorageSync('xcxCookieId', xcxCookieId);
         //             app.globalData.xcxCookieId = xcxCookieId;
         //             app.globalData.sessionKey = res.data.data.session_key;
-				// 	app.globalData.companyNo = res.data.data.company_no;
+				// 	app.globalData.appid = res.data.data.appid;
         //             app.globalData.buyerId = res.data.data.buyer_id;
-				// 	console.log(app.globalData.companyNo)
+				// 	console.log(app.globalData.appid)
         //             app.requestAndUpdateUserInfo();
 				// }else{
         //             wx.showToast({
@@ -255,7 +255,7 @@ Page({
 	onShow:function(){
 		console.log("onShow");
 		let status = app.globalData.status;
-		if(app.globalData.userInfo){
+		if(app.globalData.appid){
 			this.setData({
 				status:status,
 				pageNum:0,
