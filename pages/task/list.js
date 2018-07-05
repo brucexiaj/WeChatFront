@@ -222,7 +222,7 @@ Page({
 	                wx.setStorageSync('xcxCookieId', xcxCookieId);
 	                app.globalData.xcxCookieId = xcxCookieId;
                   app.globalData.sessionKey = res.data.data.session_key;
-                  app.globalData.appid = res.data.data.appid;
+                  //app.globalData.appid = res.data.data.appid;
                   app.globalData.buyerId = res.data.data.buyer_id;
                   console.log(app.globalData.appid)
 		            app.requestAndUpdateUserInfo();
