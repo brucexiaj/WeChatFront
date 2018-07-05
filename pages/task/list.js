@@ -213,7 +213,6 @@ Page({
 		        appid: app.globalData.appid
 	          },
 	          success: function (res) {
-<<<<<<< HEAD
 	          	if(res.data.retCode!='0'){
 	          		wx.showToast({
 			          title: res.data.errorMsg,
@@ -225,7 +224,6 @@ Page({
 	                app.globalData.sessionKey = res.data.data.session_key;
 		            app.requestAndUpdateUserInfo();
 	          	}
-=======
 	          	if('60001' != res.data.retCode ){
                     var xcxCookieId = res.data.data.openid;
                     wx.setStorageSync('xcxCookieId', xcxCookieId);
@@ -240,7 +238,6 @@ Page({
                         title: '登录小程序失败,当前微信未属于任何公司'+res.data.errorMsg,
                     });
 				}
->>>>>>> ad11d8e3c2baf332c9e77dc03a8073c700ac787a
 	          }
 	        })
 	        wx.stopPullDownRefresh();
