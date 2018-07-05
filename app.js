@@ -4,7 +4,10 @@ App({
         //apiUrl: 'http://local.konggeek.com:8080/purchase/api/',
         //apiUrl: 'http://apex.buyer007.com/api/',
         //apiUrl: 'http://47.98.164.133:8082/purchase/api',
-        apiUrl: 'http://172.16.6.232:8080/purchase/api',
+        apiUrl: 'http://47.98.230.111:8082/api',
+        //apiUrl: 'http://47.97.185.180:8082/purchase/api',
+        //apiUrl: 'https://cg2.logthin.com/api',
+        //apiUrl: 'http://172.16.6.232:8080/purchase/api',
         xcxCookieId: null,
         powerCode:0,
         version:"1.0",
@@ -17,7 +20,8 @@ App({
         findStatus:0,
         calc:false,
         storage:false,
-        companyNo:null
+        companyNo:null,
+        appid:"wxdf84c61fbef8d933"
     },
     onLaunch: function (res) {
         let that = this;
