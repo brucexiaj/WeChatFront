@@ -140,7 +140,7 @@ Page({
 		receiptIds = receiptIds.substring(0,receiptIds.length-1);
 		wx.request({
 		  url: app.globalData.apiUrl + "/task/addStorage.htm",
-		  data: {receiptIds:receiptIds,buyerId:app.globalData.buyerId,companyNo: app.globalData.companyNo},
+		  data: {receiptIds:receiptIds,buyerId:app.globalData.buyerId,appid: app.globalData.appid},
 		  success: function (res) {
 		  	wx.showToast({
 	          title: '预入库成功',
@@ -221,23 +221,26 @@ Page({
 	          		var xcxCookieId = res.data.data.openid;
 	                wx.setStorageSync('xcxCookieId', xcxCookieId);
 	                app.globalData.xcxCookieId = xcxCookieId;
-	                app.globalData.sessionKey = res.data.data.session_key;
+                  app.globalData.sessionKey = res.data.data.session_key;
+                  app.globalData.companyNo = res.data.data.company_no;
+                  app.globalData.buyerId = res.data.data.buyer_id;
+                  console.log(app.globalData.companyNo)
 		            app.requestAndUpdateUserInfo();
 	          	}
-	          	if('60001' != res.data.retCode ){
-                    var xcxCookieId = res.data.data.openid;
-                    wx.setStorageSync('xcxCookieId', xcxCookieId);
-                    app.globalData.xcxCookieId = xcxCookieId;
-                    app.globalData.sessionKey = res.data.data.session_key;
-					app.globalData.companyNo = res.data.data.company_no;
-                    app.globalData.buyerId = res.data.data.buyer_id;
-					console.log(app.globalData.companyNo)
-                    app.requestAndUpdateUserInfo();
-				}else{
-                    wx.showToast({
-                        title: '登录小程序失败,当前微信未属于任何公司'+res.data.errorMsg,
-                    });
-				}
+	      //     	if('60001' != res.data.retCode ){
+        //             var xcxCookieId = res.data.data.openid;
+        //             wx.setStorageSync('xcxCookieId', xcxCookieId);
+        //             app.globalData.xcxCookieId = xcxCookieId;
+        //             app.globalData.sessionKey = res.data.data.session_key;
+				// 	app.globalData.companyNo = res.data.data.company_no;
+        //             app.globalData.buyerId = res.data.data.buyer_id;
+				// 	console.log(app.globalData.companyNo)
+        //             app.requestAndUpdateUserInfo();
+				// }else{
+        //             wx.showToast({
+        //                 title: '登录小程序失败,当前微信未属于任何公司'+res.data.errorMsg,
+        //             });
+				// }
 	          }
 	        })
 	        wx.stopPullDownRefresh();
@@ -352,14 +355,9 @@ var ajaxLoad = function(pageNum,that,loadType){
 	if(taskId=='null' || taskId==null){
 		taskId = '';
 	}
-    //let companyNo = app.globalData.companyNo;
-    // if(companyNo == null || companyNo=='null' ){
-    //     this.onLoad();
-    // }
-    setTimeout(function () {
-        wx.request({
+  wx.request({
             url: app.globalData.apiUrl + "/task/list.htm",
-            data: {pageNum:pageNum,key:key,status:status,taskId:taskId,companyNo: app.globalData.companyNo},
+            data: {pageNum:pageNum,key:key,status:status,taskId:taskId,appid: app.globalData.appid},
             success: function (res) {
                 wx.hideNavigationBarLoading();
                 if (res.data.retCode == '0') {
@@ -406,8 +404,9 @@ var ajaxLoad = function(pageNum,that,loadType){
                 wx.hideNavigationBarLoading();
                 util.errorCallback();
             }
-        })
-    },1000);
+    })
+		
+  
 
 }
 
@@ -428,7 +427,7 @@ var ajaxLoadStorageList = function(pageNum,that,loadType){
 	}
 	wx.request({
       url: app.globalData.apiUrl + "/task/taskReceiptList.htm",
-      data: {pageNum:pageNum,key:key,status:status,taskId:taskId,companyNo: app.globalData.companyNo},
+      data: {pageNum:pageNum,key:key,status:status,taskId:taskId,appid: app.globalData.appid},
       success: function (res) {
       	wx.hideNavigationBarLoading();
       	if (res.data.retCode == '0') {
@@ -494,7 +493,7 @@ var ajaxLoadTaskReceiptList = function(pageNum,that,loadType){
 	}
 	wx.request({
       url: app.globalData.apiUrl + "/task/taskReceiptList.htm",
-      data: {pageNum:pageNum,key:key,status:status,taskId:taskId,type:'calc',companyNo: app.globalData.companyNo},
+      data: {pageNum:pageNum,key:key,status:status,taskId:taskId,type:'calc',appid: app.globalData.appid},
       success: function (res) {
       	wx.hideNavigationBarLoading();
       	if (res.data.retCode == '0') {

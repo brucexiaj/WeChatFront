@@ -102,7 +102,7 @@ Page({
 let audit = function(that){
 	wx.request({
       url: app.globalData.apiUrl + "/find/audit.htm",
-      data: {id:that.data.item.id,status:1,buyerId:app.globalData.buyerId,skuId:that.data.skuIdArr,skuCode:that.data.skuCodeArr,skuUpc:that.data.skuUpcArr, skuAmount:that.data.skuAmountArr, skuLimit:that.data.skuLimitArr,companyNo: app.globalData.companyNo },
+      data: {id:that.data.item.id,status:1,buyerId:app.globalData.buyerId,skuId:that.data.skuIdArr,skuCode:that.data.skuCodeArr,skuUpc:that.data.skuUpcArr, skuAmount:that.data.skuAmountArr, skuLimit:that.data.skuLimitArr,appid: app.globalData.appid },
       success: function (res) {
       	wx.hideNavigationBarLoading();
       	if (res.data.retCode == '0') {
