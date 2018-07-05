@@ -32,6 +32,7 @@ Page({
 	          icon:'none'
 	        });
 		}else{
+			that.onShow();
 			wx.showToast({
 	          title: '授权成功',
 	          icon:'none'
@@ -40,27 +41,29 @@ Page({
 	},
     onReachBottom:function(){
 		let that = this;
-		if(!app.globalData.storage && !app.globalData.calc){
-			ajaxLoad(that.data.pageNum,that,"load");
-		}else{
-			this.setData({
-				taskDailyList:[],
-				status:null
-			})
-		}	
-		if(app.globalData.calc){
-			ajaxLoadTaskReceiptList(that.data.pageNum,that,"load");
-			this.setData({
-				calc:true,
-				storage:false
-			})
-		}
-		if(app.globalData.storage){
-			ajaxLoadStorageList(that.data.pageNum,that,"load");
-			this.setData({
-				storage:true,
-				calc:false
-			})
+		if(app.globalData.userInfo){
+			if(!app.globalData.storage && !app.globalData.calc){
+				ajaxLoad(that.data.pageNum,that,"load");
+			}else{
+				this.setData({
+					taskDailyList:[],
+					status:null
+				})
+			}	
+			if(app.globalData.calc){
+				ajaxLoadTaskReceiptList(that.data.pageNum,that,"load");
+				this.setData({
+					calc:true,
+					storage:false
+				})
+			}
+			if(app.globalData.storage){
+				ajaxLoadStorageList(that.data.pageNum,that,"load");
+				this.setData({
+					storage:true,
+					calc:false
+				})
+			}
 		}
 	},
 	searchSwitch:function(){
@@ -208,11 +211,17 @@ Page({
 	            code: res.code
 	          },
 	          success: function (res) {
-                var xcxCookieId = res.data.data.openid;
-                wx.setStorageSync('xcxCookieId', xcxCookieId);
-                app.globalData.xcxCookieId = xcxCookieId;
-                app.globalData.sessionKey = res.data.data.session_key;
-	            app.requestAndUpdateUserInfo();
+	          	if(res.data.retCode!='0'){
+	          		wx.showToast({
+			          title: res.data.errorMsg,
+			        });
+	          	}else{
+	          		var xcxCookieId = res.data.data.openid;
+	                wx.setStorageSync('xcxCookieId', xcxCookieId);
+	                app.globalData.xcxCookieId = xcxCookieId;
+	                app.globalData.sessionKey = res.data.data.session_key;
+		            app.requestAndUpdateUserInfo();
+	          	}
 	          }
 	        })
 	        wx.stopPullDownRefresh();
@@ -227,36 +236,37 @@ Page({
 	onShow:function(){
 		console.log("onShow");
 		let status = app.globalData.status;
-		this.setData({
-			status:status,
-			pageNum:0,
-			canLoad:true,
-			key:'',
-			userInfo:app.globalData.userInfo
-		})
-		if(!app.globalData.storage && !app.globalData.calc){
-			ajaxLoad(0,this,"refresh");
-		}else{
+		if(app.globalData.userInfo){
 			this.setData({
-				taskDailyList:[],
-				status:null
+				status:status,
+				pageNum:0,
+				canLoad:true,
+				key:'',
+				userInfo:app.globalData.userInfo
 			})
-		}	
-		if(app.globalData.calc){
-			ajaxLoadTaskReceiptList(0,this,"refresh");
-			this.setData({
-				calc:true,
-				storage:false
-			})
+			if(!app.globalData.storage && !app.globalData.calc){
+				ajaxLoad(0,this,"refresh");
+			}else{
+				this.setData({
+					taskDailyList:[],
+					status:null
+				})
+			}	
+			if(app.globalData.calc){
+				ajaxLoadTaskReceiptList(0,this,"refresh");
+				this.setData({
+					calc:true,
+					storage:false
+				})
+			}
+			if(app.globalData.storage){
+				ajaxLoadStorageList(0,this,"refresh");
+				this.setData({
+					storage:true,
+					calc:false
+				})
+			}
 		}
-		if(app.globalData.storage){
-			ajaxLoadStorageList(0,this,"refresh");
-			this.setData({
-				storage:true,
-				calc:false
-			})
-		}
-
 	},
 	fold:function(e){
 		if(!app.globalData.storage && !app.globalData.calc){
