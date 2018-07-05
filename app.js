@@ -3,7 +3,11 @@ App({
         userInfo: null,
         //apiUrl: 'http://local.konggeek.com:8080/purchase/api/',
         //apiUrl: 'http://apex.buyer007.com/api/',
-        apiUrl: 'https://xcx.buyer007.com/api',
+        //apiUrl: 'http://47.98.164.133:8082/purchase/api',
+        apiUrl: 'http://47.98.230.111:8082/api',
+        //apiUrl: 'http://47.97.185.180:8082/purchase/api',
+        //apiUrl: 'https://cg2.logthin.com/api',
+        //apiUrl: 'http://172.16.6.232:8080/purchase/api',
         xcxCookieId: null,
         powerCode:0,
         version:"1.0",
@@ -15,7 +19,9 @@ App({
         status:0,
         findStatus:0,
         calc:false,
-        storage:false
+        storage:false,
+        companyNo:null,
+        appid:"wxdf84c61fbef8d933"
     },
     onLaunch: function (res) {
         let that = this;
@@ -34,6 +40,7 @@ App({
         }
         setTimeout(function () {
             parame.ownerOpenId = that.globalData.xcxCookieId;
+            parame.companyNo = that.globalData.companyNo;
             wx.request({
                 url: that.globalData.apiUrl + '/wx/purchaseLogin/setWxAppLaunch.htm',
                 data: parame,
@@ -71,6 +78,7 @@ App({
 
                     param.encryptedData = res.encryptedData;
                     param.iv = res.iv;
+                    param.companyNo = app.globalData.companyNo;
                     if (that.globalData.sessionKey) {
                         param.sessionKey = that.globalData.sessionKey;
                     }
@@ -84,9 +92,17 @@ App({
                         'content-type': 'application/x-www-form-urlencoded'
                     },
                     success: function (res) {
-                        that.globalData.buyerId = res.data.data.id;
-                        that.globalData.powerCode = res.data.data.powerCode;
-                        that.globalData.userInfo  = userInfo;
+                        if(res.data.retCode=="0"){
+                            that.globalData.buyerId = res.data.data.id;
+                            that.globalData.powerCode = res.data.data.powerCode;
+                            that.globalData.userInfo  = userInfo;
+                        }else{
+                            wx.showToast({
+                                title: res.data.errorMsg,
+                                icon: 'none',
+                                duration: 2000
+                            })
+                        }
                     }
                 })
                 if (this.userInfoReadyCallback) {

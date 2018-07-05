@@ -15,7 +15,7 @@
 	<view wx:for="{{taskDailyList}}" wx:item="{{item}}" wx:key="{{key}}" style="border-bottom:2px solid #f2f2f2">
 		<view class="taskBarList" bindtap="fold" data-detailid="{{item.id}}" data-index="{{index}}">
 			<view class="timeType">
-				<view class="title">{{item.taskTitle}}</view>
+				<view class="title">{{item.title}}</view>
 				<view class="time">{{item.taskStartTimeStr}}</view>
 			</view>
 			<view class="status">
@@ -35,7 +35,7 @@
 		</view>
 		<view class="taskListBox {{item.unfold?'on':''}}" wx:for="{{item.taskDailyDetailExtList}}" wx:for-item="list" wx:key="keyItem" wx:for-index="listIndex" data-id="{{list.id}}" data-detailid="{{list.taskId}}">
 			<view class="taskList">
-				<image src="{{list.skuPic}}" class="main" data-src="{{list.skuPic}}" bindtap="preview" data-type="{{list.inCount < list.count?'':'detail'}}" data-taskid="{{item.id}}" data-detail="{{list.id}}" data-index="{{index}}"/>
+				<image src="{{list.skuPicUrl}}" class="main" data-src="{{list.skuPicUrl}}" bindtap="preview" data-type="{{list.inCount < list.count?'':'detail'}}" data-taskid="{{item.id}}" data-detail="{{list.id}}" data-index="{{index}}"/>
 				<view class="info" bindtap="goDetail" data-type="{{list.inCount < list.count?'':'detail'}}"  data-taskid="{{item.id}}" data-detail="{{list.id}}" data-index="{{index}}">
 					<view class="name">{{list.name}}</view>
 					<view class="upc">upc: {{list.upc}}</view>
@@ -57,7 +57,7 @@
 				<image bindtap="choseItem" src="{{item.chose ? '../../images/icon_chose.png':'../../images/icon_unchoose.png'}}" data-index="{{index}}" />
 			</view>
 			<view class="timeType" style="width:50%;margin-left:5px;">
-				<view class="title">{{item.taskTitle}}</view>
+				<view class="title">{{item.title}}</view>
 				<view class="time">{{item.taskStartTimeStr}}</view>
 			</view>
 			<view class="purchaseNum">
@@ -74,7 +74,7 @@
 				<view class="choseBox"  wx:if="{{calc}}">
 					<image bindtap="chose" src="{{list.chose ? '../../images/icon_chose.png':'../../images/icon_unchoose.png'}}" data-listindex="{{listIndex}}" data-index="{{index}}"/>
 				</view>
-				<image src="{{list.skuPic}}" class="main" data-src="{{list.skuPic}}" bindtap="preview"/>
+				<image src="{{list.skuPicUrl}}" class="main" data-src="{{list.skuPicUrl}}" bindtap="preview"/>
 				<view class="info">
 					<view class="name">{{list.name}}</view>
 					<view class="upc" style="color:#21C7D3;">upc: {{list.upc}}</view>

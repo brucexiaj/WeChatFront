@@ -222,7 +222,7 @@ Page({
 			    	wx.showNavigationBarLoading();
 			   		wx.request({
 				      url: app.globalData.apiUrl + "/task/calc.htm",
-				      data: {quantity:quantity,taskDetailId:taskDetailId,transQuantity:transQuantity,skuBuysite:skuBuysite,purchaseUpc:purchaseUpc,skuId:skuId,buyerId:app.globalData.buyerId,purchasePrice:purchasePrice},
+				      data: {quantity:quantity,taskDetailId:taskDetailId,transQuantity:transQuantity,skuBuysite:skuBuysite,purchaseUpc:purchaseUpc,skuId:skuId,buyerId:app.globalData.buyerId,purchasePrice:purchasePrice, companyNo: app.globalData.companyNo},
 				      success: function (res) {
 				      	wx.hideNavigationBarLoading();
 				      	if (res.data.retCode == '0') {
@@ -267,7 +267,7 @@ var ajaxLoad = function(pageNum,that){
 	let key = that.data.key;
 	wx.request({
       url: app.globalData.apiUrl + "/task/taskReceiptList.htm",
-      data: {pageNum:pageNum,key:key,type:'calc'},
+      data: {pageNum:pageNum,key:key,type:'calc',companyNo: app.globalData.companyNo},
       success: function (res) {
       	wx.hideNavigationBarLoading();
       	if (res.data.retCode == '0') {

@@ -1,4 +1,5 @@
 var app = getApp();
+var util = require('../../utils/util.js');
 Page({
 	data:{
 		searchBoxShow:false,
@@ -139,7 +140,7 @@ Page({
 		receiptIds = receiptIds.substring(0,receiptIds.length-1);
 		wx.request({
 		  url: app.globalData.apiUrl + "/task/addStorage.htm",
-		  data: {receiptIds:receiptIds,buyerId:app.globalData.buyerId},
+		  data: {receiptIds:receiptIds,buyerId:app.globalData.buyerId,companyNo: app.globalData.companyNo},
 		  success: function (res) {
 		  	wx.showToast({
 	          title: '预入库成功',
@@ -205,10 +206,11 @@ Page({
 	      success: res => {
 	        console.log("request code:" + res.code)
 	        wx.request({
-	          url: app.globalData.apiUrl + "/wx/purchaseLogin/getXcxCookieId.htm",
+	          url: app.globalData.apiUrl + "/wx/purchaseLogin/auth4OpenIdAndCompanyNo.htm",
 	          data: {
 	            version: app.globalData.version,
-	            code: res.code
+	            code: res.code,
+		        appid: app.globalData.appid
 	          },
 	          success: function (res) {
 	          	if(res.data.retCode!='0'){
@@ -222,13 +224,27 @@ Page({
 	                app.globalData.sessionKey = res.data.data.session_key;
 		            app.requestAndUpdateUserInfo();
 	          	}
+	          	if('60001' != res.data.retCode ){
+                    var xcxCookieId = res.data.data.openid;
+                    wx.setStorageSync('xcxCookieId', xcxCookieId);
+                    app.globalData.xcxCookieId = xcxCookieId;
+                    app.globalData.sessionKey = res.data.data.session_key;
+					app.globalData.companyNo = res.data.data.company_no;
+                    app.globalData.buyerId = res.data.data.buyer_id;
+					console.log(app.globalData.companyNo)
+                    app.requestAndUpdateUserInfo();
+				}else{
+                    wx.showToast({
+                        title: '登录小程序失败,当前微信未属于任何公司'+res.data.errorMsg,
+                    });
+				}
 	          }
 	        })
 	        wx.stopPullDownRefresh();
 	      },
 	      fail: function (res) { console.log(res)
 	        wx.showToast({
-	          title: '登录小程序失败',
+            title: '登录小程序失败',
 	        });
 	      }
 	    })
@@ -296,6 +312,7 @@ Page({
 			taskReceiptList:taskReceiptList
 		})
 	},
+
 	chose:function(e){
 		let index = e.currentTarget.dataset.index;
 		let listindex = e.currentTarget.dataset.listindex;
@@ -321,6 +338,7 @@ Page({
 	}
 })
 var ajaxLoad = function(pageNum,that,loadType){
+
 	if(!that.data.canLoad){
 		wx.hideNavigationBarLoading();
 		return;
@@ -334,56 +352,66 @@ var ajaxLoad = function(pageNum,that,loadType){
 	if(taskId=='null' || taskId==null){
 		taskId = '';
 	}
-	wx.request({
-      url: app.globalData.apiUrl + "/task/list.htm",
-      data: {pageNum:pageNum,key:key,status:status,taskId:taskId},
-      success: function (res) {
-      	wx.hideNavigationBarLoading();
-      	if (res.data.retCode == '0') {
-      		let token = that.data.token;
-      		that.setData({
-      			token:res.data.data.token
-      		})	
-      		if(loadType=="refresh" && res.data.data.token!=token){
-	        	that.setData({
-	        		taskDailyList:[]
-	        	})
-	        }
-  			if(loadType=="load" &&(res.data.data.taskDailyList ==null || res.data.data.taskDailyList ==undefined ||res.data.data.taskDailyList.length==0)){
-      			wx.showToast({
-			        title: "没有更多数据",
-			        icon: 'none',
-			    	duration: 2000
-			    });
-			    that.setData({
-		        	canLoad:false,
-		        	token:token
-		        })
-			    return;
-      		}
-      		let taskDailyList = that.data.taskDailyList.concat(res.data.data.taskDailyList);
-	        that.setData({
-	        	pageNum:pageNum+1
-	        })
-	        if(loadType=="load" || (loadType=="refresh" && res.data.data.token!=token)){
-	        	that.setData({
-	        		taskDailyList:taskDailyList
-	        	})
-	        }
-	    }else {
-            wx.showToast({
-		        title: res.data.errorMsg,
-		        icon: 'none',
-		    	duration: 2000
-		    })
-        }
-      },
-	  fail: function () {
-	  	wx.hideNavigationBarLoading();
-		util.errorCallback();
-	  } 
-    })   
+    //let companyNo = app.globalData.companyNo;
+    // if(companyNo == null || companyNo=='null' ){
+    //     this.onLoad();
+    // }
+    setTimeout(function () {
+        wx.request({
+            url: app.globalData.apiUrl + "/task/list.htm",
+            data: {pageNum:pageNum,key:key,status:status,taskId:taskId,companyNo: app.globalData.companyNo},
+            success: function (res) {
+                wx.hideNavigationBarLoading();
+                if (res.data.retCode == '0') {
+                    console.log(that.data)
+                    let token = that.data.token;
+                    that.setData({
+                        token:res.data.data.token
+                    })
+                    if(loadType=="refresh" && res.data.data.token!=token){
+                        that.setData({
+                            taskDailyList:[]
+                        })
+                    }
+                    if(loadType=="load" &&(res.data.data.taskDailyList ==null || res.data.data.taskDailyList ==undefined ||res.data.data.taskDailyList.length==0)){
+                        wx.showToast({
+                            title: "没有更多数据",
+                            icon: 'none',
+                            duration: 2000
+                        });
+                        that.setData({
+                            canLoad:false,
+                            token:token
+                        })
+                        return;
+                    }
+                    let taskDailyList = that.data.taskDailyList.concat(res.data.data.taskDailyList);
+                    that.setData({
+                        pageNum:pageNum+1
+                    })
+                    if(loadType=="load" || (loadType=="refresh" && res.data.data.token!=token)){
+                        that.setData({
+                            taskDailyList:taskDailyList
+                        })
+                    }
+                }else {
+                    wx.showToast({
+                        title: res.data.errorMsg,
+                        icon: 'none',
+                        duration: 2000
+                    })
+                }
+            },
+            fail: function () {
+                wx.hideNavigationBarLoading();
+                util.errorCallback();
+            }
+        })
+    },1000);
+
 }
+
+
 var ajaxLoadStorageList = function(pageNum,that,loadType){
 	if(!that.data.canLoad){
 		wx.hideNavigationBarLoading();
@@ -400,7 +428,7 @@ var ajaxLoadStorageList = function(pageNum,that,loadType){
 	}
 	wx.request({
       url: app.globalData.apiUrl + "/task/taskReceiptList.htm",
-      data: {pageNum:pageNum,key:key,status:status,taskId:taskId},
+      data: {pageNum:pageNum,key:key,status:status,taskId:taskId,companyNo: app.globalData.companyNo},
       success: function (res) {
       	wx.hideNavigationBarLoading();
       	if (res.data.retCode == '0') {
@@ -466,7 +494,7 @@ var ajaxLoadTaskReceiptList = function(pageNum,that,loadType){
 	}
 	wx.request({
       url: app.globalData.apiUrl + "/task/taskReceiptList.htm",
-      data: {pageNum:pageNum,key:key,status:status,taskId:taskId,type:'calc'},
+      data: {pageNum:pageNum,key:key,status:status,taskId:taskId,type:'calc',companyNo: app.globalData.companyNo},
       success: function (res) {
       	wx.hideNavigationBarLoading();
       	if (res.data.retCode == '0') {

@@ -212,13 +212,18 @@ Page({
 		})
 	},
 	choseCategory:function(){
+		console.log(this)
 		let that = this;
 		that.setData({
 			categoryFlag:!that.data.categoryFlag,
 			popFlag:!that.data.popFlag,
 		})
 		let threeCategoryList = [];
+		// console.log(that.data)
+		// console.log(that.data.category[0])
+		// console.log(that.data.category[0].categoryList[0])
 		let pid = that.data.category[0].categoryList[0].id;
+
 		wx.request({
 	      url: app.globalData.apiUrl + "/data/child_list.htm?pid="+pid,
 	      success: function (res) {
@@ -665,7 +670,7 @@ Page({
 			    		detail:item.detail,
 			    		remark:item.remark,
 			    		brand:item.brand,
-			    		name:item.name,
+			    		name:item.itemName,
 			    		id:e.id,
 			    		skuInfo:skuInfo,
 			    		skuValue:skuValue,
@@ -827,8 +832,11 @@ Page({
 			filePath: filePath,
 			name: 'item',
 			success: function(res){
-				let resData = JSON.parse(res.data);
-		        let data = resData.data.pictureList;
+				console.log(res)
+                let resData = JSON.parse(res.data);
+                let data = resData.data.pictureList.toString().replace(/img.haihu.com/, "img-us.haihu.com");
+                console.log(data.toString().replace(/img.haihu.com/, "img-us.haihu.com"))
+                console.log(data)
 	        	let item = that.data.item;
 	        	let itemProgress = that.data.itemProgress;
 	        	item[i] = data+'?x-oss-process=image/resize,m_fill,h_420,w_420';
@@ -865,7 +873,7 @@ Page({
 			}
 		}
 		param.purchaseStatus = purchaseStatus;
-		param.name = that.data.name;
+		param.itemName = that.data.name;
 		if(that.data.name==null || that.data.name==''){
 			wx.showToast({
                 title: '请输入商品名称',
@@ -914,12 +922,16 @@ Page({
 		param.id = that.data.id;
 		let skuInfo = that.data.skuInfo;
 		param.skuInfo = skuInfo;
+		param.companyNo = app.globalData.companyNo
+		console.log('thisthsithsitshi')
+		console.log(param)
 		wx.request({
 	      url: app.globalData.apiUrl + "/find/save.htm",
 	      method:"POST",
 	      data: param,
 	      success: function (res) {
-	      	wx.hideNavigationBarLoading();
+			  wx.hideNavigationBarLoading();
+			  console.log('this')
 	      	if (res.data.retCode == '0') {
 			    wx.switchTab({
 			    	url:'list'
