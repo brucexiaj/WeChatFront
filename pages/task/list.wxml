@@ -40,7 +40,7 @@
 					<view class="name">{{list.name}}</view>
 					<view class="upc">upc: {{list.upc}}</view>
 					<view class="sku">{{list.color}}<block wx:if="{{list.scale}}">+{{list.scale}}</block></view>
-					<view class="price" wx:if="{{list.taskMaxPrice}}">采购价 <text>{{char_lt}}= ${{list.taskMaxPrice}}</text></view>
+					<view class="price" wx:if="{{list.maxPrice}}">采购价 <text>{{char_lt}}= ${{list.maxPrice}}</text></view>
 				</view>		
 				<view class="editBtn" wx:if="{{list.inCount < list.count}}" bindtap="calc" data-taskid="{{item.id}}" data-detail="{{list.id}}" data-index="{{index}}">
 					<image src="../../images/icon_calc.png" mode="widthFix"/>

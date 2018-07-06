@@ -138,8 +138,8 @@ Page({
 	},
 	purchasePriceInput:function(e){
 		let price = e.detail.value;
-		if(price > this.data.taskDailyDetail.taskMaxPrice){
-			price = this.data.taskDailyDetail.taskMaxPrice;
+		if(price > this.data.taskDailyDetail.maxPrice){
+			price = this.data.taskDailyDetail.maxPrice;
 		}
 		this.setData({
 			price:price
