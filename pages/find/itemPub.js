@@ -834,8 +834,9 @@ Page({
 			success: function(res){
 				console.log(res)
                 let resData = JSON.parse(res.data);
-                let data = resData.data.pictureList.toString().replace(/img.haihu.com/, "img-us.haihu.com");
-                console.log(data.toString().replace(/img.haihu.com/, "img-us.haihu.com"))
+                //let data = resData.data.pictureList.toString().replace(/img.haihu.com/, "img-us.haihu.com");
+                let data = resData.data.pictureList.toString();
+                //console.log(data.toString().replace(/img.haihu.com/, "img-us.haihu.com"))
                 console.log(data)
 	        	let item = that.data.item;
 	        	let itemProgress = that.data.itemProgress;
