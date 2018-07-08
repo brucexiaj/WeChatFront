@@ -15,7 +15,7 @@
 	  			<view class="time"><block wx:if="{{item.day>0}}">{{item.day}}天</block>{{item.hours}}:{{item.minutes}}</view>
 	  		</view>
 	  		<view class="info" data-id="{{item.id}}" bindtap="goDetail" data-status="{{item.purchaseStatus}}">
-				<view class="name">{{item.name}}</view>
+				<view class="name">{{item.itemName}}</view>
 				<view class="address">地点:{{item.findAddress}}</view>
 				<view class="address">站点:{{item.buySite}}</view>
 				<view class="priceRange">${{item.priceRange}}</view>
@@ -37,7 +37,7 @@
 		<view class="inner contentBox">
 			<image class="mainPic" src="{{item.skuPic}}" data-id="{{item.id}}"/>
 			<view class="info" data-id="{{item.id}}">
-				<view class="name">{{item.name}}</view>
+				<view class="name">{{item.itemName}}</view>
 				<view class="priceRange">${{item.priceRange}}</view>
 				<view class="detail">
 					<view class="price">${{item.costPrice}}</view>

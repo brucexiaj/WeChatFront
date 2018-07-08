@@ -2,7 +2,7 @@
 	<view>
 		<view class="taskBarList" data-detailid="{{taskDaily.id}}">
 			<view class="timeType">
-				<view class="title">{{taskDaily.taskTitle}}</view>
+				<view class="title">{{taskDaily.title}}</view>
 				<view class="time">{{taskDaily.taskStartTimeStr}}</view>
 			</view>
 			<view class="status">
@@ -22,7 +22,7 @@
 			<view class="taskList">
 				<image src="{{item.mainPic}}" class="main" data-src="{{item.mainPic}}" bindtap="preview"/>
 				<view class="info">
-					<view class="name">{{item.name}}</view>
+					<view class="name">{{item.itemName}}</view>
 					<view class="upc {{upc!='' ? upc != itemSku.upc ?'error':'true' : ''}}">upc: {{itemSku.upc}}</view>
 					<view class="sku">{{itemSku.color}}<block wx:if="{{itemSku.scale}}">+{{itemSku.scale}}</block></view>
 					<view class="price" wx:if="{{taskDailyDetail.maxPrice}}">采购价 <text>{{char_lt}}= ${{taskDailyDetail.maxPrice}}</text></view>
