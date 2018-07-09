@@ -2,7 +2,7 @@
 	<view>
 		<view class="taskBarList" data-detailid="{{taskDaily.id}}">
 			<view class="timeType">
-				<view class="title">{{taskDaily.title}}</view>
+				<view class="title">{{taskDaily.taskTitle}}</view>
 				<view class="time">{{taskDaily.taskStartTimeStr}}</view>
 			</view>
 			<view class="status">
