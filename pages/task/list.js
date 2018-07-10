@@ -225,22 +225,18 @@ Page({
                   //app.globalData.appid = res.data.data.appid;
                   app.globalData.buyerId = res.data.data.buyer_id;
                   console.log(app.globalData.appid)
-		            app.requestAndUpdateUserInfo();
+		           // app.requestAndUpdateUserInfo();
+
+                    var _buyerId = res.data.data.buyer_id;
+                    if (true) {
+                        //没有buyer_id, 然后显示授权拿到unionId
+                        app.requestAndUpdateUserInfo();
+                    } else {
+                        app.globalData.buyerId = res.data.data.buyer_id;
+                    }
+
 	          	}
-	      //     	if('60001' != res.data.retCode ){
-        //             var xcxCookieId = res.data.data.openid;
-        //             wx.setStorageSync('xcxCookieId', xcxCookieId);
-        //             app.globalData.xcxCookieId = xcxCookieId;
-        //             app.globalData.sessionKey = res.data.data.session_key;
-				// 	app.globalData.appid = res.data.data.appid;
-        //             app.globalData.buyerId = res.data.data.buyer_id;
-				// 	console.log(app.globalData.appid)
-        //             app.requestAndUpdateUserInfo();
-				// }else{
-        //             wx.showToast({
-        //                 title: '登录小程序失败,当前微信未属于任何公司'+res.data.errorMsg,
-        //             });
-				// }
+
 	          }
 	        })
 	        wx.stopPullDownRefresh();

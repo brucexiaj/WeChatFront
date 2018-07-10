@@ -4,10 +4,11 @@ App({
         //apiUrl: 'http://local.konggeek.com:8080/purchase/api/',
         //apiUrl: 'http://apex.buyer007.com/api/',
         //apiUrl: 'http://47.98.164.133:8082/api',
-        apiUrl: 'http://47.98.230.111:8082/api',
+        //apiUrl: 'http://47.98.230.111:8082/api',
         //apiUrl: 'http://47.97.185.180:8082/purchase/api',
         //apiUrl: 'https://cg2.logthin.com/api',
         //apiUrl: 'http://172.16.6.232:8080/purchase/api',
+        apiUrl: 'http://127.0.0.1:8080/purchase/api',
         xcxCookieId: null,
         powerCode:0,
         version:"1.0",
@@ -71,43 +72,50 @@ App({
               success: res => {
                 let userInfo = res.userInfo;
                 let param = null;
-                if (that.globalData.userInfo) {
+                if (userInfo) {
                     param = userInfo;
                     param.xcxCookieId = that.globalData.xcxCookieId;
 
                     param.encryptedData = res.encryptedData;
                     param.iv = res.iv;
-                    param.appid = app.globalData.appid;
+                    param.appid = that.globalData.appid;
                     if (that.globalData.sessionKey) {
                         param.sessionKey = that.globalData.sessionKey;
+                    }         
+                } else {     
+                    if (this.userInfoReadyCallback) {
+                      this.userInfoReadyCallback(res);
                     }
-                } else {
-                    param = { xcxCookieId: that.globalData.xcxCookieId , appid:that.globalData.appid};
                 }
                 wx.request({
-                    url: that.globalData.apiUrl + '/wx/purchaseLogin/setUserInfo.htm',
-                    data: param,
-                    header: {
-                        'content-type': 'application/x-www-form-urlencoded'
-                    },
-                    success: function (res) {
-                        if(res.data.retCode=="0"){
-                            that.globalData.buyerId = res.data.data.id;
-                            that.globalData.powerCode = res.data.data.powerCode;
-                            that.globalData.userInfo  = userInfo;
-                        }else{
-                            wx.showToast({
-                                title: res.data.errorMsg,
-                                icon: 'none',
-                                duration: 2000
-                            })
-                        }
+                  url: that.globalData.apiUrl + '/wx/purchaseLogin/setUserInfo.htm',
+                  data: param,
+                  header: {
+                    'content-type': 'application/x-www-form-urlencoded'
+                  },
+                  success: function (res) {
+                    console.log("123123" + JOSN.stringify(res));
+                    if (res.data.retCode == "0") {
+                      that.globalData.buyerId = res.data.data.id;
+                      that.globalData.powerCode = res.data.data.powerCode;
+                      that.globalData.userInfo = userInfo;
+                    } else {
+                      wx.showToast({
+                        title: res.data.errorMsg,
+                        icon: 'none',
+                        duration: 2000
+                      })
                     }
+                  }
                 })
                 if (this.userInfoReadyCallback) {
-                    this.userInfoReadyCallback(res);
-                  }
-              }
+                  this.userInfoReadyCallback(res);
+                }
+            },
+            complete:function(){
+              console.log("565656");
+              
+            }
         })
     },
     isOwnEmpty: function (obj) {
