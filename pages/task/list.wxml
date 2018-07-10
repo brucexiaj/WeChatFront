@@ -5,7 +5,7 @@
 	<view class="tab {{storage ? 'on' : ''}}" bindtap="goStorage">预入库</view>
 	<image mode="widthFix" src="../../images/icon_search.png" class="filter"  bindtap="searchSwitch"/>
 </view>
-<button wx:if="{{!userInfo}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style="position:fixed;width:60px;height:60px;border-radius:50%;overflow:hidden;bottom:20px;right:20px;z-index:1111;line-height:60px;border:1px solid #ddd;font-size:14px">授权</button>
+<!--<button wx:if="{{!userInfo}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style="position:fixed;width:60px;height:60px;border-radius:50%;overflow:hidden;bottom:20px;right:20px;z-index:1111;line-height:60px;border:1px solid #ddd;font-size:14px">授权</button>-->
 <view style="height:55px;width:100%"></view>
 <view class="searchBox" wx:if="{{searchBoxShow}}">
 	<input placeholder="输入商品名／分配人／采购人" placeholder-class="placeholder" focus maxlength="30" confirm-type="搜索" bindinput="input" bindconfirm="confirm"/>
@@ -81,7 +81,7 @@
 					<view class="sku">{{list.color}}<block wx:if="{{list.scale}}">+{{list.scale}}</block></view>
 					<view class="price"><text style="margin-right:10px;">${{list.purchasePrice}}</text>${{list.costPrice}}</view>
 				</view>	
-				<view class="batchNo">批次{{list.batchNum}}</view>
+				<view class="batchNo">批次{{listIndex+1}}</view>
 				<view class="transQuantityBox">
 					<label class="tit">线下</label>
 					<label class="number {{list.quantity==0 ? 'zero':''}}">{{list.quantity}}</label>
