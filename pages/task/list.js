@@ -227,8 +227,8 @@ Page({
                   console.log(app.globalData.appid)
 		           // app.requestAndUpdateUserInfo();
 
-                    var _buyerId = res.data.data.buyer_id;
-                    if (true) {
+                    let _buyerId = res.data.data.buyer_id;
+                    if (_buyerId === undefined || _buyerId == null) {
                         //没有buyer_id, 然后显示授权拿到unionId
                         app.requestAndUpdateUserInfo();
                     } else {
