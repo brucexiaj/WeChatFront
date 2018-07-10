@@ -4,7 +4,7 @@ App({
         //apiUrl: 'http://local.konggeek.com:8080/purchase/api/',
         //apiUrl: 'http://apex.buyer007.com/api/',
         //apiUrl: 'http://47.98.164.133:8082/purchase/api',
-        apiUrl: 'http://172.16.7.13:8080/purchase/api',
+        apiUrl: 'http://172.16.6.232:8080/purchase/api',
         xcxCookieId: null,
         powerCode:0,
         version:"1.0",
