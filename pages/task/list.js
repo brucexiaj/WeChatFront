@@ -33,6 +33,7 @@ Page({
 	          icon:'none'
 	        });
 		}else{
+			that.onShow();
 			wx.showToast({
 	          title: '授权成功',
 	          icon:'none'
@@ -41,27 +42,29 @@ Page({
 	},
     onReachBottom:function(){
 		let that = this;
-		if(!app.globalData.storage && !app.globalData.calc){
-			ajaxLoad(that.data.pageNum,that,"load");
-		}else{
-			this.setData({
-				taskDailyList:[],
-				status:null
-			})
-		}	
-		if(app.globalData.calc){
-			ajaxLoadTaskReceiptList(that.data.pageNum,that,"load");
-			this.setData({
-				calc:true,
-				storage:false
-			})
-		}
-		if(app.globalData.storage){
-			ajaxLoadStorageList(that.data.pageNum,that,"load");
-			this.setData({
-				storage:true,
-				calc:false
-			})
+		if(app.globalData.appid){
+			if(!app.globalData.storage && !app.globalData.calc){
+				ajaxLoad(that.data.pageNum,that,"load");
+			}else{
+				this.setData({
+					taskDailyList:[],
+					status:null
+				})
+			}	
+			if(app.globalData.calc){
+				ajaxLoadTaskReceiptList(that.data.pageNum,that,"load");
+				this.setData({
+					calc:true,
+					storage:false
+				})
+			}
+			if(app.globalData.storage){
+				ajaxLoadStorageList(that.data.pageNum,that,"load");
+				this.setData({
+					storage:true,
+					calc:false
+				})
+			}
 		}
 	},
 	searchSwitch:function(){
@@ -137,7 +140,7 @@ Page({
 		receiptIds = receiptIds.substring(0,receiptIds.length-1);
 		wx.request({
 		  url: app.globalData.apiUrl + "/task/addStorage.htm",
-		  data: {receiptIds:receiptIds,buyerId:app.globalData.buyerId,companyNo: app.globalData.companyNo},
+		  data: {receiptIds:receiptIds,buyerId:app.globalData.buyerId,appid: app.globalData.appid},
 		  success: function (res) {
 		  	wx.showToast({
 	          title: '预入库成功',
@@ -203,33 +206,44 @@ Page({
 	      success: res => {
 	        console.log("request code:" + res.code)
 	        wx.request({
-	          url: app.globalData.apiUrl + "/wx/purchaseLogin/getXcxCookieId.htm",
+	          url: app.globalData.apiUrl + "/wx/purchaseLogin/auth4OpenIdAndCompanyNo.htm",
 	          data: {
 	            version: app.globalData.version,
-	            code: res.code
+	            code: res.code,
+		        appid: app.globalData.appid
 	          },
 	          success: function (res) {
-	          	if('60001' != res.data.retCode ){
-                    var xcxCookieId = res.data.data.openid;
-                    wx.setStorageSync('xcxCookieId', xcxCookieId);
-                    app.globalData.xcxCookieId = xcxCookieId;
-                    app.globalData.sessionKey = res.data.data.session_key;
-					app.globalData.companyNo = res.data.data.company_no;
-                    app.globalData.buyerId = res.data.data.buyer_id;
-					console.log(app.globalData.companyNo)
-                    app.requestAndUpdateUserInfo();
-				}else{
-                    wx.showToast({
-                        title: '登录小程序失败,当前微信未属于任何公司'+res.data.errorMsg,
-                    });
-				}
+	          	if(res.data.retCode!='0'){
+	          		wx.showToast({
+			          title: res.data.errorMsg,
+			        });
+	          	}else{
+	          		var xcxCookieId = res.data.data.openid;
+	                wx.setStorageSync('xcxCookieId', xcxCookieId);
+	                app.globalData.xcxCookieId = xcxCookieId;
+                  app.globalData.sessionKey = res.data.data.session_key;
+                  //app.globalData.appid = res.data.data.appid;
+                  app.globalData.buyerId = res.data.data.buyer_id;
+                  console.log(app.globalData.appid)
+		           // app.requestAndUpdateUserInfo();
+
+                    let _buyerId = res.data.data.buyer_id;
+                    if (_buyerId === undefined || _buyerId == null) {
+                        //没有buyer_id, 然后显示授权拿到unionId
+                        app.requestAndUpdateUserInfo();
+                    } else {
+                        app.globalData.buyerId = res.data.data.buyer_id;
+                    }
+
+	          	}
+
 	          }
 	        })
 	        wx.stopPullDownRefresh();
 	      },
 	      fail: function (res) { console.log(res)
 	        wx.showToast({
-	          title: '登录小程序失败',
+            title: '登录小程序失败',
 	        });
 	      }
 	    })
@@ -237,36 +251,37 @@ Page({
 	onShow:function(){
 		console.log("onShow");
 		let status = app.globalData.status;
-		this.setData({
-			status:status,
-			pageNum:0,
-			canLoad:true,
-			key:'',
-			userInfo:app.globalData.userInfo
-		})
-		if(!app.globalData.storage && !app.globalData.calc){
-			ajaxLoad(0,this,"refresh");
-		}else{
+		if(app.globalData.appid){
 			this.setData({
-				taskDailyList:[],
-				status:null
+				status:status,
+				pageNum:0,
+				canLoad:true,
+				key:'',
+				userInfo:app.globalData.userInfo
 			})
-		}	
-		if(app.globalData.calc){
-			ajaxLoadTaskReceiptList(0,this,"refresh");
-			this.setData({
-				calc:true,
-				storage:false
-			})
+			if(!app.globalData.storage && !app.globalData.calc){
+				ajaxLoad(0,this,"refresh");
+			}else{
+				this.setData({
+					taskDailyList:[],
+					status:null
+				})
+			}	
+			if(app.globalData.calc){
+				ajaxLoadTaskReceiptList(0,this,"refresh");
+				this.setData({
+					calc:true,
+					storage:false
+				})
+			}
+			if(app.globalData.storage){
+				ajaxLoadStorageList(0,this,"refresh");
+				this.setData({
+					storage:true,
+					calc:false
+				})
+			}
 		}
-		if(app.globalData.storage){
-			ajaxLoadStorageList(0,this,"refresh");
-			this.setData({
-				storage:true,
-				calc:false
-			})
-		}
-
 	},
 	fold:function(e){
 		if(!app.globalData.storage && !app.globalData.calc){
@@ -296,6 +311,7 @@ Page({
 			taskReceiptList:taskReceiptList
 		})
 	},
+
 	chose:function(e){
 		let index = e.currentTarget.dataset.index;
 		let listindex = e.currentTarget.dataset.listindex;
@@ -321,6 +337,7 @@ Page({
 	}
 })
 var ajaxLoad = function(pageNum,that,loadType){
+
 	if(!that.data.canLoad){
 		wx.hideNavigationBarLoading();
 		return;
@@ -334,57 +351,62 @@ var ajaxLoad = function(pageNum,that,loadType){
 	if(taskId=='null' || taskId==null){
 		taskId = '';
 	}
-	wx.request({
-      url: app.globalData.apiUrl + "/task/list.htm",
-      data: {pageNum:pageNum,key:key,status:status,taskId:taskId,companyNo: app.globalData.companyNo},
-      success: function (res) {
-		  wx.hideNavigationBarLoading();
-      	if (res.data.retCode == '0') {
-			console.log(that.data)
-      		let token = that.data.token;
-      		that.setData({
-      			token:res.data.data.token
-      		})	
-      		if(loadType=="refresh" && res.data.data.token!=token){
-	        	that.setData({
-	        		taskDailyList:[]
-	        	})
-	        }
-  			if(loadType=="load" &&(res.data.data.taskDailyList ==null || res.data.data.taskDailyList ==undefined ||res.data.data.taskDailyList.length==0)){
-      			wx.showToast({
-			        title: "没有更多数据",
-			        icon: 'none',
-			    	duration: 2000
-			    });
-			    that.setData({
-		        	canLoad:false,
-		        	token:token
-		        })
-			    return;
-      		}
-      		let taskDailyList = that.data.taskDailyList.concat(res.data.data.taskDailyList);
-	        that.setData({
-	        	pageNum:pageNum+1
-	        })
-	        if(loadType=="load" || (loadType=="refresh" && res.data.data.token!=token)){
-	        	that.setData({
-	        		taskDailyList:taskDailyList
-	        	})
-	        }
-	    }else {
-            wx.showToast({
-		        title: res.data.errorMsg,
-		        icon: 'none',
-		    	duration: 2000
-		    })
-        }
-      },
-	  fail: function () {
-	  	wx.hideNavigationBarLoading();
-		util.errorCallback();
-	  } 
-    })   
+  wx.request({
+            url: app.globalData.apiUrl + "/task/list.htm",
+            data: {pageNum:pageNum,key:key,status:status,taskId:taskId,appid: app.globalData.appid},
+            success: function (res) {
+                wx.hideNavigationBarLoading();
+                if (res.data.retCode == '0') {
+                    console.log(that.data)
+                    let token = that.data.token;
+                    that.setData({
+                        token:res.data.data.token
+                    })
+                    if(loadType=="refresh" && res.data.data.token!=token){
+                        that.setData({
+                            taskDailyList:[]
+                        })
+                    }
+                    if(loadType=="load" &&(res.data.data.taskDailyList ==null || res.data.data.taskDailyList ==undefined ||res.data.data.taskDailyList.length==0)){
+                        wx.showToast({
+                            title: "没有更多数据",
+                            icon: 'none',
+                            duration: 2000
+                        });
+                        that.setData({
+                            canLoad:false,
+                            token:token
+                        })
+                        return;
+                    }
+                    let taskDailyList = that.data.taskDailyList.concat(res.data.data.taskDailyList);
+                    that.setData({
+                        pageNum:pageNum+1
+                    })
+                    if(loadType=="load" || (loadType=="refresh" && res.data.data.token!=token)){
+                        that.setData({
+                            taskDailyList:taskDailyList
+                        })
+                    }
+                }else {
+                    wx.showToast({
+                        title: res.data.errorMsg,
+                        icon: 'none',
+                        duration: 2000
+                    })
+                }
+            },
+            fail: function () {
+                wx.hideNavigationBarLoading();
+                util.errorCallback();
+            }
+    })
+		
+  
+
 }
+
+
 var ajaxLoadStorageList = function(pageNum,that,loadType){
 	if(!that.data.canLoad){
 		wx.hideNavigationBarLoading();
@@ -401,7 +423,7 @@ var ajaxLoadStorageList = function(pageNum,that,loadType){
 	}
 	wx.request({
       url: app.globalData.apiUrl + "/task/taskReceiptList.htm",
-      data: {pageNum:pageNum,key:key,status:status,taskId:taskId,companyNo: app.globalData.companyNo},
+      data: {pageNum:pageNum,key:key,status:status,taskId:taskId,appid: app.globalData.appid},
       success: function (res) {
       	wx.hideNavigationBarLoading();
       	if (res.data.retCode == '0') {
@@ -467,7 +489,7 @@ var ajaxLoadTaskReceiptList = function(pageNum,that,loadType){
 	}
 	wx.request({
       url: app.globalData.apiUrl + "/task/taskReceiptList.htm",
-      data: {pageNum:pageNum,key:key,status:status,taskId:taskId,type:'calc',companyNo: app.globalData.companyNo},
+      data: {pageNum:pageNum,key:key,status:status,taskId:taskId,type:'calc',appid: app.globalData.appid},
       success: function (res) {
       	wx.hideNavigationBarLoading();
       	if (res.data.retCode == '0') {

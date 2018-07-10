@@ -138,8 +138,8 @@ Page({
 	},
 	purchasePriceInput:function(e){
 		let price = e.detail.value;
-		if(price > this.data.taskDailyDetail.taskMaxPrice){
-			price = this.data.taskDailyDetail.taskMaxPrice;
+		if(price > this.data.taskDailyDetail.maxPrice){
+			price = this.data.taskDailyDetail.maxPrice;
 		}
 		this.setData({
 			price:price
@@ -253,7 +253,7 @@ Page({
 			    	wx.showNavigationBarLoading();
 			   		wx.request({
 				      url: app.globalData.apiUrl + "/task/calc.htm",
-				      data: {quantity:quantity,taskDetailId:taskDetailId,transQuantity:transQuantity,skuBuysite:skuBuysite,purchaseUpc:purchaseUpc,skuId:skuId,buyerId:app.globalData.buyerId,purchasePrice:purchasePrice,companyNo: app.globalData.companyNo},
+				      data: {quantity:quantity,taskDetailId:taskDetailId,transQuantity:transQuantity,skuBuysite:skuBuysite,purchaseUpc:purchaseUpc,skuId:skuId,buyerId:app.globalData.buyerId,purchasePrice:purchasePrice,appid: app.globalData.appid},
 				      success: function (res) {
 				      	wx.hideNavigationBarLoading();
 				      	if (res.data.retCode == '0') {

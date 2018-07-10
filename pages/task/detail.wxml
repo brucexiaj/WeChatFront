@@ -22,10 +22,10 @@
 			<view class="taskList">
 				<image src="{{item.mainPic}}" class="main" data-src="{{item.mainPic}}" bindtap="preview"/>
 				<view class="info">
-					<view class="name">{{item.name}}</view>
+					<view class="name">{{item.itemName}}</view>
 					<view class="upc {{upc!='' ? upc != itemSku.upc ?'error':'true' : ''}}">upc: {{itemSku.upc}}</view>
 					<view class="sku">{{itemSku.color}}<block wx:if="{{itemSku.scale}}">+{{itemSku.scale}}</block></view>
-					<view class="price" wx:if="{{taskDailyDetail.taskMaxPrice}}">采购价 <text>{{char_lt}}= ${{taskDailyDetail.taskMaxPrice}}</text></view>
+					<view class="price" wx:if="{{taskDailyDetail.maxPrice}}">采购价 <text>{{char_lt}}= ${{taskDailyDetail.maxPrice}}</text></view>
 				</view>		
 				<view class="editBtn" wx:if="{{taskDailyDetail.count - taskReceipt.transQuantity - taskReceipt.quantity>0}}">
 					<image src="../../images/icon_calc.png" mode="widthFix"/>

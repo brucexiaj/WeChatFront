@@ -5,7 +5,7 @@
 	<view class="tab {{storage ? 'on' : ''}}" bindtap="goStorage">预入库</view>
 	<image mode="widthFix" src="../../images/icon_search.png" class="filter"  bindtap="searchSwitch"/>
 </view>
-<!--<button wx:if="{{!userInfo}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style="position:fixed;width:60px;height:60px;border-radius:50%;overflow:hidden;bottom:20px;right:20px;z-index:1111;line-height:60px;border:1px solid #ddd;font-size:14px">授权</button>-->
+<button wx:if="{{!userInfo}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style="position:fixed;width:60px;height:60px;border-radius:50%;overflow:hidden;bottom:20px;right:20px;z-index:1111;line-height:60px;border:1px solid #ddd;font-size:14px">授权</button>
 <view style="height:55px;width:100%"></view>
 <view class="searchBox" wx:if="{{searchBoxShow}}">
 	<input placeholder="输入商品名／分配人／采购人" placeholder-class="placeholder" focus maxlength="30" confirm-type="搜索" bindinput="input" bindconfirm="confirm"/>
@@ -40,7 +40,7 @@
 					<view class="name">{{list.name}}</view>
 					<view class="upc">upc: {{list.upc}}</view>
 					<view class="sku">{{list.color}}<block wx:if="{{list.scale}}">+{{list.scale}}</block></view>
-					<view class="price" wx:if="{{list.taskMaxPrice}}">采购价 <text>{{char_lt}}= ${{list.taskMaxPrice}}</text></view>
+					<view class="price" wx:if="{{list.maxPrice}}">采购价 <text>{{char_lt}}= ${{list.maxPrice}}</text></view>
 				</view>		
 				<view class="editBtn" wx:if="{{list.inCount < list.count}}" bindtap="calc" data-taskid="{{item.id}}" data-detail="{{list.id}}" data-index="{{index}}">
 					<image src="../../images/icon_calc.png" mode="widthFix"/>

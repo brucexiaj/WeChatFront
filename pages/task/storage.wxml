@@ -56,7 +56,7 @@
 					<view class="name">{{list.name}}</view>
 					<view class="upc">upc: {{list.upc}}</view>
 					<view class="sku">{{list.color}}<block wx:if="{{list.scale}}">+{{list.scale}}</block>，{{list.count - list.inCount}}件</view>
-					<view class="price" wx:if="{{list.taskMaxPrice}}">采购价 <text>{{char_lt}}= ${{list.taskMaxPrice}}</text></view>
+					<view class="price" wx:if="{{list.maxPrice}}">采购价 <text>{{char_lt}}= ${{list.maxPrice}}</text></view>
 				</view>		
 			</view>
 		</view>
