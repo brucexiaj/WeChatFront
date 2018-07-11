@@ -89,7 +89,7 @@
 	<input maxlength="20" placeholder="输入品牌"  bindinput="brand" value="{{brand}}" placeholder-class="placeholder"/>
 </view>
 <view class="listBox" bindtap="openSkuPopBox">
-	<label>规格</label>
+	<label>规格<text>*</text></label>
 	<view class="content">{{skuValue}}</view>
 	<view class="arrow"></view>
 </view>
