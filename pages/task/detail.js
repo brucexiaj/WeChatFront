@@ -47,8 +47,8 @@ Page({
 						price = price +"~"+res.data.data.taskReceipt.maxPrice 
 					}
 					that.setData({
-						quantity:res.data.data.taskReceipt.quantity,
-						transQuantity:res.data.data.taskReceipt.transQuantity,
+						quantity:  0, //res.data.data.taskReceipt.quantity,
+						transQuantity: 0, //res.data.data.taskReceipt.transQuantity,
 						price:price
 					})
 				}		

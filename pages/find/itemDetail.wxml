@@ -7,7 +7,7 @@
 </swiper>
 <view class="listBox">
 	<label>商品名<text>*</text></label>
-	<input maxlength="40" name="name" bindinput="name" value="{{item.name}}" disabled="true" placeholder-class="placeholder"/>
+	<input maxlength="40" name="name" bindinput="itemName" value="{{item.itemName}}" disabled="true" placeholder-class="placeholder"/>
 </view>
 <view class="bigListBox">
 	<view class="price">
