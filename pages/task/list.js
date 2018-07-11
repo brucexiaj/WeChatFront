@@ -89,7 +89,7 @@ Page({
 		tempTaskDaily.allInCount= this.data.taskDailyList[index].allInCount;
 		tempTaskDaily.allCount= this.data.taskDailyList[index].allCount;
 		tempTaskDaily.ownerName= this.data.taskDailyList[index].allCount;
-    wx.redirectTo({
+    wx.navigateTo({
       		url: "../task/detail?id="+detailId+'&taskDailyJson='+JSON.stringify(tempTaskDaily)
       	})	
 	},
@@ -109,7 +109,7 @@ Page({
 		tempTaskDaily.allInCount= this.data.taskDailyList[index].allInCount;
 		tempTaskDaily.allCount= this.data.taskDailyList[index].allCount;
 		tempTaskDaily.ownerName= this.data.taskDailyList[index].allCount;
-    wx.redirectTo({
+    wx.navigateTo({
       		url: "../task/detail?id="+detailId+'&taskDailyJson='+JSON.stringify(tempTaskDaily)+'&type='+type
       	})	
 	},
