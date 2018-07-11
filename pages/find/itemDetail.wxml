@@ -17,7 +17,7 @@
 		</view>
 	</view>
 	<view class="price">
-		<view class="tit">折扣</view>
+		<view class="tit">折扣<text>%</text></view>
 		<view class="tit">
 			<input bindinput="inputGlobalDiscount"  disabled="true"  type="digit" placeholder-class="placeholder" placeholder="输入折扣" maxlength="10"  value="{{skuInfo[0].discount}}"/>
 		</view>
