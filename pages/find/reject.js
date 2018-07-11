@@ -44,6 +44,13 @@ Page({
 			url:'/pages/find/list'
 	    })
 	},
+
+    reason:function(e){
+        this.setData({
+            reason:e.detail.value
+        })
+    },
+
 	rejectConfirm:function(){
 		let that = this;
 		wx.showModal({
