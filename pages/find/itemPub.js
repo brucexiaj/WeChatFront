@@ -892,6 +892,13 @@ Page({
             });
 			return;
 		}
+		//品牌不能为空，xiajun
+		if(that.data.brand==null || that.data.brand==''){
+			wx.showToast({
+                title: '请填写品牌',
+            });
+			return;
+		}
 		if(that.data.startDate=='' || that.data.endDate=='' || that.data.endDate==null){
 			wx.showToast({
                 title: '请选择时间',
