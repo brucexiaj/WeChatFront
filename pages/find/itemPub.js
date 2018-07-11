@@ -28,7 +28,7 @@ Page({
 	    duration: 300,
 		globalCostPrice:'0.00',
 		globalPurchasePrice:'0.00',
-		globalDiscount:1,
+		globalDiscount:100,
 		name:'',
 		selectIndex:'',
 		findAddress:'',
@@ -59,6 +59,7 @@ Page({
 		uploadType:'mainPic',
 		itemUploadIndex:0,
 		currency:'$',
+		percent:'%',
 		current:0,
 		swiperHeight:wx.getSystemInfoSync().windowWidth/3,
 		itemProgress:['0px','0px','0px','0px','0px','0px','0px','0px','0px'],
@@ -323,7 +324,7 @@ Page({
 		let value = e.detail.value;
 		let discount = this.data.globalDiscount;
 		if(discount!=null || discount!=''){
-			value = discount*value
+			value = discount*value/100
 		}
 		skuInfo[0].purchasePrice = value;
 		skuInfo[0].discount = this.data.globalDiscount;
@@ -338,7 +339,7 @@ Page({
 		let skuInfo = this.data.skuInfo;
 		let value = e.detail.value;
 		let globalCostPrice = this.data.globalCostPrice;
-		let globalPurchasePrice = returnFloat(globalCostPrice*e.detail.value);
+		let globalPurchasePrice = returnFloat(globalCostPrice*e.detail.value/100);
 		skuInfo[0].purchasePrice =globalPurchasePrice;
 		skuInfo[0].discount = e.detail.value;
 		skuInfo[0].costPrice = this.data.globalCostPrice;
@@ -351,8 +352,8 @@ Page({
 	inputGlobalPurchasePrice:function(e){
 		let skuInfo = this.data.skuInfo;
 		let value = e.detail.value;
-		let discount = returnFloat(e.detail.value / this.data.globalCostPrice);
-		skuInfo[0].purchasePrice = e.detail.value;;
+		let discount = returnFloat(e.detail.value / this.data.globalCostPrice*100);
+		skuInfo[0].purchasePrice = e.detail.value;
 		skuInfo[0].discount = discount;
 		skuInfo[0].costPrice = this.data.globalCostPrice;
 		this.setData({
@@ -603,7 +604,9 @@ Page({
 		let items = this.data.item;
 		let globalCostPrice = this.data.globalCostPrice
 		let globalPurchasePrice = this.data.globalPurchasePrice
+		//let globalDiscount = this.data.globalDiscount
 		let globalDiscount = this.data.globalDiscount
+		
     	if(upc!=null){
     		let skuInfo = that.data.skuInfo;
     		skuInfo[0].upc = upc;
@@ -656,7 +659,8 @@ Page({
 					if(skuInfo[0]){
 						globalCostPrice = skuInfo[0].costPrice
 						globalPurchasePrice = skuInfo[0].purchasePrice
-						globalDiscount = skuInfo[0].discount
+						globalDiscount = skuInfo[0].discount*100
+						console.log("globalDiscount:"+globalDiscount)
 					}
 			    	that.setData({
 			    		categoryName:category.allPath,
@@ -922,6 +926,15 @@ Page({
 		param.pictureList = picture;
 		param.id = that.data.id;
 		let skuInfo = that.data.skuInfo;
+		//处理一下折扣的情况,xiajun
+		for(var i = 0;i < skuInfo.length;i++) {
+			let sku = skuInfo[i];
+			//console.log("sku.discount:"+sku.discount);
+			sku.discount = sku.discount/100;
+			//console.log("sku.discount:"+sku.discount);
+		}
+
+		skuInfo.discount = skuInfo.discount/10;
 		param.skuInfo = skuInfo;
 		param.appid = app.globalData.appid
 		console.log('thisthsithsitshi')

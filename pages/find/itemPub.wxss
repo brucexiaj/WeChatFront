@@ -48,6 +48,7 @@ picker{border:1px solid #C8C8C8; border-radius:100px; height:28px; margin:6px 5p
 .skuList .skuInfo .field{width:50%;float:left;height:45px;line-height:45px;position: relative;}
 .skuList .skuInfo label{font-size:12px;color:#9b9b9b;width:45px;text-align:right;float: left;}
 .skuList .skuInfo .field text{margin-left:5px;font-size: 14px;color: #4a4a4a;width: 11px;text-align: right;float: left;}
+.inputDiscountSpecial{ width: 50px!important; }
 .skuList .skuInfo input{float:left; width:calc(100% - 50px); margin-left:5px; height:45px; line-height:45px;font-size: 14px;color: #4a4a4a}
 .popBox .addBox{ margin-top: 16px;}
 .addBox .addBtn{margin:auto;text-align:center;width:20px;height:20px;border-radius:50%;background:#FF2E38;line-height:18px;color:#fff;font-size:17px;}
@@ -63,6 +64,8 @@ picker{border:1px solid #C8C8C8; border-radius:100px; height:28px; margin:6px 5p
 .bigListBox .price .tit{height: 30px;line-height: 30px;font-size: 13px;color: #9B9B9B;position:relative}
 .bigListBox .price .tit text{color:#FF2E38;margin-left: 5px;}
 .bigListBox .price .tit label{color:#4A4A4A;font-size:14px;float:left;margin-right:4px;}
+.percentMax{ position:absolute; top:0px; right:45px}
+.specialMax{ width:65%!important}
 .bigListBox .price .tit input{height: 100%;}
 .parentBox,.secondBox,.threeBox{float:left;width:95px;border-right:1.5px solid rgba(151,151,151,.5);height:calc(100% - 10px);text-align: center;padding: 5px 0px;overflow:auto;text-align:center;}
 .parentBox{height:calc(100% - 70px)}
