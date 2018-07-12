@@ -46,7 +46,8 @@ view.header,view.header .tab{ box-sizing: border-box; }
 .editBtn{height:26px;width:70px;position:absolute;right:16px;bottom:14px;background:rgba(200,200,200,.5); border-radius: 20px;}
 .editBtn image{width:20px;float:left;display:block;margin-left:11px;margin-top:4px;}
 .editBtn text{background:#B38E6B;border-radius:80px;float:right;display:block;margin-right:3px;height:22px;line-height:22px;margin-top:2px;font-size:14px;color:#fff;text-align:center;padding:0px 5px}
-.taskBarList .purchaseNum{width:25%;margin-left:2%;margin-right:2%;texe-align:center;float:left;font-size:13px;color:#4A4A4A;height:50px;line-height:50px;}
+.taskBarList .purchaseNum{width:15%;margin-left:2%;margin-right:2%;texe-align:center;float:left;font-size:13px;color:#4A4A4A;height:50px;line-height:50px;}
+.taskBarList .purchaseNumRate{width:25%;margin-left:2%;margin-right:2%;texe-align:center;float:left;font-size:13px;color:#4A4A4A;height:50px;line-height:50px;}
 .taskBarList .status{float:left;margin-left:4%;margin-right:4%;width:15%;}
 .taskBarList .status .statusDes{font-size: 12px; color: #4A4A4A;height:17px;line-height:17px;margin-top:10px;}
 .taskBarList .status .scheduleBox{width:100%;border-radius: 6.5px;height:5px;border:0.5px solid #C8C8C8;padding:0px 1px;margin-top:3px;overflow:hidden}
