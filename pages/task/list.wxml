@@ -61,7 +61,7 @@
 				<view class="time">{{item.taskStartTimeStr}}</view>
 			</view>
 			<view class="purchaseNum">
-			{{item.allInCount}}/{{item.allCount}}
+				{{item.allInCount}}/{{item.allCount}}
 			</view>
 			<view class="assigner"  bindtap="fold" data-detailid="{{item.id}}" data-index="{{index}}">
 				{{item.ownerName}}
