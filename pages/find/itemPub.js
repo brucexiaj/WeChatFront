@@ -91,6 +91,19 @@ Page({
 			reason:e.detail.value
 		})
 	},
+
+	setBuySite:function(e){
+		console.log("input buysite:"+e.detail.value)
+		this.setData({
+			buySite:e.detail.value
+		})
+	},
+	setFindAddress:function(e){
+		console.log("input add:"+e.detail.value)
+		this.setData({
+			findAddress:e.detail.value
+		})
+	},
 	remark:function(e){
 		this.setData({
 			remark:e.detail.value
@@ -706,6 +719,7 @@ Page({
         
 	},
 	choseAddress:function(e){
+		console.log("您在添加或者修改站点或者地点");
 		let that = this;
 		let type = e.currentTarget.dataset.type;
 		wx.chooseLocation({
