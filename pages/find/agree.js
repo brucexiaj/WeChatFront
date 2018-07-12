@@ -14,7 +14,7 @@ Page({
 	      data: {id:id},
 	      success: function (res) {
 	      	if (res.data.retCode == '0') {
-	      		let item = res.data.data.item;
+				let item = res.data.data.item;
 	      		item.skuPic = item.pictureArr[0];
 	      		item.costPrice = tempItem.costPrice;
 				item.day = tempItem.day;
