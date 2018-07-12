@@ -110,12 +110,12 @@
 </view>
 <view class="listBox">
 	<label>站点</label>
-	<input maxlength="40" value="{{buySite}}" name="buySite" placeholder-class="placeholder"/>
-	<image src="../../images/map.png" class="map" data-type="site" mode="widthFix"/>
+	<input maxlength="40" value="{{buySite}}" name="buySite" bindinput="setBuySite" placeholder-class="placeholder"/>
+	<image src="../../images/map.png" class="map" bindtap="choseAddress" data-type="site" mode="widthFix"/>
 </view>
 <view class="listBox">
 	<label>地点</label>
-	<input maxlength="40" value="{{findAddress}}" name="findAddress" placeholder-class="placeholder"/>
+	<input maxlength="40" value="{{findAddress}}" name="findAddress" bindinput="setFindAddress" placeholder-class="placeholder"/>
 	<image src="../../images/map.png" class="map" bindtap="choseAddress" data-type="address" mode="widthFix"/>
 </view>
 <view class="listBox" bindtap="showDetail">
