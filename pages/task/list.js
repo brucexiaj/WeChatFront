@@ -28,10 +28,10 @@ Page({
 		let that = this;
 		setTimeout(function () {
             that.setData({
-            	userInfo:app.globalData.userInfo
+            	//userInfo:app.globalData.buyerId
             })
         }, 1000);
-		if(app.globalData.userInfo==null){
+		if(app.globalData.buyerId==null){
 			wx.showToast({
 	          title: '授权失败',
 	          icon:'none'
