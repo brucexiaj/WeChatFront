@@ -958,21 +958,23 @@ Page({
 		skuInfo.discount = skuInfo.discount/10;
 		param.skuInfo = skuInfo;
 		param.appid = app.globalData.appid
-		console.log('thisthsithsitshi')
+		//console.log('thisthsithsitshi')
 		console.log(param)
 		wx.request({
 	      url: app.globalData.apiUrl + "/find/save.htm",
 	      method:"POST",
 	      data: param,
 	      success: function (res) {
+			  //console.log("enter success");
 			  wx.hideNavigationBarLoading();
-			  console.log('this')
-	      	if (res.data.retCode == '0') {
+			  //console.log('this')
+			  //console.log("code:"+res.data.retCode);
+	      	if (res.data.retCode == '0' || res.data.retCode == '10001') {
 			    wx.switchTab({
 			    	url:'list'
 			    })
 		    }
-	      }
+		  }
 	    }) 
 	}   
 })
