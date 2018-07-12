@@ -17,7 +17,11 @@ Page({
 		userInfo:null,
 		quantity:0,
 		transQuantity:0,
-		amount:0,
+		amount:0,	
+		AllpriceMax:'',
+		total:0,
+		eleQuantity:0,
+		amountPrice:0,
 	},
 	onGotUserInfo:function(){
 		app.requestAndUpdateUserInfo();
@@ -161,7 +165,10 @@ Page({
 			quantity:0,
 			transQuantity:0,
 			amount:0,
-			status:null
+			status:null,
+			eleQuantity:0,
+			total:0,
+			amountPrice:0,
 		});
 		app.globalData.status = null;
 		app.globalData.calc = true;
@@ -301,17 +308,55 @@ Page({
 		}
 	},
 	choseItem:function(e){
+
 		let index = e.currentTarget.dataset.index;
 		let taskReceiptList = this.data.taskReceiptList;
+		console.log(taskReceiptList)
+		// console.log(taskReceiptList[index])
 		taskReceiptList[index].chose = !taskReceiptList[index].chose;
+		// console.log(taskReceiptList[index].chose)
+		// console.log(taskReceiptList[index].taskDailyDetailExtList)
 		for(let i in taskReceiptList[index].taskDailyDetailExtList){
 			taskReceiptList[index].taskDailyDetailExtList[i].chose = taskReceiptList[index].chose
+		
 		}
 		this.setData({
 			taskReceiptList:taskReceiptList
 		})
+		this.getTotalPrice();
 	},
-
+    getTotalPrice() {
+		// console.log('this')
+		let taskReceiptList = this.data.taskReceiptList;
+		let total = 0;
+		let eleQuantity = 0;
+		let amountPrice =0;
+		for (let i = 0;i<taskReceiptList.length; i++){
+			// console.log('that')
+			var everyElement = taskReceiptList[i].taskDailyDetailExtList;
+			for(let j  = 0;j < everyElement.length;j++) {
+				var everyElement2 = everyElement[j];
+				var everyChose = everyElement2.chose;
+				var everyQuantity = everyElement2.transQuantity
+				var everyTaQuantity = everyElement2.quantity
+				var everyPrice = everyElement2.purchasePrice
+				// console.log("everyQuantity:"+everyQuantity);
+				if(everyChose){
+					total += everyQuantity
+					eleQuantity += everyTaQuantity
+					amountPrice += (everyQuantity+everyTaQuantity) * everyPrice
+					console.log(total,eleQuantity)
+					
+				}
+			}
+		}
+		this.setData({
+			taskReceiptList:taskReceiptList,
+			total:total,
+			eleQuantity:eleQuantity,
+			amountPrice: amountPrice.toFixed(2)
+		})  
+	},
 	chose:function(e){
 		let index = e.currentTarget.dataset.index;
 		let listindex = e.currentTarget.dataset.listindex;
@@ -334,6 +379,7 @@ Page({
 		this.setData({
 			taskReceiptList:taskReceiptList
 		})
+		this.getTotalPrice();
 	}
 })
 var ajaxLoad = function(pageNum,that,loadType){

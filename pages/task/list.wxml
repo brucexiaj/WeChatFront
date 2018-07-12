@@ -98,15 +98,15 @@
 	<view style="height:66px;width:100%;"></view>
 	<view class="fixedBox">
 		<view class="viewBox" style="margin-left:40px">
-			<view class="amount">{{quantity}}</view>
+			<view class="amount">{{eleQuantity}}</view>
 			<view class="label">线下</view>
 		</view>
 		<view class="viewBox">
-			<view class="amount">{{transQuantity}}</view>
+			<view class="amount">{{total}}</view>
 			<view class="label">在途</view>
 		</view>
 		<view class="viewBox">
-			<view class="amount">${{amount}}</view>
+			<view class="amount">${{amountPrice}}</view>
 			<view class="label">付款总额</view>
 		</view>
 		<view class="calcBtn" bindtap="addStorage">
