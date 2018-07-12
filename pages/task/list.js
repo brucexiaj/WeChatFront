@@ -311,7 +311,6 @@ Page({
 
 		let index = e.currentTarget.dataset.index;
 		let taskReceiptList = this.data.taskReceiptList;
-		console.log(taskReceiptList)
 		// console.log(taskReceiptList[index])
 		taskReceiptList[index].chose = !taskReceiptList[index].chose;
 		// console.log(taskReceiptList[index].chose)
