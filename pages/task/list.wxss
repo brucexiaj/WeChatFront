@@ -22,8 +22,8 @@ view.header,view.header .tab{ box-sizing: border-box; }
 .orderGoodsListBox .taskList{padding:0px 18px;}
 .taskListBox{overflow:hidden}
 .taskListBox.on{height:0px;}
-.choseBox{float:left;margin-left:10px;}
-.choseBox image{width:17px;height:17px;padding:10px;margin-top:5px;margin-left:-10px;}
+.choseBox{float:left;margin-left:8px;width:17px;height:17px;}
+.choseBox image{width:17px;height:17px;padding:10px;margin-top:5px;margin-left:-8px;}
 .taskList{height:130px;border-bottom:1px solid #f2f2f2;position:relative}
 .taskList .choseBox{position:absolute;left:0px;top:50%;margin-top:-20px;}
 .taskList .main{float:left;width:95px;height:95px;position:relative;margin-right:15px;margin-top:17.5px;overflow:inherit;margin-left:20px;}
@@ -39,15 +39,15 @@ view.header,view.header .tab{ box-sizing: border-box; }
 .angleTen{position:absolute;top:-8px;left:-9px;width:34px;text-align:center;font-size:18px;color:#FFFFFF;height:26px;line-height:26px;}
 .angleHundred{position:absolute;top:-8px;left:-9px;width:41px;text-align:center;font-size:18px;color:#FFFFFF;height:26px;line-height:26px;}
 .taskBarList{height:50px;border-bottom:1.5px solid rgba(200,200,200,.2);border-top:1.5px solid #eee;clear:both;position:relative;}
-.timeType{float:left;overflow:hidden;width:30%;margin-left:20px;}
+.timeType{float:left;overflow:hidden;width:25%;margin-left:20px;}
 .timeType .title{font-size: 14px; color: #4A4A4A;height:20px;line-height:20px;float:left;width:100%;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;margin-top:6px;}
 .timeType .time{font-size: 12px; color: #4A4A4A;height:17px;line-height:17px;clear:left;width:100%}
 .assigner{font-size:13px;color:4%;float:left;height:50px;line-height:50px;width:15.5%;margin-right:0%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .editBtn{height:26px;width:70px;position:absolute;right:16px;bottom:14px;background:rgba(200,200,200,.5); border-radius: 20px;}
 .editBtn image{width:20px;float:left;display:block;margin-left:11px;margin-top:4px;}
 .editBtn text{background:#B38E6B;border-radius:80px;float:right;display:block;margin-right:3px;height:22px;line-height:22px;margin-top:2px;font-size:14px;color:#fff;text-align:center;padding:0px 5px}
-.taskBarList .purchaseNum{width:15%;margin-left:2%;margin-right:2%;texe-align:center;float:left;font-size:13px;color:#4A4A4A;height:50px;line-height:50px;}
-.taskBarList .purchaseNumRate{width:25%;margin-left:2%;margin-right:2%;texe-align:center;float:left;font-size:13px;color:#4A4A4A;height:50px;line-height:50px;}
+.taskBarList .purchaseNum{width:19%;margin-left:1%;margin-right:2%;texe-align:center;float:left;font-size:13px;color:#4A4A4A;height:50px;line-height:50px;}
+.taskBarList .purchaseNumRate{width:18%;margin-left:1%;margin-right:2%;texe-align:center;float:left;font-size:13px;color:#4A4A4A;height:50px;line-height:50px;}
 .taskBarList .status{float:left;margin-left:4%;margin-right:4%;width:15%;}
 .taskBarList .status .statusDes{font-size: 12px; color: #4A4A4A;height:17px;line-height:17px;margin-top:10px;}
 .taskBarList .status .scheduleBox{width:100%;border-radius: 6.5px;height:5px;border:0.5px solid #C8C8C8;padding:0px 1px;margin-top:3px;overflow:hidden}
