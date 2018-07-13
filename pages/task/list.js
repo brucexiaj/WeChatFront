@@ -108,6 +108,7 @@ Page({
 		tempTaskDaily.taskTitle= this.data.taskDailyList[index].taskTitle;
 		tempTaskDaily.taskStartTimeStr= this.data.taskDailyList[index].taskStartTimeStr;
 		tempTaskDaily.statusDes= this.data.taskDailyList[index].statusDes;
+		//console.log("detail page's task status:"+tempTaskDaily.statusDes);
 		tempTaskDaily.statusValue= this.data.taskDailyList[index].statusValue;
 		tempTaskDaily.schedule= this.data.taskDailyList[index].schedule;
 		tempTaskDaily.allInCount= this.data.taskDailyList[index].allInCount;

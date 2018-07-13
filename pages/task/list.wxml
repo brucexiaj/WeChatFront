@@ -25,9 +25,11 @@
 				</view>
 			</view>
 			<view class="purchaseNum">
-			{{item.allInCount}}/{{item.allCount}}
+				{{item.allInCount}}/{{item.allCount}}
+				<!-- 1122/3333 -->
 			</view>
 			<view class="assigner" >
+				<!-- 毛大佬 -->
 				{{item.ownerName}}
 			</view>
 			<view class="arrow {{item.unfold?'on':''}}">
@@ -53,8 +55,8 @@
 <view class="orderGoodsListBox" wx:if="{{taskReceiptList.length > 0}}">
 	<view wx:for="{{taskReceiptList}}" wx:key="{{key}}" style="border-bottom:2px solid #f2f2f2">
 		<view class="taskBarList">
-			<view class="choseBox"  wx:if="{{calc}}">
-				<image bindtap="choseItem" src="{{item.chose ? '../../images/icon_chose.png':'../../images/icon_unchoose.png'}}" data-index="{{index}}" />
+			<view class="choseBox"  >
+				<image wx:if="{{calc}}" bindtap="choseItem" src="{{item.chose ? '../../images/icon_chose.png':'../../images/icon_unchoose.png'}}" data-index="{{index}}" />
 			</view>
 			<view class="timeType" style="width:50%;margin-left:5px;">
 				<view class="title">{{item.title}}</view>
@@ -62,9 +64,11 @@
 			</view>
 			<view class="purchaseNumRate">
 				{{item.allInCount}}/{{item.allCount}}
+				<!-- 1111/1222 -->
 			</view>
 			<view class="assigner"  bindtap="fold" data-detailid="{{item.id}}" data-index="{{index}}">
 				{{item.ownerName}}
+				<!-- 前端大 -->
 			</view>
 			<view class="arrow {{item.unfold?'on':''}}"  bindtap="fold" data-detailid="{{item.id}}" data-index="{{index}}">
 			</view>
