@@ -212,6 +212,18 @@ Page({
 		}
 	},
 	calc:function(){
+		let curTaskDaily = this.data.taskDaily;
+		// for(var att in curTaskDaily) {
+		// 	console.log(att+":"+curTaskDaily[att]);
+		// }
+		if(curTaskDaily.statusDes == "已完成" || curTaskDaily.statusDes == "取消") {
+			wx.showToast({
+		        title: "已完成或已取消的任务，不支持结算",
+		        icon: 'none',
+		    	duration: 2000
+		    });
+			return;
+		}
 		let purchasePrice = this.data.price;
 		let quantity = this.data.quantity;
 		let transQuantity = this.data.transQuantity;
