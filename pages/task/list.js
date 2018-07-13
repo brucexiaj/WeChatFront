@@ -142,9 +142,11 @@ Page({
 			return;
 		}
 		receiptIds = receiptIds.substring(0,receiptIds.length-1);
+		let _buyerId = app.globalData.buyerId;
+		//console.log("_buyer_id: "+_buyerId);
 		wx.request({
 		  url: app.globalData.apiUrl + "/task/addStorage.htm",
-		  data: {receiptIds:receiptIds,buyerId:app.globalData.buyerId,appid: app.globalData.appid},
+		  data: {receiptIds:receiptIds,buyerId:_buyerId,appid: app.globalData.appid},
 		  success: function (res) {
 		  	wx.showToast({
 	          title: '预入库成功',
@@ -231,7 +233,7 @@ Page({
                   app.globalData.sessionKey = res.data.data.session_key;
                   //app.globalData.appid = res.data.data.appid;
                   app.globalData.buyerId = res.data.data.buyer_id;
-                  console.log(app.globalData.appid)
+                  console.log(app.globalData.buyerId)
 		           // app.requestAndUpdateUserInfo();
 
                     let _buyerId = res.data.data.buyer_id;
