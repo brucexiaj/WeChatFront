@@ -566,9 +566,9 @@ var setUserInfo = function (that) {
                 },
                 success: function (res) {
                     if(res.data.retCode=="0"){
-                        that.globalData.buyerId = res.data.data.id;
-                        that.globalData.powerCode = res.data.data.powerCode;
-                        that.globalData.userInfo  = userInfo;
+                        app.globalData.buyerId = res.data.data.id;
+                        app.globalData.powerCode = res.data.data.powerCode;
+                        app.globalData.userInfo  = userInfo;
 
                     }else{
 

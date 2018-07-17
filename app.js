@@ -97,7 +97,7 @@ App({
                             that.globalData.buyerId = res.data.data.id;
                             that.globalData.powerCode = res.data.data.powerCode;
                             that.globalData.userInfo  = userInfo;
-                            
+
                         }else{
                             app.globalData.appid = '';
                             wx.showToast({
