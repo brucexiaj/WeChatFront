@@ -84,14 +84,7 @@
 					<view class="upcChecked" style="color:#21C7D3;">upc: {{list.upc}}</view>
 					<view class="sku">{{list.color}}<block wx:if="{{list.scale}}">+{{list.scale}}</block></view>
 					<!-- <view class="price"><text style="margin-right:10px;">${{list.purchasePrice}}</text>${{list.costPrice}}</view> -->
-					<view class="price">
-						<view class="up">
-							<text>${{list.purchasePrice}}</text>
-						</view>
-						<view class="down">
-							${{list.costPrice}}
-						</view>
-					</view>
+					<view class="price"><text style="margin-right:10px;">${{list.purchasePrice}}</text>${{list.costPrice}}</view>
 				</view>	
 				<view class="batchNo">批次{{listIndex+1}}</view>
 				<view class="transQuantityBox">

@@ -34,9 +34,9 @@ view.header,view.header .tab{ box-sizing: border-box; }
 .taskList .info .upc{font-size:15px;color:#4A4A4A;height:20px;line-height:20px;margin-bottom:2px;margin-top:2px;}
 .taskList .info .upcChecked{font-size:15px;color:#4A4A4A;height:20px;line-height:20px;margin-bottom:2px;margin-top:1px;}
 .taskList .info .priceForAll{font-size: 14px; color: #4A4A4A;height:20px;line-height:20px;position:absolute;bottom:0px;}
-.taskList .info .price{font-size: 14px; color: #4A4A4A;height:40px;line-height:20px;position:absolute;bottom:0px;}
-.taskList .info .price .up{font-size: 14px; color: #4A4A4A;height:20px;line-height:20px;position:absolute;}
-.taskList .info .price .down{font-size: 14px;margin-top:10px; color: #4A4A4A;height:20px;line-height:20px;position:absolute;bottom:0px;}
+.taskList .info .price{font-size: 14px; color: #4A4A4A;height:20px;line-height:20px;position:absolute;bottom:0px;}
+.taskList .info .price .up{float:left;font-size: 14px; color: #4A4A4A;height:20px;width:45px;}
+.taskList .info .price .down{float:left;font-size: 14px;color: #4A4A4A;height:20px;width:45px;bottom:0px;}
 .taskList .info .price text{font-size: 15px;color:#B38E6B;}
 .taskList .info .status{border: 1px solid #9DD321; border-radius: 48px;width:66px;height:26px;font-size: 14px; color: #7ED321;text-align:center;position:absolute;right:20px;bottom:2px;line-height:26px}
 .angleBits{position:absolute;top:-8px;left:-9px;width:30px;text-align:center;font-size:18px;color:#FFFFFF;height:30px;line-height:30px;}
