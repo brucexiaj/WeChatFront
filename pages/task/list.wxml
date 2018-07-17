@@ -42,7 +42,7 @@
 					<view class="name">{{list.name}}</view>
 					<view class="upc">upc: {{list.upc}}</view>
 					<view class="sku">{{list.color}}<block wx:if="{{list.scale}}">+{{list.scale}}</block></view>
-					<view class="price" wx:if="{{list.maxPrice}}">采购价 <text>{{char_lt}}= ${{list.maxPrice}}</text></view>
+					<view class="priceForAll" wx:if="{{list.maxPrice}}">采购价 <text>{{char_lt}}= ${{list.maxPrice}}</text></view>
 				</view>		
 				<view class="editBtn" wx:if="{{list.inCount < list.count}}" bindtap="calc" data-taskid="{{item.id}}" data-detail="{{list.id}}" data-index="{{index}}">
 					<image src="../../images/icon_calc.png" mode="widthFix"/>
@@ -80,10 +80,18 @@
 				</view>
 				<image src="{{list.skuPicUrl}}" class="main" data-src="{{list.skuPicUrl}}" bindtap="preview"/>
 				<view class="info">
-					<view class="name">{{list.name}}</view>
-					<view class="upc" style="color:#21C7D3;">upc: {{list.upc}}</view>
+					<view class="nameChecked">{{list.name}}</view>
+					<view class="upcChecked" style="color:#21C7D3;">upc: {{list.upc}}</view>
 					<view class="sku">{{list.color}}<block wx:if="{{list.scale}}">+{{list.scale}}</block></view>
-					<view class="price"><text style="margin-right:10px;">${{list.purchasePrice}}</text>${{list.costPrice}}</view>
+					<!-- <view class="price"><text style="margin-right:10px;">${{list.purchasePrice}}</text>${{list.costPrice}}</view> -->
+					<view class="price">
+						<view class="up">
+							<text>${{list.purchasePrice}}</text>
+						</view>
+						<view class="down">
+							${{list.costPrice}}
+						</view>
+					</view>
 				</view>	
 				<view class="batchNo">批次{{listIndex+1}}</view>
 				<view class="transQuantityBox">
