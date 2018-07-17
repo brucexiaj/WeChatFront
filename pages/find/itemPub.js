@@ -982,7 +982,14 @@ Page({
 			    wx.switchTab({
 			    	url:'list'
 			    })
-		    }
+		    }else{
+
+                //显示失败信息
+                wx.showToast({
+                    title: res.data.errorMsg,
+                });
+
+            }
 		  }
 	    }) 
 	}   
