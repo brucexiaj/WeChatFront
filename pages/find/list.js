@@ -236,6 +236,7 @@ let audit = function(id,status,that){
     })
 }
 let ajaxLoad = function(pageNum,that,loadType){
+	console.log("=============进入ajax=================");
 	if(!that.data.canLoad){
 		wx.hideNavigationBarLoading();
 		return;
@@ -281,7 +282,8 @@ let ajaxLoad = function(pageNum,that,loadType){
 		        	canLoad:false
 		        })
       		}
-      		let findItemList = that.data.findItemList.concat(res.data.data.findItemList);
+			let findItemList = that.data.findItemList.concat(res.data.data.findItemList);
+			console.log("=============修改页码=================");
 	        that.setData({
 	        	draft:res.data.data.draft,
 	        	audit:res.data.data.audit,
