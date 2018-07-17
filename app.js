@@ -4,11 +4,12 @@ App({
         //apiUrl: 'http://local.konggeek.com:8080/purchase/api/',
         //apiUrl: 'http://apex.buyer007.com/api/',
         //apiUrl: 'http://47.98.164.133:8082/api',
-        apiUrl: 'http://47.98.230.111:8082/api',
+        //apiUrl: 'http://47.98.230.111:8082/api',
         //apiUrl: 'http://47.97.185.180:8082/purchase/api',
         //apiUrl: 'https://cg2.logthin.com/api',
         //apiUrl: 'http://172.16.6.232:8080/purchase/api',
         // apiUrl: 'http://127.0.0.1:8080/purchase/api',
+        apiUrl: 'http://127.0.0.1:8080/api',
         xcxCookieId: null,
         powerCode:0,
         version:"1.0",
@@ -96,7 +97,9 @@ App({
                             that.globalData.buyerId = res.data.data.id;
                             that.globalData.powerCode = res.data.data.powerCode;
                             that.globalData.userInfo  = userInfo;
+
                         }else{
+                            app.globalData.appid = '';
                             wx.showToast({
                                 title: res.data.errorMsg,
                                 icon: 'none',

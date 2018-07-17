@@ -24,14 +24,22 @@ Page({
 		amountPrice:0,
 	},
 	onGotUserInfo:function(){
-		app.requestAndUpdateUserInfo();
+		//app.requestAndUpdateUserInfo();
+
+
+
+
 		let that = this;
+
+        setUserInfo(that);
+
 		setTimeout(function () {
             that.setData({
             	//userInfo:app.globalData.buyerId
             })
         }, 1000);
 		if(app.globalData.buyerId==null){
+            app.globalData.appid = '';
 			wx.showToast({
 	          title: '授权失败',
 	          icon:'none'
@@ -212,6 +220,7 @@ Page({
 		ajaxLoad(0,that,"refresh");
 	},
 	onLoad:function(){
+		let that = this;
 		wx.login({
 	      success: res => {
 	        console.log("request code:" + res.code)
@@ -224,6 +233,9 @@ Page({
 	          },
 	          success: function (res) {
 	          	if(res.data.retCode!='0'){
+
+	          		app.globalData.appid = '';
+
 	          		wx.showToast({
 			          title: res.data.errorMsg,
 			        });
@@ -231,16 +243,18 @@ Page({
 	          		var xcxCookieId = res.data.data.openid;
 	                wx.setStorageSync('xcxCookieId', xcxCookieId);
 	                app.globalData.xcxCookieId = xcxCookieId;
-                  app.globalData.sessionKey = res.data.data.session_key;
-                  //app.globalData.appid = res.data.data.appid;
-                  app.globalData.buyerId = res.data.data.buyer_id;
-                  console.log(app.globalData.buyerId)
-		           // app.requestAndUpdateUserInfo();
+                    app.globalData.sessionKey = res.data.data.session_key;
+                    //app.globalData.appid = res.data.data.appid;
+                    //app.globalData.buyerId = res.data.data.buyer_id;
+                    //console.log(app.globalData.buyerId)
+		                // app.requestAndUpdateUserInfo();
 
                     let _buyerId = res.data.data.buyer_id;
                     if (_buyerId === undefined || _buyerId == null) {
                         //没有buyer_id, 然后显示授权拿到unionId
-                        app.requestAndUpdateUserInfo();
+                        //app.requestAndUpdateUserInfo();
+
+                        setUserInfo(that);
                     } else {
                         app.globalData.buyerId = res.data.data.buyer_id;
                     }
@@ -384,6 +398,8 @@ Page({
 		this.getTotalPrice();
 	}
 })
+
+
 var ajaxLoad = function(pageNum,that,loadType){
 
 	if(!that.data.canLoad){
@@ -520,7 +536,72 @@ var ajaxLoadStorageList = function(pageNum,that,loadType){
         }
     }
     })   
+};
+
+
+var setUserInfo = function (that) {
+
+    wx.getUserInfo({
+        success: res => {
+            let userInfo = res.userInfo;
+            let param = null;
+            if (userInfo) {
+                param = userInfo;
+                param.xcxCookieId = app.globalData.xcxCookieId;
+
+                param.encryptedData = res.encryptedData;
+                param.iv = res.iv;
+                param.appid = app.globalData.appid;
+                if (app.globalData.sessionKey) {
+                    param.sessionKey = app.globalData.sessionKey;
+                }
+            } else {
+                param = { xcxCookieId: app.globalData.xcxCookieId , appid:app.globalData.appid};
+            }
+            wx.request({
+                url: app.globalData.apiUrl + '/wx/purchaseLogin/setUserInfo.htm',
+                data: param,
+                header: {
+                    'content-type': 'application/x-www-form-urlencoded'
+                },
+                success: function (res) {
+                    if(res.data.retCode=="0"){
+                        app.globalData.buyerId = res.data.data.id;
+                        app.globalData.powerCode = res.data.data.powerCode;
+                        app.globalData.userInfo  = userInfo;
+
+                    }else{
+
+                        app.globalData.appid = '';
+
+                        //清除数据
+                        that.setData({
+                          taskDailyList: [],
+                        });
+
+                        //ajaxLoadStorageList(0,this,"refresh");//清空后，再刷新
+                        //ajaxLoad(0,this,"refresh");
+
+                        //listTask4app(that);//清空后，再刷新
+                        //this.onShow();
+
+                        wx.showToast({
+                            title: res.data.errorMsg,
+                            icon: 'none',
+                            duration: 2000
+                        })
+                    }
+
+                }
+            })
+            // if (this.userInfoReadyCallback) {
+            //     this.userInfoReadyCallback(res);
+            // }
+        }
+    })
 }
+
+
 var ajaxLoadTaskReceiptList = function(pageNum,that,loadType){
 	if(!that.data.canLoad){
 		wx.hideNavigationBarLoading();
