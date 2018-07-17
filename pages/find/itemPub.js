@@ -850,7 +850,7 @@ Page({
 			filePath: filePath,
 			name: 'item',
 			success: function(res){
-				console.log(res)
+				console.log("reply of image upload:"+res.data);
                 let resData = JSON.parse(res.data);
                 //let data = resData.data.pictureList.toString().replace(/img.haihu.com/, "img-us.haihu.com");
                 let data = resData.data.pictureList.toString();

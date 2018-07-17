@@ -26,10 +26,10 @@
 			</view>
 			<view class="purchaseNum">
 				{{item.allInCount}}/{{item.allCount}}
-				<!-- 1122/3333 -->
+				<!-- 8888/9999 -->
 			</view>
 			<view class="assigner" >
-				<!-- 毛大佬 -->
+				<!-- 全部任务 -->
 				{{item.ownerName}}
 			</view>
 			<view class="arrow {{item.unfold?'on':''}}">
@@ -58,13 +58,13 @@
 			<view class="choseBox"  >
 				<image wx:if="{{calc}}" bindtap="choseItem" src="{{item.chose ? '../../images/icon_chose.png':'../../images/icon_unchoose.png'}}" data-index="{{index}}" />
 			</view>
-			<view class="timeType" style="width:50%;margin-left:5px;">
+			<view class="timeTypeForChecked">
 				<view class="title">{{item.title}}</view>
 				<view class="time">{{item.taskStartTimeStr}}</view>
 			</view>
 			<view class="purchaseNumRate">
 				{{item.allInCount}}/{{item.allCount}}
-				<!-- 1111/1222 -->
+				<!-- 2303/8889 -->
 			</view>
 			<view class="assigner"  bindtap="fold" data-detailid="{{item.id}}" data-index="{{index}}">
 				{{item.ownerName}}

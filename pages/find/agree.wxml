@@ -22,7 +22,7 @@
 			<label>采购价{{lt}}=</label>
 			<input class="limit" bindinput="limit" maxlength="8" data-index="{{index}}"  placeholder="输入限价" placeholder-class="placeholder"/>
 			<label>采购数量</label>
-			<input class="amount" bindinput="amount" maxlength="5" data-index="{{index}}"  placeholder="输入数量" placeholder-class="placeholder"/>
+			<input class="amount" bindinput="amount" maxlength="4" data-index="{{index}}"  placeholder="输入数量" placeholder-class="placeholder"/>
 		</view>
 	</view>
 </view>

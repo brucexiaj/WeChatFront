@@ -42,13 +42,16 @@ view.header,view.header .tab{ box-sizing: border-box; }
 .timeType{float:left;overflow:hidden;width:25%;margin-left:20px;}
 .timeType .title{font-size: 14px; color: #4A4A4A;height:20px;line-height:20px;float:left;width:100%;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;margin-top:6px;}
 .timeType .time{font-size: 12px; color: #4A4A4A;height:17px;line-height:17px;clear:left;width:100%}
-.assigner{font-size:13px;color:4%;float:left;height:50px;line-height:50px;width:15.5%;margin-right:0%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.timeTypeForChecked{float:left;overflow:hidden;width:25%;margin-left:20px;}
+.timeTypeForChecked .title{font-size: 14px; color: #4A4A4A;height:20px;line-height:20px;float:left;width:100%;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;margin-top:6px;}
+.timeTypeForChecked .time{font-size: 12px; color: #4A4A4A;height:17px;line-height:17px;clear:left;width:100%}
+.assigner{font-size:13px;color:4%;float:left;height:50px;line-height:50px;width:12.5%;margin-right:0%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .editBtn{height:26px;width:70px;position:absolute;right:16px;bottom:14px;background:rgba(200,200,200,.5); border-radius: 20px;}
 .editBtn image{width:20px;float:left;display:block;margin-left:11px;margin-top:4px;}
 .editBtn text{background:#B38E6B;border-radius:80px;float:right;display:block;margin-right:3px;height:22px;line-height:22px;margin-top:2px;font-size:14px;color:#fff;text-align:center;padding:0px 5px}
-.taskBarList .purchaseNum{width:19%;margin-left:1%;margin-right:2%;texe-align:center;float:left;font-size:13px;color:#4A4A4A;height:50px;line-height:50px;}
-.taskBarList .purchaseNumRate{width:18%;margin-left:1%;margin-right:2%;texe-align:center;float:left;font-size:13px;color:#4A4A4A;height:50px;line-height:50px;}
-.taskBarList .status{float:left;margin-left:4%;margin-right:4%;width:15%;}
+.taskBarList .purchaseNum{width:23%;margin-left:1%;margin-right:2%;texe-align:center;float:left;font-size:13px;color:#4A4A4A;height:50px;line-height:50px;}
+.taskBarList .purchaseNumRate{width:23%;margin-left:2%;margin-right:1%;texe-align:center;float:left;font-size:13px;color:#4A4A4A;height:50px;line-height:50px;}
+.taskBarList .status{float:left;margin-left:2%;margin-right:2%;width:15%;}
 .taskBarList .status .statusDes{font-size: 12px; color: #4A4A4A;height:17px;line-height:17px;margin-top:10px;}
 .taskBarList .status .scheduleBox{width:100%;border-radius: 6.5px;height:5px;border:0.5px solid #C8C8C8;padding:0px 1px;margin-top:3px;overflow:hidden}
 .taskBarList .status .scheduleBox view{background: #FFBA00;height:3px;margin-top:1px;float:left}
