@@ -67,8 +67,8 @@
 				<!-- 2303/8889 -->
 			</view>
 			<view class="assigner"  bindtap="fold" data-detailid="{{item.id}}" data-index="{{index}}">
-				{{item.ownerName}}
-				<!-- 前端大 -->
+				{{item.creator}}
+				<!-- 已结算 -->
 			</view>
 			<view class="arrow {{item.unfold?'on':''}}"  bindtap="fold" data-detailid="{{item.id}}" data-index="{{index}}">
 			</view>

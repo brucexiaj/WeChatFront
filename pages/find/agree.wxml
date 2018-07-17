@@ -1,7 +1,8 @@
 <view class="inner contentBox">
 	<image class="mainPic" src="{{item.skuPic}}" data-id="{{item.id}}"/>
 	<view class="info" data-id="{{item.id}}">
-		<view class="name">{{item.name}}</view>
+		<view class="name">{{skuList[0].itemName}}</view>
+		<view class="brand">{{skuList[0].brandName}}</view>
 		<!-- <view class="priceRange">${{item.priceRange}}</view> -->
 		<view class="priceRange">${{skuList[0].purchasePrice}}</view>
 		<view class="detail">
@@ -18,10 +19,10 @@
 			<view class="price">折后<text>${{item.purchasePrice}}</text></view>
 			<view class="price">原价<text class="costPrice">${{item.costPrice}}</text></view>
 		</view>
-		<view class="taskAmount" style="height:45px;font-size:14px;color:#4a4a4a;">
+		<view class="taskAmount">
 			<label>采购价{{lt}}=</label>
-			<input class="limit" bindinput="limit" maxlength="8" data-index="{{index}}"  placeholder="输入限价" placeholder-class="placeholder"/>
-			<label>采购数量</label>
+			<input class="limit"  bindinput="limit" maxlength="8" data-index="{{index}}"  value="{{item.purchasePrice}}" placeholder="输入限价" placeholder-class="placeholder"/>
+			<label class="rightLabel">采购数量</label>
 			<input class="amount" bindinput="amount" maxlength="4" data-index="{{index}}"  placeholder="输入数量" placeholder-class="placeholder"/>
 		</view>
 	</view>
