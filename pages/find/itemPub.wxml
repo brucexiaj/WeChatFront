@@ -60,7 +60,7 @@
 	<view class="price">
 		<view class="tit">折扣</view>
 		<view class="tit">	  
-          <input bindinput="inputGlobalDiscount" type="digit" placeholder-class="placeholder" placeholder="输入折扣" maxlength="6"  value="{{globalDiscount}}" class="specialMax"/>
+          <input bindfocus="focusDiscount" bindinput="inputGlobalDiscount" type="digit" placeholder-class="placeholder" placeholder="输入折扣" maxlength="6"  value="{{globalDiscount}}" class="specialMax"/>
           <label class="percentMax">{{percent}}</label>
 		</view>
 	</view>

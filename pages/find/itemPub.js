@@ -384,6 +384,15 @@ Page({
 			globalCostPrice:globalCostPrice
 		})
 	},
+	focusDiscount:function(e){
+		let globalDiscount = this.data.globalDiscount;
+		if(globalDiscount=="100.00"){	
+			globalDiscount = "";
+		}
+		this.setData({
+			globalDiscount:globalDiscount
+		})
+	},
 	focusPurchasePrice:function(){
 		let globalPurchasePrice = this.data.globalPurchasePrice;
 		if(globalPurchasePrice=="0.00"){	
