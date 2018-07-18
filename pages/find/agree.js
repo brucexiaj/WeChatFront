@@ -3,7 +3,7 @@ Page({
 	data: {
 		item:null,
 		skuList:[],
-		lt:'<'
+		lt:'<',
 	},
 	onLoad:function(e){
 		let id = e.itemId;
@@ -15,6 +15,10 @@ Page({
 	      success: function (res) {
 	      	if (res.data.retCode == '0') {
 				let item = res.data.data.item;
+				let itemSkuList = res.data.data.itemSkuList;
+				for(var i = 0;i < itemSkuList.length;i++) {
+					itemSkuList[i].limit = itemSkuList[i].purchasePrice;
+				}
 	      		item.skuPic = item.pictureArr[0];
 	      		item.costPrice = tempItem.costPrice;
 				item.day = tempItem.day;
@@ -22,7 +26,7 @@ Page({
 				item.minutes = tempItem.minutes;
 	      		that.setData({
 	      			item:item,
-	      			skuList:res.data.data.itemSkuList,
+					skuList:res.data.data.itemSkuList,
 	      		})
 		    }else {
 	            wx.showToast({
@@ -45,10 +49,31 @@ Page({
 			skuList:skuList
 		})
 	},
+	focusPurchasePirce:function(e){
+		//console.log("focusPurchasePirce");
+		let skuList = this.data.skuList;
+		let index = e.currentTarget.dataset.index;
+		// for(var att in skuList[0]) {
+		// 	console.log(att+":"+skuList[0][att]);
+		// }
+		//console.log("e.detail.value:"+e.detail.value);
+		//console.log("skuList[index].purchasePrice:"+skuList[index].limit);
+		if(e.detail.value == skuList[index].limit) {
+			skuList[index].limit = null; 
+		}		
+		this.setData({
+			skuList:skuList
+		})
+	},
 	limit:function(e){
+		//console.log("limit");
 		let skuList = this.data.skuList;
 		let index = e.currentTarget.dataset.index;
 		skuList[index].limit = e.detail.value;
+		// for(var att in skuList[index]) {
+		// 	console.log(att+":"+skuList[index][att]);
+		// }
+		//console.log("limit==>e.detail.value:"+e.detail.value);
 		this.setData({
 			skuList:skuList
 		})
