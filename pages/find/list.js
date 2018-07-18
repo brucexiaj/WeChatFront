@@ -236,8 +236,9 @@ let audit = function(id,status,that){
     })
 }
 let ajaxLoad = function(pageNum,that,loadType){
-	console.log("=============进入ajax=================");
+	//console.log("=============进入ajax=================");
 	if(!that.data.canLoad){
+		//console.log("=============进入canLoad=================");
 		wx.hideNavigationBarLoading();
 		return;
 	}
@@ -246,6 +247,7 @@ let ajaxLoad = function(pageNum,that,loadType){
 	if(status==null || status=='null'){
 		status = '';
 	}
+	//console.log("=============即将发出新的请求=================");
 	wx.request({
       url: app.globalData.apiUrl + "/find/list.htm",
       data: {pageNum:pageNum,key:that.data.key,status:status,orderTimeType:that.data.orderTimeType,companyNo:app.globalData.companyNo},
@@ -271,19 +273,22 @@ let ajaxLoad = function(pageNum,that,loadType){
 				        icon: 'none',
 				    	duration: 2000
 				    });
-      			}
+				  }
 			    that.setData({
 		        	canLoad:false
 		        })
 			    return;
-      		}
+			  }
+			  //console.log("length:"+res.data.data.findItemList.length);
+			  //console.log("size:"+app.globalData.pageSize);
       		if(res.data.data.findItemList.length<app.globalData.pageSize){
+				//console.log("在2号改变了canLoad");
       			that.setData({
 		        	canLoad:false
 		        })
       		}
 			let findItemList = that.data.findItemList.concat(res.data.data.findItemList);
-			console.log("=============修改页码=================");
+			//console.log("=============修改页码=================");
 	        that.setData({
 	        	draft:res.data.data.draft,
 	        	audit:res.data.data.audit,
