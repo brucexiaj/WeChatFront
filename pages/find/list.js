@@ -72,7 +72,7 @@ Page({
                 console.log("扫码返回upc"+upc);
                 wx.request({
 	                url: app.globalData.apiUrl + '/find/scan.htm',
-	                data: {upc:upc,appid: app.globalData.appid},
+	                data: {upc:upc,companyNo: app.globalData.companyNo},
 	                success: function (res) {
 	                	if(res.data.retCode=='0'){
 	                		id = res.data.data;
@@ -208,7 +208,7 @@ let audit = function(id,status,that){
 	let itemIndex = that.data.itemIndex;
 	wx.request({
       url: app.globalData.apiUrl + "/find/audit.htm",
-      data: {id:id,status:status,buyerId:app.globalData.buyerId,reason:that.data.reason,skuId:that.data.skuIdArr,skuCode:that.data.skuCodeArr,skuUpc:that.data.skuUpcArr, skuAmount:that.data.skuAmountArr, skuLimit:that.data.skuLimitArr,appid: app.globalData.appid},
+      data: {id:id,status:status,buyerId:app.globalData.buyerId,reason:that.data.reason,skuId:that.data.skuIdArr,skuCode:that.data.skuCodeArr,skuUpc:that.data.skuUpcArr, skuAmount:that.data.skuAmountArr, skuLimit:that.data.skuLimitArr,companyNo: app.globalData.companyNo},
       success: function (res) {
       	wx.hideNavigationBarLoading();
       	if (res.data.retCode == '0') {
@@ -250,7 +250,7 @@ let ajaxLoad = function(pageNum,that,loadType){
 	//console.log("=============即将发出新的请求=================");
 	wx.request({
       url: app.globalData.apiUrl + "/find/list.htm",
-      data: {pageNum:pageNum,key:that.data.key,status:status,orderTimeType:that.data.orderTimeType,appid:app.globalData.appid},
+      data: {pageNum:pageNum,key:that.data.key,status:status,orderTimeType:that.data.orderTimeType,companyNo:app.globalData.companyNo},
       success: function (res) {
       	wx.hideNavigationBarLoading();
       	wx.stopPullDownRefresh();
