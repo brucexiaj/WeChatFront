@@ -22,7 +22,8 @@ App({
         findStatus:0,
         calc:false,
         storage:false,
-        appid:'wxdf84c61fbef8d933'
+        appid:'wxdf84c61fbef8d933',
+        companyNo:null
     },
     onLaunch: function (res) {
         let that = this;
@@ -41,7 +42,7 @@ App({
         }
         setTimeout(function () {
             parame.ownerOpenId = that.globalData.xcxCookieId;
-            parame.appid = that.globalData.appid;
+            parame.companyNo = that.globalData.companyNo;
             wx.request({
                 url: that.globalData.apiUrl + '/wx/purchaseLogin/setWxAppLaunch.htm',
                 data: parame,

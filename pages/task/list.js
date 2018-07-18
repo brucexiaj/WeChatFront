@@ -38,8 +38,8 @@ Page({
             	//userInfo:app.globalData.buyerId
             })
         }, 1000);
-		if(app.globalData.buyerId==null){
-            app.globalData.appid = '';
+		if(app.globalData.companyNo==null || app.globalData.companyNo== '' || app.globalData.companyNo==undefined){
+            //app.globalData.appid = '';
 			wx.showToast({
 	          title: '授权失败',
 	          icon:'none'
@@ -155,7 +155,7 @@ Page({
 		//console.log("_buyer_id: "+_buyerId);
 		wx.request({
 		  url: app.globalData.apiUrl + "/task/addStorage.htm",
-		  data: {receiptIds:receiptIds,buyerId:_buyerId,appid: app.globalData.appid},
+		  data: {receiptIds:receiptIds,buyerId:_buyerId,companyNo: app.globalData.companyNo},
 		  success: function (res) {
 		  	wx.showToast({
 	          title: '预入库成功',
@@ -221,6 +221,7 @@ Page({
 	},
 	onLoad:function(){
 		let that = this;
+        //app.globalData.companyNo = '';
 		wx.login({
 	      success: res => {
 	        console.log("request code:" + res.code)
@@ -234,8 +235,8 @@ Page({
 	          success: function (res) {
 	          	if(res.data.retCode!='0'){
 
-	          		app.globalData.appid = '';
-
+	          		//app.globalData.appid = '';
+                    app.globalData.companyNo = '';
 	          		wx.showToast({
 			          title: res.data.errorMsg,
 			        });
@@ -244,6 +245,7 @@ Page({
 	                wx.setStorageSync('xcxCookieId', xcxCookieId);
 	                app.globalData.xcxCookieId = xcxCookieId;
                     app.globalData.sessionKey = res.data.data.session_key;
+
                     //app.globalData.appid = res.data.data.appid;
                     //app.globalData.buyerId = res.data.data.buyer_id;
                     //console.log(app.globalData.buyerId)
@@ -257,6 +259,8 @@ Page({
                         setUserInfo(that);
                     } else {
                         app.globalData.buyerId = res.data.data.buyer_id;
+                        app.globalData.companyNo = res.data.data.company_no;
+                        ajaxLoad(0,that,"refresh");
                     }
 
 	          	}
@@ -417,7 +421,7 @@ var ajaxLoad = function(pageNum,that,loadType){
 	}
   wx.request({
             url: app.globalData.apiUrl + "/task/list.htm",
-            data: {pageNum:pageNum,key:key,status:status,taskId:taskId,appid: app.globalData.appid},
+            data: {pageNum:pageNum,key:key,status:status,taskId:taskId,companyNo: app.globalData.companyNo},
             success: function (res) {
                 wx.hideNavigationBarLoading();
                 if (res.data.retCode == '0') {
@@ -453,11 +457,11 @@ var ajaxLoad = function(pageNum,that,loadType){
                         })
                     }
                 }else {
-                    wx.showToast({
-                        title: res.data.errorMsg,
-                        icon: 'none',
-                        duration: 2000
-                    })
+                    // wx.showToast({
+                    //     title: res.data.errorMsg,
+                    //     icon: 'none',
+                    //     duration: 2000
+                    // })
                 }
             },
             fail: function () {
@@ -487,7 +491,7 @@ var ajaxLoadStorageList = function(pageNum,that,loadType){
 	}
 	wx.request({
       url: app.globalData.apiUrl + "/task/taskReceiptList.htm",
-      data: {pageNum:pageNum,key:key,status:status,taskId:taskId,appid: app.globalData.appid},
+      data: {pageNum:pageNum,key:key,status:status,taskId:taskId,companyNo: app.globalData.companyNo},
       success: function (res) {
       	wx.hideNavigationBarLoading();
       	if (res.data.retCode == '0') {
@@ -569,11 +573,15 @@ var setUserInfo = function (that) {
                         app.globalData.buyerId = res.data.data.id;
                         app.globalData.powerCode = res.data.data.powerCode;
                         app.globalData.userInfo  = userInfo;
+                        app.globalData.companyNo  = res.data.data.companyNo;
+
+                        //刷新数据
+                        ajaxLoad(0,that,"refresh");
 
                     }else{
 
-                        app.globalData.appid = '';
-
+                        //app.globalData.appid = '';
+                        app.globalData.companyNo = '';
                         //清除数据
                         that.setData({
                           taskDailyList: [],
@@ -618,7 +626,7 @@ var ajaxLoadTaskReceiptList = function(pageNum,that,loadType){
 	}
 	wx.request({
       url: app.globalData.apiUrl + "/task/taskReceiptList.htm",
-      data: {pageNum:pageNum,key:key,status:status,taskId:taskId,type:'calc',appid: app.globalData.appid},
+      data: {pageNum:pageNum,key:key,status:status,taskId:taskId,type:'calc',companyNo: app.globalData.companyNo},
       success: function (res) {
       	wx.hideNavigationBarLoading();
       	if (res.data.retCode == '0') {

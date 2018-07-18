@@ -60,7 +60,7 @@ Page({
 			    if (res.confirm) {
 					wx.request({
 				      url: app.globalData.apiUrl + "/find/audit.htm",
-				      data: {id:that.data.item.id,status:-1,buyerId:app.globalData.buyerId, reason:that.data.reason,appid: app.globalData.appid},
+				      data: {id:that.data.item.id,status:-1,buyerId:app.globalData.buyerId, reason:that.data.reason,companyNo: app.globalData.companyNo},
 				      success: function (res) {
 				      	wx.hideNavigationBarLoading();
 				      	if (res.data.retCode == '0') {

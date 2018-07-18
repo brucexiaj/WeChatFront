@@ -966,7 +966,7 @@ Page({
 
 		skuInfo.discount = skuInfo.discount/10;
 		param.skuInfo = skuInfo;
-		param.appid = app.globalData.appid
+		param.companyNo = app.globalData.companyNo
 		//console.log('thisthsithsitshi')
 		console.log(param)
 		wx.request({

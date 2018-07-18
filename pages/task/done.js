@@ -82,7 +82,7 @@ var ajaxLoad = function(pageNum,that){
 	let key = that.data.key;
 	wx.request({
       url: app.globalData.apiUrl + "/task/list.htm",
-      data: {pageNum:pageNum,key:key,status:1,appid: app.globalData.appid},
+      data: {pageNum:pageNum,key:key,status:1,companyNo: app.globalData.companyNo},
       success: function (res) {
       	wx.hideNavigationBarLoading();
       	if (res.data.retCode == '0') {
