@@ -16,7 +16,7 @@ App({
         refer:'',
         sessionKey:null,
         buyerId:null,
-        pageSize:10,
+        pageSize:20,
         taskId:null,
         status:0,
         findStatus:0,

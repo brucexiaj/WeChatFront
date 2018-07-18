@@ -14,7 +14,8 @@ Page({
 		audit:0,
 		draft:0,
 		currentIndex:0,
-		token:''
+		token:'',
+		thisPageSize:10
 	},
 	onShow: function() {
 		let status = app.globalData.findStatus;
@@ -281,7 +282,7 @@ let ajaxLoad = function(pageNum,that,loadType){
 			  }
 			  //console.log("length:"+res.data.data.findItemList.length);
 			  //console.log("size:"+app.globalData.pageSize);
-      		if(res.data.data.findItemList.length<app.globalData.pageSize){
+      		if(res.data.data.findItemList.length<this.thisPageSize){
 				//console.log("在2号改变了canLoad");
       			that.setData({
 		        	canLoad:false
