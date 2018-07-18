@@ -21,7 +21,7 @@
 		</view>
 		<view class="taskAmount">
 			<label>采购价{{lt}}=</label>
-			<input class="limit"  bindinput="limit" maxlength="8" data-index="{{index}}"  value="{{item.purchasePrice}}" placeholder="输入限价" placeholder-class="placeholder"/>
+			<input class="limit"  bindfocus="focusPurchasePirce" bindinput="limit" maxlength="8" data-index="{{index}}"  value="{{item.limit}}" placeholder="输入限价" placeholder-class="placeholder"/>
 			<label class="rightLabel">采购数量</label>
 			<input class="amount" bindinput="amount" maxlength="4" data-index="{{index}}"  placeholder="输入数量" placeholder-class="placeholder"/>
 		</view>
