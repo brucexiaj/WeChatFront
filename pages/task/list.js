@@ -221,7 +221,7 @@ Page({
 	},
 	onLoad:function(){
 		let that = this;
-        app.globalData.companyNo = '';
+        //app.globalData.companyNo = '';
 		wx.login({
 	      success: res => {
 	        console.log("request code:" + res.code)
