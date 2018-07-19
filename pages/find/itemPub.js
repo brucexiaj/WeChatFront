@@ -899,10 +899,34 @@ Page({
 			purchaseStatus = 2;
 			app.globalData.findStatus=2;
 		}else{
-			if(that.data.skuInfo[0].color==''|| that.data.skuInfo[0].costPrice=='' || that.data.skuInfo[0].discount==''|| that.data.skuInfo[0].purchasePrice=='' || that.data.skuInfo[0].upc==''){
+			if( that.data.skuInfo[0].costPrice==''){
 				wx.showToast({
-	                title: '请补全规格信息',
-	            });
+					title: '请补全原价',
+				});
+				return;
+			}
+			if( that.data.skuInfo[0].discount==''){
+				wx.showToast({
+					title: '请补全折扣',
+				});
+				return;
+			}
+			if( that.data.skuInfo[0].purchasePrice==''){
+				wx.showToast({
+					title: '请补全采购价',
+				});
+				return;
+			}
+			if(that.data.skuInfo[0].upc==''){
+				wx.showToast({
+					title: '请补全upc',
+				});
+				return;
+			}
+			if(that.data.skuInfo[0].color==''){
+				wx.showToast({
+					title: '请补全规格信息',
+				});
 				return;
 			}
 		}

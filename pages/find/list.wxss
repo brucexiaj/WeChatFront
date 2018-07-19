@@ -17,7 +17,7 @@ view{ box-sizing: border-box; }
 .itemBox .contentBox .info{float:left;width:calc(100% - 160px);position:relative;margin-top:10px;}
 .itemBox .contentBox .info .name{font-size:14px;color:#4C4C4C;letter-spacing:0.19px;line-height:18px;text-align:left;margin-bottom:3px;-webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;text-overflow:ellipsis;display:-webkit-box;}
 .itemBox .contentBox .info .priceRange{color:#FF2E38;font-size:16px;}
-.itemBox .reason{clear:both;font-size:14px;color:#4a4a4a;margin-left:25px;}
+.itemBox .reason{clear:both;font-size:14px;color:#4a4a4a;margin-left:25px;width:90%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .contentBox .info .address{font-size: 13px; color: #B7B7B7;line-height:18px;width:100%;text-align:left;margin-bottom:1px;-webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;text-overflow:ellipsis;display:-webkit-box;}
 .header{height:55px;line-height:40px;padding-top:15px;border-bottom:1.5px solid rgba(200,200,200,.6);font-size: 14px;position:fixed;top:0px;left:0px;width:100%;z-index:1111;background:#fff;padding-left:30px}
 .header text{font-size:12px; color:#fff; display:inline-block; height:20px; padding:0px 10px; background:#FF2E38; line-height:20px; border-radius:12px; margin-left:5px;}
