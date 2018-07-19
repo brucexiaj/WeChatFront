@@ -64,9 +64,12 @@
 		</view>
 	</block>
 </view>	
-<view class="pub" bindtap="pub">
-	<image src="../../images/icon_pub.png" mode="widthFix" />
-</view>
+
+<movable-area class="pub">
+    <movable-view  bindtap="pub" class="pubMove" direction="all">
+		<image src="../../images/icon_pub.png" mode="widthFix" />
+    </movable-view>
+</movable-area>
 
 
 
