@@ -400,7 +400,46 @@ Page({
 			taskReceiptList:taskReceiptList
 		})
 		this.getTotalPrice();
-	}
+	},
+    confirm:function (e) {
+        let key = e.detail.value;
+        let status = app.globalData.status;
+        let that = this;
+
+
+        if(app.globalData.companyNo){
+            this.setData({
+                status:status,
+                pageNum:0,
+                canLoad:true,
+                key:key,
+                userInfo:app.globalData.userInfo
+            })
+            if(!app.globalData.storage && !app.globalData.calc){
+                ajaxLoad(0,this,"refresh");
+            }else{
+                this.setData({
+                    taskDailyList:[],
+                    status:null
+                })
+            }
+            if(app.globalData.calc){
+                ajaxLoadTaskReceiptList(0,this,"refresh");
+                this.setData({
+                    calc:true,
+                    storage:false
+                })
+            }
+            if(app.globalData.storage){
+                ajaxLoadStorageList(0,this,"refresh");
+                this.setData({
+                    storage:true,
+                    calc:false
+                })
+            }
+        }
+
+    }
 })
 
 
