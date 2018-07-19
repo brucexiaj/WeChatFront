@@ -4,6 +4,7 @@
 .mainPic{float:left;margin:9px;width:97px;height:97px;border-radius: 10px;overflow:hidden;}
 .contentBox .info{float:left;width:calc(100% - 160px);position:relative;margin-top:10px;}
 .contentBox .info .name{font-size:14px;color:#4C4C4C;letter-spacing:0.19px;line-height:18px;text-align:left;margin-bottom:3px;-webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;text-overflow:ellipsis;display:-webkit-box;}
+.contentBox .info .brand{font-size:14px;color:#4C4C4C;letter-spacing:0.19px;line-height:18px;text-align:left;margin-bottom:3px;-webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;text-overflow:ellipsis;display:-webkit-box;}
 .contentBox .info .priceRange{color:#FF2E38;font-size:16px;margin-top:5px;margin-bottom:5px;}
 .contentBox .info .address{font-size: 13px; color: #B7B7B7;line-height:18px;width:100%;text-align:left;margin-bottom:1px;-webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;text-overflow:ellipsis;display:-webkit-box;}
 .info .price{float:left;font-size: 13px; color: #4A4A4A;margin-right:5px;height:25px;line-height:25px;text-decoration:line-through }

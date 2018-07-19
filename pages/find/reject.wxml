@@ -1,8 +1,9 @@
 <view class="inner contentBox">
 	<image class="mainPic" src="{{item.skuPic}}" data-id="{{item.id}}"/>
 	<view class="info" data-id="{{item.id}}">
-		<view class="name">{{item.name}}</view>
-		<view class="priceRange">${{item.priceRange}}</view>
+		<view class="name">{{item.itemName}}</view>
+		<view class="brand">{{skuList[0].brandName}}</view>
+		<view class="priceRange">${{skuList[0].purchasePrice}}</view>
 		<view class="detail">
 			<view class="price">${{item.costPrice}}</view>
 			<view class="time"><block wx:if="{{item.day>0}}">{{item.day}}天</block>{{item.hours}}:{{item.minutes}}</view>
