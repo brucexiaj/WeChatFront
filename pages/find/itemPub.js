@@ -1012,13 +1012,31 @@ Page({
 			    wx.switchTab({
 			    	url:'list'
 			    })
-		    }else{
+		    }else if(res.data.msg != undefined && res.data.msg != null){
+                wx.showToast({
+                    title: res.data.msg,
+                    icon:'none'
+                });
+                setTimeout(function () {
+                    wx.switchTab({
+                        url:'list'
+                    })
+                },2000);
+
+            }else{
 
                 //显示失败信息
                 wx.showToast({
                     title: res.data.errorMsg,
                     icon:'none'
                 });
+
+                setTimeout(function () {
+                    wx.switchTab({
+                        url:'list'
+                    })
+                },2000);
+
 
             }
 		  }
