@@ -143,8 +143,9 @@ let audit = function(that){
 		    	url:'/pages/task/list'
 		    })
 	    }else {
+      	    let msg = res.data.errorMsg == null || res.data.errorMsg == undefined ? "" : res.data.errorMsg;
              wx.showToast({
-		        title: res.data.errorMsg,
+		        title: msg,
 		        icon: 'none',
 		    	duration: 2000
 		    })
