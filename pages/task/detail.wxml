@@ -61,7 +61,8 @@
 		<image src="../../images/location.png" class="location" mode="widthFix" bindtap="choseAddress"/>
 	</view>
 </view>
-<view class="footerBox" wx:if="{{type =='detail'}}">
+<view class="footerBox" wx:if="{{type ==='detail'}}">
+    <view wx:if="{{canCalc}}">
 	<view class="price">
 		付款额
 		<text>${{totalPrice}}</text>
@@ -69,4 +70,5 @@
 	<view class="calcBtn" bindtap="calc">
 		结算
 	</view>
+    </view>
 </view>

@@ -14,7 +14,8 @@ Page({
 		quantity:0,
 		transQuantity:0,
 		price:0,
-		type:''
+		type:'',
+        canCalc:true
 	},
 	onLoad:function(e){
 		let id = e.id;
@@ -36,7 +37,8 @@ Page({
 					itemSku:res.data.data.itemSku,
 					item:res.data.data.item,
 					taskDaily:taskDaily,
-					type:type
+					type:type,
+                    canCalc:taskDaily.allInCount < taskDaily.allCount
 				})	
 				that.setData({
 					max:that.data.taskDailyDetail.count - that.data.taskReceipt.transQuantity - that.data.taskReceipt.quantity    
