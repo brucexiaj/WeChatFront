@@ -636,10 +636,16 @@ Page({
     			skuInfo:skuInfo
     		})
     	}
+    	let endTime = new Date();
+        endTime.setDate(endTime.getDate()+7);
+
     	let startDate = util.formatTime(new Date()).substring(0, 10).replace(/\//g, '-');//当前时间
+        let endDate = util.formatTime(endTime).substring(0, 10).replace(/\//g, '-');//当前时间
         that.setData({
             startDateLimit: startDate,
-            startDate:startDate
+            startDate:startDate,
+            endDateLimit: endDate,
+            endDate:endDate
         });
 		wx.request({
 	      url: app.globalData.apiUrl + "/data/list.htm",
@@ -987,6 +993,7 @@ Page({
                 //显示失败信息
                 wx.showToast({
                     title: res.data.errorMsg,
+                    icon:'none'
                 });
 
             }
