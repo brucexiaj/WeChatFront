@@ -464,7 +464,6 @@ var ajaxLoad = function(pageNum,that,loadType){
             success: function (res) {
                 wx.hideNavigationBarLoading();
                 if (res.data.retCode == '0') {
-                    console.log(that.data)
                     let token = that.data.token;
                     that.setData({
                         token:res.data.data.token

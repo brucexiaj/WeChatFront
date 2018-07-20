@@ -5,13 +5,16 @@
 	<view class="tab {{storage ? 'on' : ''}}" bindtap="goStorage">预入库</view>
 	<image mode="widthFix" src="../../images/icon_search.png" class="filter"  bindtap="searchSwitch"/>
 </view>
-   <button wx:if="{{!userInfo}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style="position:fixed;width:60px;height:60px;border-radius:50%;overflow:hidden;bottom:20px;right:20px;z-index:1111;line-height:60px;border:1px solid #ddd;font-size:14px">授权</button>   
+    <button wx:if="{{!userInfo}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" style="position:fixed;width:60px;height:60px;border-radius:50%;overflow:hidden;bottom:20px;right:20px;z-index:1111;line-height:60px;border:1px solid #ddd;font-size:14px">授权</button>    
 <view style="height:55px;width:100%"></view>
 <view class="searchBox" wx:if="{{searchBoxShow}}">
 	<input placeholder="输入商品名／分配人／采购人" placeholder-class="placeholder" focus maxlength="30" confirm-type="搜索" bindinput="input" bindconfirm="confirm"/>
 	<view class="arrow" bindtap="confirm"></view>
 </view>
+
+<view wx:if="{{status == 0 || status == 2}}">
 <view class="orderGoodsListBox" wx:if="{{taskDailyList.length > 0}}">
+
 	<view wx:for="{{taskDailyList}}" wx:item="{{item}}" wx:key="{{key}}" style="border-bottom:2px solid #f2f2f2">
 		<view class="taskBarList" bindtap="fold" data-detailid="{{item.id}}" data-index="{{index}}">
 			<view class="timeType">
@@ -52,8 +55,11 @@
 		</view>
 	</view>
 </view>
+</view>
+<view wx:if="{{calc || storage }}">
 <view class="orderGoodsListBox" wx:if="{{taskReceiptList.length > 0}}">
-	<view wx:for="{{taskReceiptList}}" wx:key="{{key}}" style="border-bottom:2px solid #f2f2f2">
+    <view wx:if="{{status == 0}}"/>
+    <view wx:for="{{taskReceiptList}}" wx:key="{{key}}" style="border-bottom:2px solid #f2f2f2">
 		<view class="taskBarList">
 			<view class="choseBox"  >
 				<image wx:if="{{calc}}" bindtap="choseItem" src="{{item.chose ? '../../images/icon_chose.png':'../../images/icon_unchoose.png'}}" data-index="{{index}}" />
@@ -98,6 +104,7 @@
 			</view>
 		</view>
 	</view>
+</view>
 </view>
 <block wx:if="{{calc}}">
 	<view style="height:66px;width:100%;"></view>
