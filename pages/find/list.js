@@ -8,7 +8,7 @@ Page({
 		findItemList:[],
 		key:'',
 		status:0,
-		orderTimeType:'asc',
+		orderTimeType:'desc',
 		countAll:0,
 		filterBoxShow:false,
 		audit:0,
@@ -116,7 +116,7 @@ Page({
 	},
 	changeOrder:function(e){
 		let that = this;
-		let orderTimeType = "asc";
+		let orderTimeType = "desc";
 		switch(that.data.orderTimeType){
 			case "asc":orderTimeType = "desc";break;
 			case "desc":orderTimeType = "asc";break;
