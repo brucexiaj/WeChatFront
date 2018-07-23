@@ -153,11 +153,11 @@
 		</view>
 		<view class="skuInfo {{item.collapse?'on':''}}">
 			<view class="field">
-				<label>规格一</label>
+				<label>规格1</label>
 				<input bindinput="inputColor" maxlength="5" value="{{item.color}}" placeholder="输入规格一" placeholder-class="placeholder" data-index="{{index}}"/>
 			</view>
 			<view class="field">
-				<label>规格二</label>
+				<label>规格2</label>
 				<input bindinput="inputSize" maxlength="5" value="{{item.scale}}" placeholder="输入规格二" placeholder-class="placeholder" data-index="{{index}}"/>
 			</view>
 			<view class="field">

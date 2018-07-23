@@ -84,10 +84,10 @@ view.header,view.header .tab{ box-sizing: border-box; }
 .editBox .input input{height:100%;width:100%;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;}
 .location{width:15px;float:right;position:absolute;top:6px;right:8px;z-index:1111}
 .fixedBox{height:66px;position:fixed;bottom:0px;left:0px;width:100%;background:#fff;border-top:1px solid #ddd}
-.fixedBox .viewBox{float:left;height:100%;margin:0px 15px;text-align:center;font-size: 14px; color: #4A4A4A;}
+.fixedBox .viewBox{float:left;height:100%;margin:0px 15px;text-align:center;font-size: 14px; color: #4A4A4A; width: 15%;}
 .fixedBox .viewBox .amount{font-size:18px;color:#091420;height:35px;line-height:35px;margin-top:3px;}
 .fixedBox .viewBox .label{color:#rgba(74,74,74,.5)}
-.fixedBox .calcBtn{background-image:linear-gradient(-180deg, #E5C297 0%, #A97D43 100%);border-radius: 10px;width: 100px;height: 45px;line-height: 45px;font-size: 16px; color: #FFFFFF;text-align: center;float: right;margin-top: 10px;margin-right: 20px;}
+.fixedBox .calcBtn{background-image:linear-gradient(-180deg, #E5C297 0%, #A97D43 100%);width: 100px;border-radius: 10px;height: 45px;line-height: 45px;font-size: 16px; color: #FFFFFF;text-align: center;float: right;margin-top: 10px;margin-right: 20px;}
 .transQuantityBox{position:absolute;right:21px;bottom:35px;font-size:12px;color:#9b9b9b;}
 .quantityBox{position:absolute;right:21px;bottom:5px;font-size:12px;color:#9b9b9b;}
 .quantityBox .tit,.transQuantityBox .tit{vertical-align:middle;height:30px;line-height:30px;margin-right:9px;}
