@@ -899,31 +899,31 @@ Page({
 			purchaseStatus = 2;
 			app.globalData.findStatus=2;
 		}else{
-			if( that.data.skuInfo[0].costPrice==''){
+			if( that.data.skuInfo[0].costPrice=='' || that.data.skuInfo[0].costPrice==null || that.data.skuInfo[0].costPrice==undefined ){
 				wx.showToast({
 					title: '请补全原价',
 				});
 				return;
 			}
-			if( that.data.skuInfo[0].discount==''){
+			if( that.data.skuInfo[0].discount=='' || that.data.skuInfo[0].discount==null || that.data.skuInfo[0].discount==undefined ){
 				wx.showToast({
 					title: '请补全折扣',
 				});
 				return;
 			}
-			if( that.data.skuInfo[0].purchasePrice==''){
+			if( that.data.skuInfo[0].purchasePrice=='' || that.data.skuInfo[0].purchasePrice==null || that.data.skuInfo[0].purchasePrice==undefined ){
 				wx.showToast({
 					title: '请补全采购价',
 				});
 				return;
 			}
-			if(that.data.skuInfo[0].upc==''){
+			if(that.data.skuInfo[0].upc=='' || that.data.skuInfo[0].upc==null ){
 				wx.showToast({
 					title: '请补全upc',
 				});
 				return;
 			}
-			if(that.data.skuInfo[0].color==''){
+			if(that.data.skuInfo[0].color=='' || that.data.skuInfo[0].color==null){
 				wx.showToast({
 					title: '请补全规格信息',
 				});
