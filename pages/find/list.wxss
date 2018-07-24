@@ -1,6 +1,6 @@
-.pub{position:fixed;z-index:998;width:80px;right:0px;bottom:0px;height:100px;}
+.pub{position:fixed;z-index:998;width:80px;right:0px;bottom:0px;height:100px;pointer-events:none}
 .pub .pubMove{z-index:999;width:400px;height:500px;}
-.pub image{width:80px;height:100px;display:block;}
+.pub image{width:80px;height:100px;display:block;pointer-events:auto}
 view{ box-sizing: border-box; }
 .itemBox{ position: relative; width:100%;height:180px;border-bottom:3px solid #f6f6f6} 
 .itemBox .userInfoBox{float:right;width:calc(20.5% - 2px);height:100%;}

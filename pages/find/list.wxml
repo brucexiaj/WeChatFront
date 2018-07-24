@@ -5,8 +5,8 @@
 	<view class="tab {{status == -1 ? 'on' : ''}}" bindtap="switchTab"  data-status="-1" >已拒绝</view>
 	<image mode="widthFix" src="../../images/icon_findItem_filter.png" class="filter"  bindtap="filterSwitch"/>
 </view>
-<view style="height:55px;width:100%"></view>
-<view style="width:100%;height:100%;border-top:6px solid #f2f2f2;">
+<view style="height:55px;width:100%;"></view>
+<view style="width:100%;height:100%;border-top:6px solid #f2f2f2;position:absolute;">
 	<view wx:for="{{findItemList}}" wx:key="{{index}}" class="itemBox" wx:if="{{status==0}}">
 		<view data-index="{{index}}" style="{{item.txtStyle}}" class="inner contentBox">
 	  		<view class="pictureBox">
@@ -65,11 +65,12 @@
 	</block>
 </view>	
 
-<movable-area class="pub">
-    <movable-view  bindtap="pub" class="pubMove" direction="all">
+<movable-area class="pub" >
+    <movable-view  bindtap="pub" class="pubMove" direction="all" >
 		<image src="../../images/icon_pub.png" mode="widthFix" />
     </movable-view>
 </movable-area>
+
 
 
 
