@@ -36,18 +36,12 @@ Page({
 		}
 	},
 	//操作悬浮按钮，@author:xiajun
-	setTouchMove: function (e) {
-		console.log("---------------- e.touches[0].clientX----------------" + e.touches[0].clientX);
-		console.log("----------------e.touches[0].clientY----------------" + e.touches[0].clientY);
-		if ((e.touches[0].clientX < 650) && (e.touches[0].clientY < 1110) && (e.touches[0].clientX > 0) && (e.touches[0].clientY > 0)) {
-			this.setData({
-				bottom: 480-e.touches[0].clientY
-			})
-		} else {
-			this.setData({
-				bottom: 45
-			})
-		}
+	onMove(e) {
+		console.log("=====>onchange======>");
+		this.setData({
+			x: 300,
+			y: 300
+		  });
 	},
 	closeFilter:function(){
 		let that = this;
