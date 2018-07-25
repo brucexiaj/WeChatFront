@@ -44,6 +44,7 @@
 			</block>
 		</view>|
 		<view class="del" bindtap='delImg'>删除</view>
+        <view class="del" bindtap='closePopSwiperBox'>返回</view>
 	</view>
 </view>
 <view class="listBox">

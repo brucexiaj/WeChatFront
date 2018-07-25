@@ -780,13 +780,29 @@ Page({
 		let type = e.currentTarget.dataset.type;
 		let index = e.currentTarget.dataset.index;
 		let item = this.data.item;
+		let size = item.length;
+		console.log("size: " + size)
 		let that = this;
 		let count = 1;
 		if("mainPic"==type){
 			count = 9;
 		}
+        if("itemPic"==type){
+		    //修改值
+            let size = 0;
+            for(let i in item){
+                if(item[i] ==null || item[i] == "" || item[i] == undefined){
+
+                }else {
+                    size++;
+                }
+            }
+            count = 9 - size;
+            console.log("size: "+size);
+            console.log("count: "+count);
+        }
 		that.setData({
-			itemUploadIndex:index
+            itemUploadIndex:index
 		})
 		if("mainPic"!=type && item[index]!=''){
 			this.setData({
@@ -801,7 +817,23 @@ Page({
 						for (let i in tempFilePaths) { 
 							that.uploadFileServer(that,tempFilePaths[i],i,type);
 					    }	
-		    		}else{
+		    		}else if("itemPic"==type){
+					    //往点击的这个index开始填充从前往后填充
+                        let j = 0;
+                        for (let i in tempFilePaths) {
+                            //i = parseInt(i);
+                            //let currentIndex = index+i;
+                            while(j < item.length){
+                                if(item[j] ==null || item[j] == "" || item[j] == undefined){
+                                    that.uploadFileServer(that,tempFilePaths[i],j,type);
+                                    j++;
+                                    break;
+                                }else{
+                                    j++;
+                                }
+                            }
+                        }
+                    }else{
 					    that.uploadFileServer(that,tempFilePaths[0],index,type)
 		    		}
 			    }
