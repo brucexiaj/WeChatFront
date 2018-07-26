@@ -17,7 +17,13 @@ Page({
 		let that = this;
 		switch(that.data.searchBoxShow){
 			case true:that.setData({searchBoxShow:false,key:''});break;
-			case false:that.setData({searchBoxShow:true});break;
+			case false:
+			    that.setData({searchBoxShow:true});
+                wx.pageScrollTo({
+                    scrollTop: 0,
+                    duration: 300
+                });
+			    break;
 		}
 	},
 	input:function(e){
