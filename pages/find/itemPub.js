@@ -688,6 +688,7 @@ Page({
 						globalCostPrice = skuInfo[0].costPrice
 						globalPurchasePrice = skuInfo[0].purchasePrice
 						globalDiscount = skuInfo[0].discount*100
+                        skuInfo[0].discount = globalDiscount;
 						console.log("globalDiscount:"+globalDiscount)
 					}
 			    	that.setData({
@@ -1026,7 +1027,6 @@ Page({
 			//console.log("sku.discount:"+sku.discount);
 		}
 
-		skuInfo.discount = skuInfo.discount/10;
 		param.skuInfo = skuInfo;
 		param.companyNo = app.globalData.companyNo
 		//console.log('thisthsithsitshi')
