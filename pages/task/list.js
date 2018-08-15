@@ -245,6 +245,8 @@ Page({
                     app.globalData.companyNo = '';
 	          		wx.showToast({
 			          title: res.data.errorMsg,
+                icon:"none",
+                duration:2000
 			        });
 	          	}else{
 	          		var xcxCookieId = res.data.data.openid;
